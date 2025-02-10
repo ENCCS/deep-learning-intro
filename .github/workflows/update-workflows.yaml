@@ -11,9 +11,9 @@ on:
         description: 'Workflow files/file extensions to clean (no wildcards, enter "" for none)'
         required: false
         default: '.yaml'
-  schedule:
-    # Run every Tuesday
-    - cron: '0 0 * * 2'
+  # schedule:
+  #   # Run every Tuesday
+  #   - cron: '0 0 * * 2'
 
 jobs:
   check_token:

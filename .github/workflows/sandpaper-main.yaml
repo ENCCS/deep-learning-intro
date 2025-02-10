@@ -1,12 +1,12 @@
 name: "01 Build and Deploy Site"
 
 on:
-  push:
-    branches:
-      - main
-      - master
-  schedule:
-    - cron: '0 0 * * 2'
+  # push:
+  #   branches:
+  #     - main
+  #     - master
+  # schedule:
+  #   - cron: '0 0 * * 2'
   workflow_dispatch:
     inputs:
       name:
