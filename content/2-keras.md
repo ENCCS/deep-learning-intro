@@ -61,13 +61,13 @@ myst:
 
 # 2. Classification by a neural network using Keras
 
-```{include} _patched/episodes/2-keras.Rmd
+```{include} _patched/episodes/2-keras.md
 :relative-docs: _patched/episodes
 :relative-images: _patched/episodes
 :end-before: [palmer-penguins]: fig/palmer_penguins.png
 ```
 
-```{include} _patched/episodes/2-keras.Rmd
+```{include} _patched/episodes/2-keras.md
 :relative-docs: _patched/episodes
 :relative-images: _patched/episodes
 :start-after: and no correctly predicted Chinstrap'}
