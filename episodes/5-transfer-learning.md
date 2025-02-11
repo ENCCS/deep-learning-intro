@@ -17,7 +17,7 @@ Instead of training a model from scratch, with transfer learning you make use of
 
 An example: Let's say that you want to train a model to classify images of different dog breeds. You could make use of a pre-trained network that learned how to classify images of dogs and cats. The pre-trained network will not know anything about different dog breeds, but it will have captured some general knowledge of, on a high-level, what dogs look like, and on a low-level all the different features (eyes, ears, paws, fur) that make up an image of a dog. Further training this model on your dog breed dataset is a much easier task than training from scratch, because the model can use the general knowledge captured in the pre-trained network.
 
-![](episodes/fig/05-transfer_learning.png)
+![](fig/05-transfer_learning.png)
 <!-- 
 Edit this plot using the Mermaid live editor:
 1. Open this link that includes the source code of the chart to open the live editor web interface:

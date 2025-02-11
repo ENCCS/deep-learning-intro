@@ -198,6 +198,7 @@ a.
 | 0  | 1  | **1** |
 | 1  | 1  | **0** |
 | 1  | 0  | **1** |
+
 b. This solves the XOR logical problem, the output is 1 if only one of the two inputs is 1.
 
 ::::

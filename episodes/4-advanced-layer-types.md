@@ -111,13 +111,14 @@ How many features does one image in the Dollar Street 10 dataset have?
 - C. 12288
 - D. 878
 
+:::
 
 :::: solution
 The correct solution is C: 12288
 
 There are 4096 pixels in one image (64 * 64), each pixel has 3 channels (RGB). So 4096 * 3 = 12288.
 ::::
-:::
+
 
 
 We can find out the range of values of our input data as follows:
