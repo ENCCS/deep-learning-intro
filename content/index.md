@@ -35,7 +35,7 @@ reference
 
 ### Original carpentries lesson
 
-This lesson is an adaptation of <https://carpentries-incubator.github.io/deep-learning-intro>, licensed CC-BY-4.0.
+This lesson is an adaptation of <https://carpentries-lab.github.io/deep-learning-intro>, licensed CC-BY-4.0.
 
 ```{include} ../index.md
 :start-after: Other related lessons
