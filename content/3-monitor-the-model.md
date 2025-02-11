@@ -1,4 +1,4 @@
-# Monitor the training process
+# 3. Monitor the training process
 
 ```{include} _patched/episodes/3-monitor-the-model.Rmd
 :relative-docs: _patched/episodes

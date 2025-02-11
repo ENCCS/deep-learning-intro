@@ -1,4 +1,4 @@
-# Introduction
+# 1. Introduction
 
 ```{include} _patched/episodes/1-introduction.Rmd
 :relative-docs: _patched/episodes
