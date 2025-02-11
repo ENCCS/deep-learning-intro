@@ -29,6 +29,7 @@ setup
 :caption: Reference
 
 reference
+instructor-notes
 ```
 
 ## Other related lessons
