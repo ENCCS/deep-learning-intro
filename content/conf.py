@@ -22,7 +22,7 @@ copyright = "2025, The contributors"
 author = "The contributors"
 github_user = "ENCCS"
 github_repo_name = ""  # auto-detected from dirname if blank
-github_version = "main"
+github_version = "sphinx"
 conf_py_path = "/content/"  # with leading and trailing slash
 
 # -- General configuration ---------------------------------------------------
@@ -156,7 +156,7 @@ def setup(app):
 
 
 import os
-if os.environ.get('GITHUB_REF', '') == 'refs/heads/main':
+if os.environ.get('GITHUB_REF', '') == f'refs/heads/{github_version}':
     html_js_files = [
         ('https://plausible.io/js/script.js', {"data-domain": "enccs.github.io/deep-learning-intro", "defer": "\
 defer"}),
