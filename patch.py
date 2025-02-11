@@ -52,10 +52,10 @@ def replace_attrs(m: re.Match):
                 value = int(width_text.removesuffix("%")) * 680 // 100
                 width_text = f"{value}px"
 
-            attrs_text = f"{{ width={width_text} }}"
+            attrs_text = f"{{ width={width_text} align=center }}"
         else:
             alt_text = ""
-            attrs_text = ""
+            attrs_text = "{ align=center }"
         
         return f"![{alt_text}]({path_text}){attrs_text}"
 
