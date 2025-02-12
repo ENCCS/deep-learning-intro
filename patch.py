@@ -64,8 +64,6 @@ def replace_with_myst_attrs_line(m: re.Match[str]) -> str:
                 value = int(width_text.removesuffix("%")) * 680 // 100
                 width_text = f"{value}px"
 
-            # attrs_text = f"{{ width={width_text} align=center }}"
-
             attrs_text = "align=center"
             if width_text:
                 attrs_text += f" width={width_text}"
@@ -73,9 +71,19 @@ def replace_with_myst_attrs_line(m: re.Match[str]) -> str:
             attrs_text = f"{{ {attrs_text} }}"
         else:
             alt_text = ""
+            inline_alt_text = ""
             attrs_text = "{ align=center }"
 
-        return f"![{alt_text}]({path_text}){attrs_text}"
+        image = f"![{alt_text}]({path_text}){attrs_text}"
+        if inline_alt_text:
+            image += f"""\
+
+:::::::::::note
+{inline_alt_text}
+:::::::::::
+"""
+        return image
+
     else:
         return ""
 
