@@ -134,7 +134,7 @@ The image below shows an example of a neural network with three layers, each cir
 
 ![
 Image credit: Glosser.ca, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons, 
-[original source](https://commons.wikimedia.org/wiki/File:Colored_neural_network.svg)
+original source: <https://commons.wikimedia.org/wiki/File:Colored_neural_network.svg>
 ](fig/01_neural_net.png){
 alt='A diagram of a three layer neural network with an input layer, one hidden layer, and an output layer.'
 }

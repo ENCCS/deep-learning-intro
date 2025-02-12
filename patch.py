@@ -12,7 +12,7 @@ pattern_colon_fence = re.compile(
         \s*      # whitespace
         ([a-z]+) # 2. directive
     """,
-    flags=re.X | re.M
+    flags=re.X | re.M,
 )
 # convert to MyST style colon fence with curly braces
 replace_with_myst_directives = r"::\1{\2}"
@@ -25,30 +25,38 @@ pattern_heading_target = re.compile(
         ([a-zA-z\s\-]+) # 2. text
         \{\#(.*)\}    # 3. target
     """,
-    flags=re.X | re.M
+    flags=re.X | re.M,
 )
 # add heading target using the syntax: (target)=
 replace_with_myst_heading_target = r"(\3)=\n\1 \2"
 
+# Note: this expression below (?:.|\n)*? is a non-capturing group containing
+# any character or new lines https://stackoverflow.com/a/34958489
 pattern_image_attrs_inline = re.compile(
     r"""
-        (!\[.*?\])            # 1. optional inline alt text
+        (!\[(?:.|\n)*?\])     # 1. optional inline alt text
         \((.+)\)              # 2. path
         (
-            \{((.|\n)*?)\}
+            \{(?:.|\n)*?\}
         )?                    # 3. attrs
     """,
-    flags=re.X
+    flags=re.X,
 )
 pattern_attrs_alt = re.compile(r"alt='(\S+)'")
 pattern_attrs_width = re.compile(r"width='(\S+)'")
 
+
 def replace_with_myst_attrs_line(m: re.Match[str]) -> str:
-    if m.group(1):
+    if inline_alt_text := m.group(1):
         path_text = m.group(2)
         if attrs := m.group(3):
             alt_text = alt.group(1) if (alt := pattern_attrs_alt.search(attrs)) else ""
-            width_text = width.group(1) if (width := pattern_attrs_width.search(attrs)) else "680px"
+            width_text = (
+                width.group(1) if (width := pattern_attrs_width.search(attrs)) else ""
+            )
+            inline_alt_text = (
+                inline_alt_text.removeprefix("![").removesuffix("]").strip()
+            )
 
             # NOTE: workaround since myst attrs_inline extension
             # does not handle widths in % due to a bug
@@ -56,27 +64,38 @@ def replace_with_myst_attrs_line(m: re.Match[str]) -> str:
                 value = int(width_text.removesuffix("%")) * 680 // 100
                 width_text = f"{value}px"
 
-            attrs_text = f"{{ width={width_text} align=center }}"
+            # attrs_text = f"{{ width={width_text} align=center }}"
+
+            attrs_text = "align=center"
+            if width_text:
+                attrs_text += f" width={width_text}"
+
+            attrs_text = f"{{ {attrs_text} }}"
         else:
             alt_text = ""
             attrs_text = "{ align=center }"
-        
+
         return f"![{alt_text}]({path_text}){attrs_text}"
+    else:
+        return ""
+
 
 pattern_figures_with_ref = re.compile(
     r"""
         ^!\[.*\]      # optional inline alt text
         \[(.*)\]      # 1. reference
     """,
-    flags=re.X | re.M
+    flags=re.X | re.M,
 )
 
 
 def replace_with_jinja_var(m: re.Match[str]) -> str:
     """Convert it to {{ }} for Jinja2 substitutions"""
-    if (ref := m.group(1)):
+    if ref := m.group(1):
         ref = ref.replace("-", "_")
         return " ".join(["{{", ref, " }}"])
+    else:
+        return ""
 
 
 def patch(file: Path) -> str:
@@ -84,8 +103,8 @@ def patch(file: Path) -> str:
     text = file.read_text()
     text = pattern_colon_fence.sub(replace_with_myst_directives, text)
     text = pattern_heading_target.sub(replace_with_myst_heading_target, text)
-    text = pattern_image_attrs_inline.sub(replace_with_myst_attrs_line, text) 
     text = pattern_figures_with_ref.sub(replace_with_jinja_var, text)
+    text = pattern_image_attrs_inline.sub(replace_with_myst_attrs_line, text)
     return text
 
 
@@ -99,4 +118,3 @@ for dir in dirs:
             item_patched.write_text(patch(item))
         else:
             shutil.copytree(item, item_patched, dirs_exist_ok=True)
-
