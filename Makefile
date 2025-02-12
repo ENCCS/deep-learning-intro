@@ -24,4 +24,8 @@ patch:
 
 # Live reload site documents for local development
 livehtml:
-	sphinx-autobuild --pre-build "make patch" --watch 'episodes' --ignore "$(SOURCEDIR)/_patched" "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	sphinx-autobuild \
+		--pre-build "make patch" \
+		--watch episodes --watch learners --watch instructors --watch patch.py \
+		--ignore "$(SOURCEDIR)/_patched" \
+		"$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)

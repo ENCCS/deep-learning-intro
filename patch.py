@@ -6,7 +6,7 @@ from pathlib import Path
 _, content, *dirs = sys.argv
 patched = Path(content, "_patched")
 
-re_colon_fence = re.compile(
+pattern_colon_fence = re.compile(
     r"""
         ^::(:+)  # 1. colon fence
         \s*      # whitespace
@@ -14,9 +14,11 @@ re_colon_fence = re.compile(
     """,
     flags=re.X | re.M
 )
+# convert to MyST style colon fence with curly braces
+replace_with_myst_directives = r"::\1{\2}"
 
 # https://myst-parser.readthedocs.io/en/latest/syntax/cross-referencing.html#creating-explicit-targets
-re_heading_target = re.compile(
+pattern_heading_target = re.compile(
     r"""
         ^(\#+)      # 1. heading
         \s*         # whitespace
@@ -25,8 +27,10 @@ re_heading_target = re.compile(
     """,
     flags=re.X | re.M
 )
+# add heading target using the syntax: (target)=
+replace_with_myst_heading_target = r"(\3)=\n\1 \2"
 
-re_image_attrs_inline = re.compile(
+pattern_image_attrs_inline = re.compile(
     r"""
         (!\[.*?\])            # 1. optional inline alt text
         \((.+)\)              # 2. path
@@ -36,15 +40,15 @@ re_image_attrs_inline = re.compile(
     """,
     flags=re.X
 )
-re_attrs_alt = re.compile(r"alt='(\S+)'")
-re_attrs_width = re.compile(r"width='(\S+)'")
+pattern_attrs_alt = re.compile(r"alt='(\S+)'")
+pattern_attrs_width = re.compile(r"width='(\S+)'")
 
-def replace_attrs(m: re.Match):
+def replace_with_myst_attrs_line(m: re.Match[str]) -> str:
     if m.group(1):
         path_text = m.group(2)
         if attrs := m.group(3):
-            alt_text = alt.group(1) if (alt := re_attrs_alt.search(attrs)) else ""
-            width_text = width.group(1) if (width := re_attrs_width.search(attrs)) else "680px"
+            alt_text = alt.group(1) if (alt := pattern_attrs_alt.search(attrs)) else ""
+            width_text = width.group(1) if (width := pattern_attrs_width.search(attrs)) else "680px"
 
             # NOTE: workaround since myst attrs_inline extension
             # does not handle widths in % due to a bug
@@ -59,7 +63,7 @@ def replace_attrs(m: re.Match):
         
         return f"![{alt_text}]({path_text}){attrs_text}"
 
-re_figures_with_ref = re.compile(
+pattern_figures_with_ref = re.compile(
     r"""
         ^!\[.*\]      # optional inline alt text
         \[(.*)\]      # 1. reference
@@ -67,20 +71,21 @@ re_figures_with_ref = re.compile(
     flags=re.X | re.M
 )
 
-def replace_ref(m: re.Match):
+
+def replace_with_jinja_var(m: re.Match[str]) -> str:
+    """Convert it to {{ }} for Jinja2 substitutions"""
     if (ref := m.group(1)):
         ref = ref.replace("-", "_")
         return " ".join(["{{", ref, " }}"])
 
+
 def patch(file: Path) -> str:
+    """The main workhorse"""
     text = file.read_text()
-    # convert to MyST style colon fence with curly braces
-    text = re_colon_fence.sub(r"::\1{\2}", text)
-    # add heading target using the syntax: (target)=
-    text = re_heading_target.sub(r"(\3)=\n\1 \2", text)
-    # convert it to {{ }} for Jinja2 substitutions
-    text = re_image_attrs_inline.sub(replace_attrs, text)
-    text = re_figures_with_ref.sub(replace_ref, text)
+    text = pattern_colon_fence.sub(replace_with_myst_directives, text)
+    text = pattern_heading_target.sub(replace_with_myst_heading_target, text)
+    text = pattern_image_attrs_inline.sub(replace_with_myst_attrs_line, text) 
+    text = pattern_figures_with_ref.sub(replace_with_jinja_var, text)
     return text
 
 
@@ -95,4 +100,3 @@ for dir in dirs:
         else:
             shutil.copytree(item, item_patched, dirs_exist_ok=True)
 
-print("Creating symlinks...")
