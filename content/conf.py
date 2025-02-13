@@ -134,7 +134,7 @@ class InstructorDirective(_BaseCRDirective):
 
 
 class SpoilerDirective(_BaseCRDirective):
-    extra_classes = ["toggle-shown", "dropdown"]
+    extra_classes = ["important", "dropdown"]
 
 # class OutputDirective(_BaseCRDirective):
 #     title_text = "Output"
