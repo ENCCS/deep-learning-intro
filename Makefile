@@ -20,12 +20,12 @@ help:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 patch:
-	python3 patch.py $(SOURCEDIR) episodes learners instructors
+	python3 patch.py $(SOURCEDIR) episodes learners instructors profiles
 
 # Live reload site documents for local development
 livehtml:
 	sphinx-autobuild \
 		--pre-build "make patch" \
-		--watch episodes --watch learners --watch instructors --watch patch.py \
+		--watch episodes --watch learners --watch instructors --watch profiles --watch patch.py \
 		--ignore "$(SOURCEDIR)/_patched" \
 		"$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
