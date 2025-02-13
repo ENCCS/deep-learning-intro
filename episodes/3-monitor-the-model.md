@@ -459,18 +459,19 @@ plot_predictions(y_test_predicted, y_test, title='Predictions on the test set')
  which features you use, model parameters and architecture. It is important to settle on a
  single-number evaluation metric to compare your models.
    * What single-number evaluation metric would you choose here and why?
+:::
    
 :::: solution
 ## Solution
 While the performance on the train set seems reasonable, the performance on the test set is much worse.
 This is a common problem called **overfitting**, which we will discuss in more detail later.
 
-#### Optional exercise:
+**Optional exercise:**
+
 The metric that we are using: RMSE would be a good one. You could also consider Mean Squared Error, that punishes large errors more (because large errors create even larger squared errors).
 It is important that if the model improves in performance on the basis of this metric then that should also lead you a step closer to reaching your goal: to predict tomorrow's sunshine hours. 
 If you feel that improving the metric does not lead you closer to your goal, then it would be better to choose a different metric
 ::::
-:::
 
 The accuracy on the training set seems fairly good.
 In fact, considering that the task of predicting the daily sunshine hours is really not easy it might even be surprising how well the model predicts that
@@ -533,6 +534,7 @@ Judging from the numbers alone, our neural network prediction would be performin
 ## Exercise: Baseline
 1. Looking at this baseline: Would you consider this a simple or a hard problem to solve?
 2. (Optional) Can you think of other baselines?
+:::
 
 :::: solution
 ## Solution
@@ -540,7 +542,6 @@ Judging from the numbers alone, our neural network prediction would be performin
 randomly predicting a number, so the problem is not impossible to solve with machine learning. However, given the structure of the data and our expectations with respect to quality of prediction, it may remain hard to find a good algorithm which exceeds our baseline by orders of magnitude.
 2. There are a lot of possible answers. A slighly more complicated baseline would be to take the average over the last couple of days.
 ::::
-:::
 
 ## 9. Refine the model
 

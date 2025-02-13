@@ -166,6 +166,7 @@ Can you see in the model summary which part is the base network and which part i
 
 ### 3. Max pooling
 Which layer is added because we provided `pooling='max'` as argument for `DenseNet121()`?
+:::
 
 :::: solution
 ## Solutions
@@ -180,8 +181,6 @@ The head network starts at the `flatten` layer, 5 layers before the final layer.
 ### 3. Max pooling
 The `max_pool` layer right before the `flatten` layer is added because we provided `pooling='max'`.
 ::::
-:::
-
 
 
 ::: challenge
@@ -207,6 +206,7 @@ Plot the training history and evaluate the trained model. What do you think of t
 ### 4. (Optional) Try out other pre-trained neural networks
 Train and evaluate another pre-trained model from https://keras.io/api/applications/. How does it compare to DenseNet121?
 
+:::
 
 :::: solution
 ## Solution
@@ -256,7 +256,6 @@ plot_history(history, ['accuracy', 'val_accuracy'])
 The final validation accuracy reaches 64%, this is a huge improvement over 30% accuracy we reached with the simple convolutional neural network that we build from scratch in the previous episode.
 
 ::::
-:::
 
 ## Concluding: The power of transfer learning
 In many domains, large networks are available that have been trained on vast amounts of data, such as in computer vision and natural language processing. Using transfer learning, you can benefit from the knowledge that was captured from another machine learning task. In many fields, transfer learning will outperform models trained from scratch, especially if your dataset is small or of poor quality.

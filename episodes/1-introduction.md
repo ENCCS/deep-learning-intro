@@ -453,11 +453,11 @@ Think about a problem you would like to use deep learning to solve.
 2. What data inputs and outputs will you have?
 3. Do you think you will need to train the network or will a pre-trained network be suitable?
 4. What data do you have to train with? What preparation will your data need? Consider both the data you are going to predict/classify from and the data you will use to train the network.
+:::
 
 :::: solution
 Discuss your answers with the group or the person next to you.
 ::::
-:::
 
 
 ## Deep Learning Libraries

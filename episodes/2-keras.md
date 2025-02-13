@@ -247,13 +247,13 @@ How many output neurons will our network have now that we one-hot encoded the ta
 * A: 1
 * B: 2
 * C: 3
+:::
 
 :::: solution
 ## Solution
 C: 3, one for each output variable class
 
 ::::
-:::
 
 ### Split data into training and test set
 Finally, we will split the dataset into a training set and a test set.
@@ -638,6 +638,7 @@ When the training process does not go well:
 3. (optional) Something went wrong here during training. What could be the problem, and how do you see that in the training curve?
 Also compare the range on the y-axis with the previous training curve.
 ![][bad-training-curve]
+:::
 
 :::: solution
 ## Solution
@@ -658,7 +659,6 @@ In this case the graph was created by training on nonsense data, so this a train
 We will take a closer look at training curves in the next episode. Some of the concepts touched upon here will also be further explained there.
 
 ::::
-:::
 
 ## 7. Perform a prediction/classification
 Now that we have a trained neural network, we can use it to predict new samples
@@ -794,6 +794,7 @@ visualize a confusion matrix.
 - Did the neural network perform well on the test set?
 - Did you expect this from the training loss you saw?
 - What could we do to improve the performance?
+:::
 
 :::: solution
 ## Solution
@@ -812,7 +813,6 @@ In addition, adjusting the learning rate can also help achieving a high score fo
 
 Note that the outcome you have might be slightly different from what is shown in this tutorial.
 ::::
-:::
 
 ## 9. Refine the model
 As we discussed before the design and training of a neural network comes with
