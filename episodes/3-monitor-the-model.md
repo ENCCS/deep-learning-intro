@@ -62,7 +62,7 @@ If you have not downloaded the data yet, you can also load it directly from Zeno
 data = pd.read_csv("https://zenodo.org/record/5071376/files/weather_prediction_dataset_light.csv?download=1")
 ```
 
-#### SSL certificate error
+**SSL certificate error**
 <!-- Using H4 here because H3 renders to big compared to the title of the callout -->
 If you get the following error message: `certificate verify failed: unable to get local issuer certificate`,
 you can download [the data from here manually](https://zenodo.org/record/5071376/files/weather_prediction_dataset_light.csv?download=1)
@@ -281,25 +281,26 @@ This subset is called a 'batch', the number of samples in one batch is called th
 
 Answer the following questions:
 
-### 1. What is the goal of optimization?
+**1. What is the goal of optimization?**
 
 - A. To find the weights that maximize the loss function
 - B. To find the weights that minimize the loss function
 
-### 2. What happens in one gradient descent step?
+**2. What happens in one gradient descent step?**
 
 - A. The weights are adjusted so that we move in the direction of the gradient, so up the slope of the loss function
 - B. The weights are adjusted so that we move in the direction of the gradient, so down the slope of the loss function
 - C. The weights are adjusted so that we move in the direction of the negative gradient, so up the slope of the loss function
 - D. The weights are adjusted so that we move in the direction of the negative gradient, so down the slope of the loss function
 
-### 3. When the batch size is increased:
+**3. When the batch size is increased:**
 (multiple answers might apply)
 
 - A. The number of samples in an epoch also increases
 - B. The number of batches in an epoch goes down
 - C. The training progress is more jumpy, because more samples are consulted in each update step (one batch).
 - D. The memory load (memory as in computer hardware) of the training process is increased
+:::
 
 :::: solution
 
@@ -318,7 +319,6 @@ Answer the following questions:
    - D. The memory load (memory as in computer hardware) of the training process is increased (**correct**, the data is begin loaded one batch at a time, so more samples means more memory usage)
 
 ::::
-:::
 
 ## 5. Choose a loss function and optimizer
 ### Loss function
