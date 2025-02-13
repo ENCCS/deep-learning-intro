@@ -6,16 +6,53 @@ from pathlib import Path
 _, content, *dirs = sys.argv
 patched = Path(content, "_patched")
 
+
+import difflib
+
+def patch(file: Path) -> str:
+    """The main workhorse"""
+    text = file.read_text()
+
+    # NOTE: for reasons that I don't understand I need the re.M flag for the following pattern and loop it
+    prev_text = text
+    while (text := pattern_colon_fence_with_title.sub(replace_with_myst_admonition_and_title, text)) != prev_text:
+        prev_text = text
+    # text = pattern_colon_fence_with_title.sub(replace_with_myst_admonition_and_title, text)
+    # if (diff:= difflib.unified_diff([new_text], [text])):
+    #     sys.stdout.writelines(diff)
+    text = pattern_colon_fence.sub(replace_with_myst_admonition, text)
+    text = pattern_heading_target.sub(replace_with_myst_heading_target, text)
+    text = pattern_figures_with_ref.sub(replace_with_jinja_var, text)
+    text = pattern_image_attrs_inline.sub(replace_with_myst_attrs_line, text)
+    return text
+
+pattern_colon_fence_with_title = re.compile(
+    r"""
+        ^::(:+)  # 1. colon fence
+        \s*
+        ((?:callout|challenge|solution|spoiler|instructor))  # 2. admonition
+        \n+     # newline
+        \#+     # heading markup to be excluded
+        \s*
+        ((?:\s|\S)*)    # 3. title 
+        \n
+    """,
+        # (\S+)   # 3. title
+        # \n      # newline
+    flags=re.X | re.M,
+)
+replace_with_myst_admonition_and_title = r"::\1{\2} \3\n"
+
 pattern_colon_fence = re.compile(
     r"""
         ^::(:+)  # 1. colon fence
         \s*      # whitespace
-        ([a-z]+) # 2. directive
+        ([a-z]+) # 2. admonition
     """,
     flags=re.X | re.M,
 )
 # convert to MyST style colon fence with curly braces
-replace_with_myst_directives = r"::\1{\2}"
+replace_with_myst_admonition = r"::\1{\2}"
 
 # https://myst-parser.readthedocs.io/en/latest/syntax/cross-referencing.html#creating-explicit-targets
 pattern_heading_target = re.compile(
@@ -47,6 +84,9 @@ pattern_attrs_width = re.compile(r"width='(\S+)'")
 
 
 def replace_with_myst_attrs_line(m: re.Match[str]) -> str:
+    """Convert into an image markup with MyST attrs_inline extension compatible
+    attributes: only `width` and `align`. A caption is added as a separate note block
+    """
     if inline_alt_text := m.group(1):
         path_text = m.group(2)
         if attrs := m.group(3):
@@ -106,23 +146,14 @@ def replace_with_jinja_var(m: re.Match[str]) -> str:
         return ""
 
 
-def patch(file: Path) -> str:
-    """The main workhorse"""
-    text = file.read_text()
-    text = pattern_colon_fence.sub(replace_with_myst_directives, text)
-    text = pattern_heading_target.sub(replace_with_myst_heading_target, text)
-    text = pattern_figures_with_ref.sub(replace_with_jinja_var, text)
-    text = pattern_image_attrs_inline.sub(replace_with_myst_attrs_line, text)
-    return text
-
-
-print(f"Patching {dirs=} into {patched}")
-for dir in dirs:
-    patched_dir = patched / dir
-    patched_dir.mkdir(parents=True, exist_ok=True)
-    for item in Path(dir).iterdir():
-        item_patched = patched_dir / item.name
-        if item.is_file():
-            item_patched.write_text(patch(item))
-        else:
-            shutil.copytree(item, item_patched, dirs_exist_ok=True)
+if __name__ == "__main__":
+    print(f"Patching {dirs=} into {patched}")
+    for dir in dirs:
+        patched_dir = patched / dir
+        patched_dir.mkdir(parents=True, exist_ok=True)
+        for item in Path(dir).iterdir():
+            item_patched = patched_dir / item.name
+            if item.is_file():
+                item_patched.write_text(patch(item))
+            else:
+                shutil.copytree(item, item_patched, dirs_exist_ok=True)
