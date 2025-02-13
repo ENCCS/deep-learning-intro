@@ -7,8 +7,6 @@ _, content, *dirs = sys.argv
 patched = Path(content, "_patched")
 
 
-import difflib
-
 def patch(file: Path) -> str:
     """The main workhorse"""
     text = file.read_text()
@@ -17,9 +15,7 @@ def patch(file: Path) -> str:
     prev_text = text
     while (text := pattern_colon_fence_with_title.sub(replace_with_myst_admonition_and_title, text)) != prev_text:
         prev_text = text
-    # text = pattern_colon_fence_with_title.sub(replace_with_myst_admonition_and_title, text)
-    # if (diff:= difflib.unified_diff([new_text], [text])):
-    #     sys.stdout.writelines(diff)
+
     text = pattern_colon_fence.sub(replace_with_myst_admonition, text)
     text = pattern_heading_target.sub(replace_with_myst_heading_target, text)
     text = pattern_figures_with_ref.sub(replace_with_jinja_var, text)
