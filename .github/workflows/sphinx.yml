@@ -13,6 +13,8 @@ on: [push, pull_request]
 env:
   DEFAULT_BRANCH: "sphinx"
   SPHINXBUILD: "uv run sphinx-build"
+  # Distribute the build using multiprocessing
+  SPHINXOPTS: "--jobs auto"
   # If these SPHINXOPTS are enabled, then be strict about the
   # builds and fail on any warnings.
   #SPHINXOPTS: "-W --keep-going -T"
