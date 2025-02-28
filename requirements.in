@@ -2,4 +2,4 @@ Sphinx
 sphinx_rtd_theme>=2.0
 sphinx_rtd_theme_ext_color_contrast
 myst_nb
-sphinx-lesson
+sphinx-lesson>=0.8.19
