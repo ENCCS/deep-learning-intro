@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Setup &mdash; Intro to Deep Learning  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+      <link rel="stylesheet" type="text/css" href="../_static/overrides.css?v=345019e7" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=187304be"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=35a8b989"></script>
+      <script src="../_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script data-domain="enccs.github.io/deep-learning-intro" defer="defer" src="https://plausible.io/js/script.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="1. Introduction" href="../1-introduction/" />
+    <link rel="prev" title="Introduction to Deep Learning" href="../" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            Intro to Deep Learning
+              <img src="../_static/ENCCS.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Preparation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#software-setup">Software Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-the-required-packages">Installing the required packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#starting-jupyter-lab">Starting Jupyter Lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#check-your-setup">Check your setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fallback-option-cloud-environment">Fallback option: cloud environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#downloading-the-required-datasets">Downloading the required datasets</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../1-introduction/">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2-keras/">2. Classification by a neural network using Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3-monitor-the-model/">3. Monitor the training process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-advanced-layer-types/">4. Advanced layer types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5-transfer-learning/">5. Transfer learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6-outlook/">6. Outlook</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/">Reference for learners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../instructor-notes/">Instructor notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learner-profiles/">Learner profiles</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Intro to Deep Learning</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Setup</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ENCCS/deep-learning-intro/blob/sphinx/content/setup.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h1>
+<section id="software-setup">
+<h2>Software Setup<a class="headerlink" href="#software-setup" title="Link to this heading"></a></h2>
+<div class="admonition-discussion discussion important admonition" id="discussion-0">
+<p class="admonition-title">Discussion</p>
+<p class="rubric" id="installing-python">Installing Python</p>
+<p><a class="reference external" href="https://python.org">Python</a> is a popular language for scientific computing, and a frequent choice
+for machine learning as well.
+To install Python, follow the <a class="reference external" href="https://wiki.python.org/moin/BeginnersGuide/Download">Beginner’s Guide</a> or head straight to the <a class="reference external" href="https://www.python.org/downloads/">download page</a>.</p>
+<p>Please set up your python environment at least a day in advance of the workshop.
+If you encounter problems with the installation procedure, ask your workshop organizers via e-mail for assistance so
+you are ready to go as soon as the workshop begins.</p>
+</div>
+</section>
+<section id="installing-the-required-packages">
+<span id="packages"></span><h2>Installing the required packages<a class="headerlink" href="#installing-the-required-packages" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://pip.pypa.io/en/stable/">Pip</a> is the package management system built into Python.
+Pip should be available in your system once you installed Python successfully.</p>
+<p>Open a terminal (Mac/Linux) or Command Prompt (Windows) and run the following commands.</p>
+<ol class="arabic simple">
+<li><p>Create a <a class="reference external" href="https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#create-and-use-virtual-environments">virtual environment</a> called <code class="docutils literal notranslate"><span class="pre">dl_workshop</span></code>:</p></li>
+</ol>
+<div class="admonition-on-linux-macos spoiler important dropdown admonition" id="spoiler-0">
+<p class="admonition-title">On Linux/macOs</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>dl_workshop
+</pre></div>
+</div>
+</div>
+<div class="admonition-on-windows spoiler important dropdown admonition" id="spoiler-1">
+<p class="admonition-title">On Windows</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>py<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>dl_workshop
+</pre></div>
+</div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Activate the newly created virtual environment:</p></li>
+</ol>
+<div class="admonition-on-linux-macos spoiler important dropdown admonition" id="spoiler-2">
+<p class="admonition-title">On Linux/macOs</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>dl_workshop/bin/activate
+</pre></div>
+</div>
+</div>
+<div class="admonition-on-windows spoiler important dropdown admonition" id="spoiler-3">
+<p class="admonition-title">On Windows</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dl_workshop<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+</pre></div>
+</div>
+</div>
+<p>Remember that you need to activate your environment every time you restart your terminal!</p>
+<ol class="arabic simple" start="3">
+<li><p>Install the required packages:</p></li>
+</ol>
+<div class="admonition-on-linux-macos spoiler important dropdown admonition" id="spoiler-4">
+<p class="admonition-title">On Linux/macOs</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>jupyter<span class="w"> </span>seaborn<span class="w"> </span>scikit-learn<span class="w"> </span>pandas<span class="w"> </span>tensorflow<span class="w"> </span>pydot
+</pre></div>
+</div>
+<p>Note for MacOS users: there is a package <code class="docutils literal notranslate"><span class="pre">tensorflow-metal</span></code> which accelerates the training of machine learning models with TensorFlow on a recent Mac with a Silicon chip (M1/M2/M3).
+However, the installation is currently broken in the most recent version (as of January 2025), see the <a class="reference external" href="https://developer.apple.com/forums/thread/772147">developer forum</a>.</p>
+</div>
+<div class="admonition-on-windows spoiler important dropdown admonition" id="spoiler-5">
+<p class="admonition-title">On Windows</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>py<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>jupyter<span class="w"> </span>seaborn<span class="w"> </span>scikit-learn<span class="w"> </span>pandas<span class="w"> </span>tensorflow<span class="w"> </span>pydot
+</pre></div>
+</div>
+</div>
+<p>Note: Tensorflow makes Keras available as a module too.</p>
+<p>An <a class="reference internal" href="#episodes/2-keras.md"><span class="xref myst">optional challenge in episode 2</span></a> requires installation of Graphviz
+and instructions for doing that can be found
+<a class="reference external" href="https://graphviz.org/download/">by following this link</a>.</p>
+</section>
+<section id="starting-jupyter-lab">
+<h2>Starting Jupyter Lab<a class="headerlink" href="#starting-jupyter-lab" title="Link to this heading"></a></h2>
+<p>We will teach using Python in <a class="reference external" href="http://jupyter.org/">Jupyter Lab</a>, a programming environment that runs in a web browser.
+Jupyter Lab is compatible with Firefox, Chrome, Safari and Chromium-based browsers.
+Note that Internet Explorer and Edge are <em>not</em> supported.
+See the <a class="reference external" href="https://jupyterlab.readthedocs.io/en/latest/getting_started/accessibility.html#compatibility-with-browsers-and-assistive-technology">Jupyter Lab documentation</a> for an up-to-date list of supported browsers.</p>
+<p>To start Jupyter Lab, open a terminal (Mac/Linux) or Command Prompt (Windows),
+make sure that you activated the virtual environment you created for this course,
+and type the command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>lab
+</pre></div>
+</div>
+</section>
+<section id="check-your-setup">
+<h2>Check your setup<a class="headerlink" href="#check-your-setup" title="Link to this heading"></a></h2>
+<p>To check whether all packages installed correctly, start a jupyter notebook in jupyter lab as
+explained above. Run the following lines of code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sklearn</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sklearn version: &#39;</span><span class="p">,</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;seaborn version: &#39;</span><span class="p">,</span> <span class="n">seaborn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pandas version: &#39;</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Tensorflow version: &#39;</span><span class="p">,</span> <span class="n">tensorflow</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This should output the versions of all required packages without giving errors.
+Most versions will work fine with this lesson, but:</p>
+<ul class="simple">
+<li><p>For Keras and Tensorflow, the minimum version is 2.12.0</p></li>
+<li><p>For sklearn, the minimum version is 1.2.2</p></li>
+</ul>
+</section>
+<section id="fallback-option-cloud-environment">
+<h2>Fallback option: cloud environment<a class="headerlink" href="#fallback-option-cloud-environment" title="Link to this heading"></a></h2>
+<p>If a local installation does not work for you, it is also possible to run this lesson in <a class="reference external" href="https://mybinder.org/v2/gh/carpentries-incubator/deep-learning-intro/scaffolds">Binder Hub</a>. This should give you an environment with all the required software and data to run this lesson, nothing which is saved will be stored, please copy any files you want to keep. Note that if you are the first person to launch this in the last few days it can take several minutes to startup. The second person who loads it should find it loads in under a minute. Instructors who intend to use this option should start it themselves shortly before the workshop begins.</p>
+<p>Alternatively you can use <a class="reference external" href="https://colab.research.google.com/">Google colab</a>. If you open a jupyter notebook here, the required packages are already pre-installed. Note that google colab uses jupyter notebook instead of Jupyter Lab.</p>
+</section>
+<section id="downloading-the-required-datasets">
+<h2>Downloading the required datasets<a class="headerlink" href="#downloading-the-required-datasets" title="Link to this heading"></a></h2>
+<p>Download the <a class="reference external" href="https://zenodo.org/record/5071376/files/weather_prediction_dataset_light.csv?download=1">weather dataset prediction csv</a> and <a class="reference external" href="https://zenodo.org/api/records/10970014/files-archive">Dollar street dataset (4 files in total)</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../" class="btn btn-neutral float-left" title="Introduction to Deep Learning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../1-introduction/" class="btn btn-neutral float-right" title="1. Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

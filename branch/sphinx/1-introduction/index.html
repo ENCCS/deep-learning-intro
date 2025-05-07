@@ -1,0 +1,760 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. Introduction &mdash; Intro to Deep Learning  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+      <link rel="stylesheet" type="text/css" href="../_static/overrides.css?v=345019e7" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=187304be"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=35a8b989"></script>
+      <script src="../_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script data-domain="enccs.github.io/deep-learning-intro" defer="defer" src="https://plausible.io/js/script.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="2. Classification by a neural network using Keras" href="../2-keras/" />
+    <link rel="prev" title="Setup" href="../setup/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            Intro to Deep Learning
+              <img src="../_static/ENCCS.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Preparation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup/">Setup</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-deep-learning">What is Deep Learning?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deep-learning-machine-learning-and-artificial-intelligence">Deep Learning, Machine Learning and Artificial Intelligence</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#neural-networks">Neural Networks</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#how-do-neural-networks-learn">How do neural networks learn?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-sort-of-problems-can-deep-learning-solve">What sort of problems can deep learning solve?</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#examples-of-deep-learning-in-research">Examples of Deep Learning in Research</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#what-sort-of-problems-can-deep-learning-not-solve">What sort of problems can deep learning not solve?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-sort-of-problems-can-deep-learning-solve-but-should-not-be-used-for">What sort of problems can deep learning solve, but should not be used for?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deep-learning-workflow">Deep learning workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#formulate-outline-the-problem">1. Formulate/Outline the problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#identify-inputs-and-outputs">2. Identify inputs and outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prepare-data">3. Prepare data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#choose-a-pre-trained-model-or-build-a-new-architecture-from-scratch">4. Choose a pre-trained model or build a new architecture from scratch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#choose-a-loss-function-and-optimizer">5. Choose a loss function and optimizer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#train-the-model">6. Train the model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#perform-a-prediction-classification">7. Perform a Prediction/Classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#measure-performance">8. Measure Performance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#refine-the-model">9. Refine the model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#share-model">10. Share Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deep-learning-libraries">Deep Learning Libraries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tensorflow">TensorFlow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pytorch">PyTorch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#keras">Keras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installing-keras-and-other-dependencies">Installing Keras and other dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-keras-installation">Testing Keras Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-seaborn-installation">Testing Seaborn Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-scikit-learn-installation">Testing scikit-learn Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../2-keras/">2. Classification by a neural network using Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3-monitor-the-model/">3. Monitor the training process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-advanced-layer-types/">4. Advanced layer types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5-transfer-learning/">5. Transfer learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6-outlook/">6. Outlook</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/">Reference for learners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../instructor-notes/">Instructor notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learner-profiles/">Learner profiles</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Intro to Deep Learning</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">1. Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ENCCS/deep-learning-intro/blob/sphinx/content/1-introduction.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction">
+<h1>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>What is deep learning?</p></li>
+<li><p>What is a neural network?</p></li>
+<li><p>Which operations are performed by a single neuron?</p></li>
+<li><p>How do neural networks learn?</p></li>
+<li><p>When does it make sense to use and not use deep learning?</p></li>
+<li><p>What are tools involved in deep learning?</p></li>
+<li><p>What is the workflow for deep learning?</p></li>
+<li><p>Why did we choose to use Keras in this lesson?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Define deep learning</p></li>
+<li><p>Describe how a neural network is build up</p></li>
+<li><p>Explain the operations performed by a single neuron</p></li>
+<li><p>Describe what a loss function is</p></li>
+<li><p>Recall the sort of problems for which deep learning is a useful tool</p></li>
+<li><p>List some of the available tools for deep learning</p></li>
+<li><p>Recall the steps of a deep learning workflow</p></li>
+<li><p>Test that you have correctly installed the Keras, Seaborn and scikit-learn libraries</p></li>
+</ul>
+</div>
+<section id="what-is-deep-learning">
+<h2>What is Deep Learning?<a class="headerlink" href="#what-is-deep-learning" title="Link to this heading"></a></h2>
+<section id="deep-learning-machine-learning-and-artificial-intelligence">
+<h3>Deep Learning, Machine Learning and Artificial Intelligence<a class="headerlink" href="#deep-learning-machine-learning-and-artificial-intelligence" title="Link to this heading"></a></h3>
+<p>Deep learning (DL) is just one of many techniques collectively known as machine learning. Machine learning (ML) refers to techniques where a computer can “learn” patterns in data, usually by being shown numerous examples to train it. People often talk about machine learning being a form of artificial intelligence (AI). Definitions of artificial intelligence vary, but usually involve having computers mimic the behaviour of intelligent biological systems. Since the 1950s many works of science fiction have dealt with the idea of an artificial intelligence which matches (or exceeds) human intelligence in all areas. Although there have been great advances in AI and ML research recently we can only come close to human like intelligence in a few specialist areas and are still a long way from a general purpose AI.
+The image below shows some differences between artificial intelligence, machine learning and deep learning.</p>
+<p><a class="reference internal" href="../_images/01_AI_ML_DL_differences.png"><img alt="" class="align-center" src="../_images/01_AI_ML_DL_differences.png" style="width: 408px;" /></a></p>
+<section id="neural-networks">
+<h4>Neural Networks<a class="headerlink" href="#neural-networks" title="Link to this heading"></a></h4>
+<p>A neural network is an artificial intelligence technique loosely based on the way neurons in the brain work.
+A neural network consists of connected computational units called <strong>neurons</strong>.
+Let’s look at the operations of a single neuron.</p>
+<section id="a-single-neuron">
+<h5>A single neuron<a class="headerlink" href="#a-single-neuron" title="Link to this heading"></a></h5>
+<p>Each neuron …</p>
+<ul class="simple">
+<li><p>has one or more inputs (<span class="math notranslate nohighlight">\(x_1, x_2, ...\)</span>), e.g. input data expressed as floating point numbers</p></li>
+<li><p>most of the time, each neuron conducts 3 main operations:</p>
+<ul>
+<li><p>take the weighted sum of the inputs where (<span class="math notranslate nohighlight">\(w_1, w_2, ...\)</span>) indicate weights</p></li>
+<li><p>add an extra constant weight (i.e. a bias term) to this weighted sum</p></li>
+<li><p>apply an <strong>activation function</strong> to the output so far, we will explain activation functions</p></li>
+</ul>
+</li>
+<li><p>return one output value, again a floating point number.</p></li>
+<li><p>one example equation to calculate the output for a neuron is: <span class="math notranslate nohighlight">\(output = Activation(\sum_{i} (x_i*w_i) + bias)\)</span></p></li>
+</ul>
+<p><a class="reference internal" href="../_images/01_neuron.png"><img alt="" class="align-center" src="../_images/01_neuron.png" style="width: 600px;" /></a></p>
+</section>
+<section id="activation-functions">
+<h5>Activation functions<a class="headerlink" href="#activation-functions" title="Link to this heading"></a></h5>
+<p>The goal of the activation function is to convert the weighted sum of the inputs to the output signal of the neuron.
+This output is then passed on to the next layer of the network.
+There are many different activation functions, 3 of them are introduced in the exercise below.</p>
+<div class="admonition-activation-functions exercise important admonition" id="exercise-0">
+<p class="admonition-title">Activation functions</p>
+<p>Look at the following activation functions:</p>
+<p><strong>A. Sigmoid activation function</strong>
+The sigmoid activation function is given by:
+<div class="math notranslate nohighlight">
+\[ f(x) = \frac{1}{1 + e^{-x}} \]</div>
+</p>
+<p><a class="reference internal" href="../_images/01_sigmoid.svg"><img alt="" class="align-center" src="../_images/01_sigmoid.svg" style="width: 476px;" /></a>
+<br clear="all" /></p>
+<p><strong>B. ReLU activation function</strong>
+The Rectified Linear Unit (ReLU) activation function is defined as:
+<div class="math notranslate nohighlight">
+\[ f(x) = \max(0, x) \]</div>
+</p>
+<p>This involves a simple comparison and maximum calculation, which are basic operations that are computationally inexpensive.
+It is also simple to compute the gradient: 1 for positive inputs and 0 for negative inputs.</p>
+<p><a class="reference internal" href="../_images/01_relu.svg"><img alt="" class="align-center" src="../_images/01_relu.svg" style="width: 476px;" /></a>
+<br clear="all" /></p>
+<p><strong>C. Linear (or identity) activation function (output=input)</strong>
+The linear activation function is simply the identity function:
+<div class="math notranslate nohighlight">
+\[ f(x) = x \]</div>
+</p>
+<p><a class="reference internal" href="../_images/01_identity_function.svg"><img alt="" class="align-center" src="../_images/01_identity_function.svg" style="width: 476px;" /></a>
+<br clear="all" /></p>
+<p>Combine the following statements to the correct activation function:</p>
+<ol class="arabic simple">
+<li><p>This function enforces the activation of a neuron to be between 0 and 1</p></li>
+<li><p>This function is useful in regression tasks when applied to an output neuron</p></li>
+<li><p>This function is the most popular activation function in hidden layers, since it introduces non-linearity in a computationally efficient way.</p></li>
+<li><p>This function is useful in classification tasks when applied to an output neuron</p></li>
+<li><p>(optional) For positive values this function results in the same activations as the identity function.</p></li>
+<li><p>(optional) This function is not differentiable at 0</p></li>
+<li><p>(optional) This function is the default for Dense layers (search the Keras documentation!)</p></li>
+</ol>
+<p><em>Activation function plots by Laughsinthestocks - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=44920411,
+https://commons.wikimedia.org/w/index.php?curid=44920600, https://commons.wikimedia.org/w/index.php?curid=44920533</em></p>
+<div class="admonition-solution solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solution</p>
+<ol class="arabic simple">
+<li><p>A</p></li>
+<li><p>C</p></li>
+<li><p>B</p></li>
+<li><p>A</p></li>
+<li><p>B</p></li>
+<li><p>B</p></li>
+<li><p>C</p></li>
+</ol>
+</div>
+</div>
+<div class="docutils">
+<p class="rubric" id="combining-multiple-neurons-into-a-network">Combining multiple neurons into a network</p>
+<p>Multiple neurons can be joined together by connecting the output of one to the input of another. These connections are associated with weights that determine the ‘strength’ of the connection, the weights are adjusted during training. In this way, the combination of neurons and connections describe a computational graph, an example can be seen in the image below.</p>
+<p>In most neural networks, neurons are aggregated into layers. Signals travel from the input layer to the output layer, possibly through one or more intermediate layers called hidden layers.
+The image below shows an example of a neural network with three layers, each circle is a neuron, each line is an edge and the arrows indicate the direction data moves in.</p>
+<p><img alt="" class="align-center" src="../_images/01_neural_net.png" /></p>
+<div class="note docutils">
+<p>Image credit: Glosser.ca, CC BY-SA 3.0 <a class="reference external" href="https://creativecommons.org/licenses/by-sa/3.0">https://creativecommons.org/licenses/by-sa/3.0</a>, via Wikimedia Commons,
+original source: <a class="reference external" href="https://commons.wikimedia.org/wiki/File:Colored_neural_network.svg">https://commons.wikimedia.org/wiki/File:Colored_neural_network.svg</a></p>
+</div>
+</div>
+<div class="admonition-neural-network-calculations exercise important admonition" id="exercise-1">
+<p class="admonition-title">Neural network calculations</p>
+<p>.</p>
+<p class="rubric" id="calculate-the-output-for-one-neuron">1. Calculate the output for one neuron</p>
+<p>Suppose we have:</p>
+<ul class="simple">
+<li><p>Input: X = (0, 0.5, 1)</p></li>
+<li><p>Weights: W = (-1, -0.5, 0.5)</p></li>
+<li><p>Bias: b = 1</p></li>
+<li><p>Activation function <em>relu</em>: <code class="docutils literal notranslate"><span class="pre">f(x)</span> <span class="pre">=</span> <span class="pre">max(x,</span> <span class="pre">0)</span></code></p></li>
+</ul>
+<p>What is the output of the neuron?</p>
+<p><em>Note: You can use whatever you like: brain only, pen&amp;paper, Python, Excel…</em></p>
+<p class="rubric" id="optional-calculate-outputs-for-a-network">2. (optional) Calculate outputs for a network</p>
+<p>Have a look at the following network where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(X_1\)</span> and <span class="math notranslate nohighlight">\(X_2\)</span> denote the two inputs of the network.</p></li>
+<li><p><span class="math notranslate nohighlight">\(h_1\)</span> and <span class="math notranslate nohighlight">\(h_2\)</span> denote the two neurons in the hidden layer. They both have ReLU activation functions.</p></li>
+<li><p><span class="math notranslate nohighlight">\(h_1\)</span> and <span class="math notranslate nohighlight">\(h_2\)</span> denotes the output neuron. It has a ReLU activation function.</p></li>
+<li><p>The value on the arrows represent the weight associated to that input to the neuron.</p></li>
+<li><p><span class="math notranslate nohighlight">\(b_i\)</span> denotes the bias term of that specific neuron
+<a class="reference internal" href="../_images/01_xor_exercise.png"><img alt="" class="align-center" src="../_images/01_xor_exercise.png" style="width: 400px;" /></a></p></li>
+</ul>
+<p>a. Calculate the output of the network for the following combinations of inputs:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>x1</p></th>
+<th class="head"><p>x2</p></th>
+<th class="head"><p>y</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>..</p></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>..</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>..</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>..</p></td>
+</tr>
+</tbody>
+</table>
+<p>b. What logical problem does this network solve?</p>
+<div class="admonition-solution solution important dropdown admonition" id="solution-1">
+<p class="admonition-title">Solution</p>
+<p class="rubric" id="id1">1: calculate the output for one neuron</p>
+<p>You can calculate the output as follows:</p>
+<ul class="simple">
+<li><p>Weighted sum of input: <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">*</span> <span class="pre">(-1)</span> <span class="pre">+</span> <span class="pre">0.5</span> <span class="pre">*</span> <span class="pre">(-0.5)</span> <span class="pre">+</span> <span class="pre">1</span> <span class="pre">*</span> <span class="pre">0.5</span> <span class="pre">=</span> <span class="pre">0.25</span></code></p></li>
+<li><p>Add the bias: <code class="docutils literal notranslate"><span class="pre">0.25</span> <span class="pre">+</span> <span class="pre">1</span> <span class="pre">=</span> <span class="pre">1.25</span></code></p></li>
+<li><p>Apply activation function: <code class="docutils literal notranslate"><span class="pre">max(1.25,</span> <span class="pre">0)</span> <span class="pre">=</span> <span class="pre">1.25</span></code></p></li>
+</ul>
+<p>So, the neuron’s output is <code class="docutils literal notranslate"><span class="pre">1.25</span></code></p>
+<p class="rubric" id="calculate-outputs-for-a-network">2: Calculate outputs for a network</p>
+<p>a.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>x1</p></th>
+<th class="head"><p>x2</p></th>
+<th class="head"><p>y</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>0</p></td>
+<td><p><strong>0</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>1</p></td>
+<td><p><strong>1</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p><strong>0</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>0</p></td>
+<td><p><strong>1</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p>b. This solves the XOR logical problem, the output is 1 if only one of the two inputs is 1.</p>
+</div>
+</div>
+<div class="docutils">
+<p class="rubric" id="what-makes-deep-learning-deep-learning">What makes deep learning deep learning?</p>
+<p>Neural networks are not a new technique, they have been around since the late 1940s. But until around 2010 neural networks tended to be quite small, consisting of only 10s or perhaps 100s of neurons. This limited them to only solving quite basic problems. Around 2010, improvements in computing power and the algorithms for training the networks made much larger and more powerful networks practical. These are known as deep neural networks or deep learning.</p>
+<p>Deep learning requires extensive training using example data which shows the network what output it should produce for a given input. One common application of deep learning is <a class="reference external" href="https://glosario.carpentries.org/en/#classification">classifying</a> images. Here the network will be trained by being “shown” a series of images and told what they contain. Once the network is trained it should be able to take another image and correctly classify its contents.</p>
+<p>But we are not restricted to just using images, any kind of data can be learned by a deep learning neural network. This makes them able to appear to learn a set of complex rules only by being shown what the inputs and outputs of those rules are instead of being taught the actual rules. Using these approaches, deep learning networks have been taught to play video games and even drive cars.</p>
+<p>The data on which networks are trained usually has to be quite extensive, typically including thousands of examples. For this reason they are not suited to all applications and should be considered just one of many machine learning techniques which are available.</p>
+<p>While traditional “shallow” networks might have had between three and five layers, deep networks often have tens or even hundreds of layers. This leads to them having millions of individual weights.
+The image below shows a diagram of all the layers on a deep learning network designed to detect pedestrians in images.</p>
+<p>This image is from the paper <a class="reference external" href="https://doi.org/10.1155/2018/3518959">“An Efficient Pedestrian Detection Method Based on YOLOv2”
+by Zhongmin Liu, Zhicai Chen, Zhanming Li, and Wenjin Hu
+published in Mathematical Problems in Engineering, Volume 2018</a></p>
+<p><img alt="" class="align-center" src="../_images/01_deep_network.png" /></p>
+<div class="note docutils">
+<p><strong>A visual representation of a deep neural network used to detect pedestrians in images.</strong>
+There are too many neurons to draw all of them, so each layer is represented by a panel, with values indicating how many neurons are in each dimension of the layer.
+Note that this model has 3-dimensional layers instead of the 1-dimensional layers that we introduced before.
+The input (left most) layer of the network is an image of 448 x 448 pixels and 3 RGB channels.
+The final (right most) layer of the network outputs a zero or one to determine if the input data belongs to the class of data we are interested in.
+The output of the previous layer is the input to the next layer.
+Note that the color coding refers to different layer types that will be introduced one by one
+as we proceed in this lesson.</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="how-do-neural-networks-learn">
+<h3>How do neural networks learn?<a class="headerlink" href="#how-do-neural-networks-learn" title="Link to this heading"></a></h3>
+<p>What happens in a neural network during the training process?
+The ultimate goal is of course to find a model that makes predictions that are as close to the target value as possible.
+In other words, the goal of training is to find the best set of parameters (weights and biases)
+that bring the error between prediction and expected value to a minimum.
+The total error between prediction and expected value is quantified in a loss function (also called cost function).
+There are lots of loss functions to pick from, and it is important that you pick one that matches your problem definition well.
+We will look at an example of a loss function in the next exercise.</p>
+<div class="admonition-instructor instructor dropdown admonition" id="instructor-0">
+<p class="admonition-title">Instructor</p>
+<p>There is an issue when rendering the MSE formula in the following box involving the Chrome browser on MacOS.
+To solve it:</p>
+<ol class="arabic simple">
+<li><p>Right-click on some of the misrendered MathJax.</p></li>
+<li><p>Click on “Math Settings”.</p></li>
+<li><p>Click on “Math Renderer”.</p></li>
+<li><p>Click on “Common HTML”.</p></li>
+</ol>
+<p>from: https://physics.meta.stackexchange.com/questions/14408/bug-in-mathjax-rendering-using-chrome</p>
+</div>
+<div class="admonition-exercise-loss-function exercise important admonition" id="exercise-2">
+<p class="admonition-title">Exercise: Loss function</p>
+<p class="rubric" id="compute-the-mean-squared-error">1. Compute the Mean Squared Error</p>
+<p>One of the simplest loss functions is the Mean Squared Error. MSE = <span class="math notranslate nohighlight">\(\frac{1}{n} \Sigma_{i=1}^n({y}-\hat{y})^2\)</span> .
+It is the mean of all squared errors, where the error is the difference between the predicted and expected value.
+In the following table, fill in the missing values in the ‘squared error’ column. What is the MSE loss
+for the predictions on these 4 samples?</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Prediction</strong></p></th>
+<th class="head"><p><strong>Expected value</strong></p></th>
+<th class="head"><p><strong>Squared error</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>-1</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>-1</p></td>
+<td><p>..</p></td>
+</tr>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>..</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>..</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><strong>MSE:</strong></p></td>
+<td><p>..</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric" id="optional-huber-loss">2. (optional) Huber loss</p>
+<p>A more complicated and less used loss function for regression is the <a class="reference external" href="https://keras.io/api/losses/regression_losses/#huber-class">Huber loss</a>.</p>
+<p>Below you see the Huber loss (green, delta = 1) and Squared error loss (blue)
+as a function of <code class="docutils literal notranslate"><span class="pre">y_true</span> <span class="pre">-</span> <span class="pre">y_pred</span></code>.</p>
+<p><a class="reference internal" href="../_images/01_huber_loss.png"><img alt="" class="align-center" src="../_images/01_huber_loss.png" style="width: 400px;" /></a></p>
+<p>Which loss function is more sensitive to outliers?</p>
+<div class="admonition-solution solution important dropdown admonition" id="solution-2">
+<p class="admonition-title">Solution</p>
+<p class="rubric" id="id2">1. ‘Compute the Mean Squared Error’</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Prediction</strong></p></th>
+<th class="head"><p><strong>Expected value</strong></p></th>
+<th class="head"><p><strong>Squared error</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>-1</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>-1</p></td>
+<td><p>9</p></td>
+</tr>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><strong>MSE:</strong></p></td>
+<td><p>3.5</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric" id="huber-loss">2. ‘Huber loss’</p>
+<p>The squared error loss is more sensitive to outliers. Errors between -1 and 1 result in the same loss value
+for both loss functions. But, larger errors (in other words: outliers) result in quadratically larger losses for
+the Mean Squared Error, while for the Huber loss they only increase linearly.</p>
+</div>
+</div>
+<div class="docutils">
+<p>So, a loss function quantifies the total error of the model.
+The process of adjusting the weights in such a way as to minimize the loss function is called ‘optimization’.
+We will dive further into how optimization works in episode 3.
+For now, it is enough to understand that during training the weights in the network are adjusted so that the loss decreases through the process of optimization.
+This ultimately results in a low loss, and this, generally, implies predictions that are closer to the expected values.</p>
+<div class="admonition-break instructor dropdown admonition" id="instructor-1">
+<p class="admonition-title">BREAK</p>
+<p>This is a good time for switching instructor and/or a break.</p>
+</div>
+</div>
+</section>
+<section id="what-sort-of-problems-can-deep-learning-solve">
+<h3>What sort of problems can deep learning solve?<a class="headerlink" href="#what-sort-of-problems-can-deep-learning-solve" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Pattern/object recognition</p></li>
+<li><p>Segmenting images (or any data)</p></li>
+<li><p>Translating between one set of data and another, for example natural language translation.</p></li>
+<li><p>Generating new data that looks similar to the training data, often used to create synthetic datasets, art or even “deepfake” videos.</p>
+<ul>
+<li><p>This can also be used to give the illusion of enhancing data, for example making images look sharper, video look smoother or adding colour to black and white images. But beware of this, it is not an accurate recreation of the original data, but a recreation based on something statistically similar, effectively a digital imagination of what that data could look like.</p></li>
+</ul>
+</li>
+</ul>
+<section id="examples-of-deep-learning-in-research">
+<h4>Examples of Deep Learning in Research<a class="headerlink" href="#examples-of-deep-learning-in-research" title="Link to this heading"></a></h4>
+<p>Here are just a few examples of how deep learning has been applied to some research problems. Note: some of these articles might be behind paywalls.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/2003.09871">Detecting COVID-19 in chest X-ray images</a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/1610.09460">Forecasting building energy load</a></p></li>
+<li><p><a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/29039790/">Protein function prediction</a></p></li>
+<li><p><a class="reference external" href="https://pubs.rsc.org/en/content/articlelanding/2018/sc/c7sc04934j">Simulating Chemical Processes</a></p></li>
+<li><p><a class="reference external" href="https://heritagesciencejournal.springeropen.com/articles/10.1186/s40494-020-0355-x">Help to restore ancient murals</a></p></li>
+</ul>
+</section>
+</section>
+<section id="what-sort-of-problems-can-deep-learning-not-solve">
+<h3>What sort of problems can deep learning not solve?<a class="headerlink" href="#what-sort-of-problems-can-deep-learning-not-solve" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Any case where only a small amount of training data is available.</p></li>
+<li><p>Tasks requiring an explanation of how the answer was arrived at.</p></li>
+<li><p>Classifying things which are nothing like their training data.</p></li>
+</ul>
+</section>
+<section id="what-sort-of-problems-can-deep-learning-solve-but-should-not-be-used-for">
+<h3>What sort of problems can deep learning solve, but should not be used for?<a class="headerlink" href="#what-sort-of-problems-can-deep-learning-solve-but-should-not-be-used-for" title="Link to this heading"></a></h3>
+<p>Deep learning needs a lot of computational power, for this reason it often relies on specialised hardware like <a class="reference external" href="https://glosario.carpentries.org/en/#gpu">graphical processing units (GPUs)</a>. Many computational problems can be solved using less intensive techniques, but could still technically be solved with deep learning.</p>
+<p>The following could technically be achieved using deep learning, but it would probably be a very wasteful way to do it:</p>
+<ul class="simple">
+<li><p>Logic operations, such as computing totals, averages, ranges etc. (see <a class="reference external" href="https://joelgrus.com/2016/05/23/fizz-buzz-in-tensorflow">this example</a> applying deep learning to solve the <a class="reference external" href="https://en.wikipedia.org/wiki/Fizz_buzz">“FizzBuzz” problem</a> often used for programming interviews)</p></li>
+<li><p>Modelling well defined systems, where the equations governing them are known and understood.</p></li>
+<li><p>Basic computer vision tasks such as <a class="reference external" href="https://en.wikipedia.org/wiki/Edge_detection">edge detection</a>, decreasing colour depth or blurring an image.</p></li>
+</ul>
+<div class="admonition-deep-learning-problems-exercise exercise important admonition" id="exercise-3">
+<p class="admonition-title">Deep Learning Problems Exercise</p>
+<p>Which of the following would you apply deep learning to?</p>
+<ol class="arabic simple">
+<li><p>Recognising whether or not a picture contains a bird.</p></li>
+<li><p>Calculating the median and interquartile range of a dataset.</p></li>
+<li><p>Identifying MRI images of a rare disease when only one or two example images available for training.</p></li>
+<li><p>Identifying people in pictures after being trained only on cats and dogs.</p></li>
+<li><p>Translating English into French.</p></li>
+</ol>
+<div class="admonition-solution solution important dropdown admonition" id="solution-3">
+<p class="admonition-title">Solution</p>
+<ol class="arabic simple">
+<li><p>and 5 are the sort of tasks often solved with deep learning.</p></li>
+<li><p>is technically possible but solving this with deep learning would be extremely wasteful, you could do the same with much less computing power using traditional techniques.</p></li>
+<li><p>will probably fail because there is not enough training data.</p></li>
+<li><p>will fail because the deep learning system only knows what cats and dogs look like, it might accidentally classify the people as cats or dogs.</p></li>
+</ol>
+</div>
+</div>
+<div class="docutils">
+<p class="rubric" id="how-much-data-do-you-need-for-deep-learning">How much data do you need for deep learning?</p>
+<p>The rise of deep learning is partially due to the increased availability of very large datasets.
+But how much data do you actually need to train a deep learning model?
+Unfortunately, this question is not easy to answer. It depends, among other things, on the
+complexity of the task (which you often do not know beforehand), the quality of the available dataset and the complexity of the network. For complex tasks with large neural networks, we often see that adding more data continues to improve performance. However, this is also not a generic truth: if the data you add is too similar to the data you already have, it will not give much new information to the neural network.</p>
+<div class="admonition-what-if-i-do-not-have-enough-data callout admonition" id="callout-0">
+<p class="admonition-title">What if I do not have enough data?</p>
+<p>In case you have too little data available to train a complex network from scratch, it is sometimes possible to use a pretrained network that was trained on a similar problem. Another trick is data augmentation, where you expand the dataset with artificial data points that could be real. An example of this is mirroring images when trying to classify cats and dogs. An horizontally mirrored animal retains the label, but exposes a different view.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="deep-learning-workflow">
+<h2>Deep learning workflow<a class="headerlink" href="#deep-learning-workflow" title="Link to this heading"></a></h2>
+<p>To apply deep learning to a problem there are several steps we need to go through:</p>
+<section id="formulate-outline-the-problem">
+<h3>1. Formulate/Outline the problem<a class="headerlink" href="#formulate-outline-the-problem" title="Link to this heading"></a></h3>
+<p>Firstly we must decide what it is we want our deep learning system to do. Is it going to classify some data into one of a few categories? For example if we have an image of some hand written characters, the neural network could classify which character it is being shown. Or is it going to perform a prediction? For example trying to predict what the price of something will be tomorrow given some historical data on pricing and current trends.</p>
+</section>
+<section id="identify-inputs-and-outputs">
+<h3>2. Identify inputs and outputs<a class="headerlink" href="#identify-inputs-and-outputs" title="Link to this heading"></a></h3>
+<p>Next we need to identify what the inputs and outputs of the neural network will be. This might require looking at our data and deciding what features of the data we can use as inputs. If the data is images then the inputs could be the individual pixels of the images.</p>
+<p>For the outputs we will need to look at what we want to identify from the data. If we are performing a classification problem then typically we will have one output for each potential class.</p>
+</section>
+<section id="prepare-data">
+<h3>3. Prepare data<a class="headerlink" href="#prepare-data" title="Link to this heading"></a></h3>
+<p>Many datasets are not ready for immediate use in a neural network and will require some preparation. Neural networks can only really deal with numerical data, so any non-numerical data (for example words) will have to be somehow converted to numerical data.</p>
+<p>Next we will need to divide the data into multiple sets.
+One of these will be used by the training process and we will call it the training set.
+Another will be used to evaluate the accuracy of the training and we will call that one the test set.
+Sometimes we will also use a 3rd set known as a validation set to refine the model.</p>
+</section>
+<section id="choose-a-pre-trained-model-or-build-a-new-architecture-from-scratch">
+<h3>4. Choose a pre-trained model or build a new architecture from scratch<a class="headerlink" href="#choose-a-pre-trained-model-or-build-a-new-architecture-from-scratch" title="Link to this heading"></a></h3>
+<p>Often we can use an existing neural network instead of designing one from scratch. Training a network can take a lot of time and computational resources. There are a number of well publicised networks which have been shown to perform well at certain tasks, if you know of one which already does a similar task well then it makes sense to use one of these.</p>
+<p>If instead we decide we do want to design our own network then we need to think about how many input neurons it will have, how many hidden layers and how many outputs, what types of layers we use (we will explore the different types later on). This will probably need some experimentation and we might have to try tweaking the network design a few times before we see acceptable results.</p>
+</section>
+<section id="choose-a-loss-function-and-optimizer">
+<h3>5. Choose a loss function and optimizer<a class="headerlink" href="#choose-a-loss-function-and-optimizer" title="Link to this heading"></a></h3>
+<p>The loss function tells the training algorithm how far away the predicted value was from the true value. We will look at choosing a loss function in more detail later on.</p>
+<p>The optimizer is responsible for taking the output of the loss function and then applying some changes to the weights within the network. It is through this process that the “learning” (adjustment of the weights) is achieved.</p>
+</section>
+<section id="train-the-model">
+<h3>6. Train the model<a class="headerlink" href="#train-the-model" title="Link to this heading"></a></h3>
+<p>We can now go ahead and start training our neural network. We will probably keep doing this for a given number of iterations through our training dataset (referred to as <em>epochs</em>) or until the loss function gives a value under a certain threshold. The graph below show the loss against the number of <em>epochs</em>, generally the loss will go down with each <em>epoch</em>, but occasionally it will see a small rise.</p>
+<p><img alt="" class="align-center" src="../_images/training-0_to_1500.svg" /></p>
+</section>
+<section id="perform-a-prediction-classification">
+<h3>7. Perform a Prediction/Classification<a class="headerlink" href="#perform-a-prediction-classification" title="Link to this heading"></a></h3>
+<p>After training the network we can use it to perform predictions. This is the mode you would
+use the network in after you have fully trained it to a satisfactory performance. Doing
+predictions on a special hold-out set is used in the next step to measure the performance
+of the network.</p>
+</section>
+<section id="measure-performance">
+<h3>8. Measure Performance<a class="headerlink" href="#measure-performance" title="Link to this heading"></a></h3>
+<p>Once we trained the network we want to measure its performance. To do this we use some additional data that was not part of the training, this is known as a test set. There are many different methods available for measuring performance and which one is best depends on the type of task we are attempting. These metrics are often published as an indication of how well our network performs.</p>
+</section>
+<section id="refine-the-model">
+<h3>9. Refine the model<a class="headerlink" href="#refine-the-model" title="Link to this heading"></a></h3>
+<p>We refine the model further. We can for example slightly change the architecture of the model, or change the number of nodes in a layer.
+Hyperparameters are all the parameters set by the person configuring the machine learning instead of those learned by the algorithm itself.
+The hyperparameters include the number of epochs or the parameters for the optimizer.
+It might be necessary to adjust these and re-run the training many times before we are happy with the result, this is often done automatically and that is referred to as hyperparameter tuning.</p>
+</section>
+<section id="share-model">
+<h3>10. Share Model<a class="headerlink" href="#share-model" title="Link to this heading"></a></h3>
+<p>Now that we have a trained network that performs at a level we are happy with we can go and use it on real data to perform a prediction. At this point we might want to consider publishing a file with both the architecture of our network and the weights which it has learned (assuming we did not use a pre-trained network). This will allow others to use it as as pre-trained network for their own purposes and for them to (mostly) reproduce our result.</p>
+<div class="admonition-deep-learning-workflow-exercise exercise important admonition" id="exercise-4">
+<p class="admonition-title">Deep learning workflow exercise</p>
+<p>Think about a problem you would like to use deep learning to solve.</p>
+<ol class="arabic simple">
+<li><p>What do you want a deep learning system to be able to tell you?</p></li>
+<li><p>What data inputs and outputs will you have?</p></li>
+<li><p>Do you think you will need to train the network or will a pre-trained network be suitable?</p></li>
+<li><p>What data do you have to train with? What preparation will your data need? Consider both the data you are going to predict/classify from and the data you will use to train the network.</p></li>
+</ol>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-4">
+<p class="admonition-title">Solution</p>
+<p>Discuss your answers with the group or the person next to you.</p>
+</div>
+</section>
+</section>
+<section id="deep-learning-libraries">
+<h2>Deep Learning Libraries<a class="headerlink" href="#deep-learning-libraries" title="Link to this heading"></a></h2>
+<p>There are many software libraries available for deep learning including:</p>
+<section id="tensorflow">
+<h3>TensorFlow<a class="headerlink" href="#tensorflow" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://www.tensorflow.org/">TensorFlow</a> was developed by Google and is one of the older deep learning libraries, ported across many languages since it was first released to the public in 2015. It is very versatile and capable of much more than deep learning but as a result it often takes a lot more lines of code to write deep learning operations in TensorFlow than in other libraries. It offers (almost) seamless integration with GPU accelerators and Google’s own TPU (Tensor Processing Unit) chips that are built specially for machine learning.</p>
+</section>
+<section id="pytorch">
+<h3>PyTorch<a class="headerlink" href="#pytorch" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://pytorch.org/">PyTorch</a> was developed by Facebook in 2016 and is a popular choice for deep learning applications. It was developed for Python from the start and feels a lot more “pythonic” than TensorFlow. Like TensorFlow it was designed to do more than just deep learning and offers some very low level interfaces. <a class="reference external" href="https://www.pytorchlightning.ai/">PyTorch Lightning</a> offers a higher level interface to PyTorch to set up experiments. Like TensorFlow it is also very easy to integrate PyTorch with a GPU. In many benchmarks it outperforms the other libraries.</p>
+</section>
+<section id="keras">
+<h3>Keras<a class="headerlink" href="#keras" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://keras.io/">Keras</a> is designed to be easy to use and usually requires fewer lines of code than other libraries. We have chosen it for this lesson for that reason. Keras can actually work on top of TensorFlow (and several other libraries), hiding away the complexities of TensorFlow while still allowing you to make use of their features.</p>
+<p>The processing speed of Keras is sometimes not as high as with other libraries and if you are going to move on to create very large networks using very large datasets then you might want to consider one of the other libraries. But for many applications, the difference will not be enough to worry about and the time you will save with simpler code will exceed what you will save by having the code run a little faster.</p>
+<p>Keras also benefits from a very good set of <a class="reference external" href="https://keras.io/guides/">online documentation</a> and a large user community. You will find that most of the concepts from Keras translate very well across to the other libraries if you wish to learn them at a later date.</p>
+</section>
+<section id="installing-keras-and-other-dependencies">
+<h3>Installing Keras and other dependencies<a class="headerlink" href="#installing-keras-and-other-dependencies" title="Link to this heading"></a></h3>
+<p>Follow the <a class="reference internal" href="#learners/setup.md#packages"><span class="xref myst">setup instructions</span></a> to install Keras, Seaborn and scikit-learn.</p>
+</section>
+</section>
+<section id="testing-keras-installation">
+<h2>Testing Keras Installation<a class="headerlink" href="#testing-keras-installation" title="Link to this heading"></a></h2>
+<p>Keras is available as a module within TensorFlow, as described in the <a class="reference internal" href="#learners/setup.md#packages"><span class="xref myst">setup instructions</span></a>.
+Let’s therefore check whether you have a suitable version of TensorFlow installed.
+Open up a new Jupyter notebook or interactive python console and run the following commands:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tensorflow</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">2.17.0</span>
+</pre></div>
+</div>
+<p>You should get a version number reported. At the time of writing 2.17.0 is the latest version.</p>
+</section>
+<section id="testing-seaborn-installation">
+<h2>Testing Seaborn Installation<a class="headerlink" href="#testing-seaborn-installation" title="Link to this heading"></a></h2>
+<p>Lets check you have a suitable version of seaborn installed.
+In your Jupyter notebook or interactive python console run the following commands:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">seaborn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">0.13.2</span>
+</pre></div>
+</div>
+<p>You should get a version number reported. At the time of writing 0.13.2 is the latest version.</p>
+</section>
+<section id="testing-scikit-learn-installation">
+<h2>Testing scikit-learn Installation<a class="headerlink" href="#testing-scikit-learn-installation" title="Link to this heading"></a></h2>
+<p>Lets check you have a suitable version of scikit-learn installed.
+In your Jupyter notebook or interactive python console run the following commands:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sklearn</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">1.5.1</span>
+</pre></div>
+</div>
+<p>You should get a version number reported. At the time of writing 1.5.1 is the latest version.</p>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>Machine learning is the process where computers learn to recognise patterns of data.</p></li>
+<li><p>Artificial neural networks are a machine learning technique based on a model inspired by groups of neurons in the brain.</p></li>
+<li><p>Artificial neural networks can be trained on example data.</p></li>
+<li><p>Deep learning is a machine learning technique based on using many artificial neurons arranged in layers.</p></li>
+<li><p>Neural networks learn by minimizing a loss function.</p></li>
+<li><p>Deep learning is well suited to classification and prediction problems such as image recognition.</p></li>
+<li><p>To use deep learning effectively we need to go through a workflow of: defining the problem, identifying inputs and outputs, preparing data, choosing the type of network, choosing a loss function, training the model, refine the model, measuring performance before we can classify data.</p></li>
+<li><p>Keras is a deep learning library that is easier to use than many of the alternatives such as TensorFlow and PyTorch.</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../setup/" class="btn btn-neutral float-left" title="Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../2-keras/" class="btn btn-neutral float-right" title="2. Classification by a neural network using Keras" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

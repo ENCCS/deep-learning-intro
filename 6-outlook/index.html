@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6. Outlook &mdash; Intro to Deep Learning  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+      <link rel="stylesheet" type="text/css" href="../_static/overrides.css?v=345019e7" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=187304be"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=35a8b989"></script>
+      <script src="../_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script data-domain="enccs.github.io/deep-learning-intro" defer="defer" src="https://plausible.io/js/script.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Reference for learners" href="../reference/" />
+    <link rel="prev" title="5. Transfer learning" href="../5-transfer-learning/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            Intro to Deep Learning
+              <img src="../_static/ENCCS.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Preparation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup/">Setup</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1-introduction/">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2-keras/">2. Classification by a neural network using Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3-monitor-the-model/">3. Monitor the training process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-advanced-layer-types/">4. Advanced layer types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5-transfer-learning/">5. Transfer learning</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">6. Outlook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#real-world-application">Real-world application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#organising-deep-learning-projects">Organising deep learning projects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#organise-experiments-in-notebooks">1. Organise experiments in notebooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-python-modules">2. Use Python modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#keep-track-of-your-results-in-a-central-place">3. Keep track of your results in a central place</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/">Reference for learners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../instructor-notes/">Instructor notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learner-profiles/">Learner profiles</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Intro to Deep Learning</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">6. Outlook</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ENCCS/deep-learning-intro/blob/sphinx/content/6-outlook.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="outlook">
+<h1>6. Outlook<a class="headerlink" href="#outlook" title="Link to this heading"></a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>How does what I learned in this course translate to real-world problems?</p></li>
+<li><p>How do I organise a deep learning project?</p></li>
+<li><p>What are next steps to take after this course?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Understand that what we learned in this course can be applied to real-world problems</p></li>
+<li><p>Use best practices for organising a deep learning project</p></li>
+<li><p>Identify next steps to take after this course</p></li>
+</ul>
+</div>
+<p>You have come to the end of this course.
+In this episode we will look back at what we have learned so far, how to apply that to real-world problems, and identify
+next steps to take to start applying deep learning in your own projects.</p>
+<section id="real-world-application">
+<h2>Real-world application<a class="headerlink" href="#real-world-application" title="Link to this heading"></a></h2>
+<p>To introduce the core concepts of deep learning we have used quite simple machine learning problems.
+But how does what we learned so far apply to real-world applications?</p>
+<p>To illustrate that what we learned is actually the basis of successful applications in research,
+we will have a look at an example from the field of <a class="reference external" href="https://en.wikipedia.org/wiki/Cheminformatics">cheminformatics</a>.</p>
+<div class="admonition-instructor instructor dropdown admonition" id="instructor-0">
+<p class="admonition-title">Instructor</p>
+<p>You don’t have to use this project as an example.
+It works best to use a suitable deep learning project that you know well and are passionate about.</p>
+</div>
+<p>We will have a look at <a class="reference external" href="https://github.com/matchms/ms2deepscore/blob/0.4.0/notebooks/MS2DeepScore_tutorial.ipynb">this notebook</a>.
+It is part of the codebase for <a class="reference external" href="https://doi.org/10.1186/s13321-021-00558-4">this paper</a>.</p>
+<p>In short, the deep learning problem is that of finding out how similar two molecules are in terms of their molecular properties,
+based on their mass spectrum.
+You can compare this to comparing two pictures of animals, and predicting how similar they are.</p>
+<p>A Siamese neural network is used to solve the problem.
+In a Siamese neural network you have two input vectors, let’s say two images of animals or two mass spectra.
+They pass through a base network. Instead of outputting a class or number with one or a few output neurons, the output layer
+of the base network is a whole vector of for example 100 neurons. After passing through the base network, you end up with two of these
+vectors representing the two inputs. The goal of the base network is to output a meaningful representation of the input (this is called an embedding).
+The next step is to compute the cosine similarity between these two output vectors,
+cosine similarity is a measure for how similar two vectors are to each other, ranging from 0 (completely different) to 1 (identical).
+This cosine similarity is compared to the actual similarity between the two inputs and this error is used to update the weights in the network.</p>
+<p>Don’t worry if you do not fully understand the deep learning problem and the approach that is taken here.
+We just want you to appreciate that you already learned enough to be able to do this yourself in your own domain.</p>
+<div class="admonition-exercise-a-real-world-deep-learning-application exercise important admonition" id="exercise-0">
+<p class="admonition-title">Exercise: A real-world deep learning application</p>
+<ol class="arabic simple">
+<li><p>Looking at the ‘Model training’ section of the notebook, what do you recognize from what you learned in this course?</p></li>
+<li><p>Can you identify the different steps of the deep learning workflow in this notebook?</p></li>
+<li><p>(Optional): Try to understand the neural network architecture from the first figure of <a class="reference external" href="https://doi.org/10.1186/s13321-021-00558-4">the paper</a>.
+a. Why are there 10.000 neurons in the input layer?
+b. What do you think would happen if you would decrease the size of spectral embedding layer drastically, to for example 5 neurons?</p></li>
+</ol>
+<div class="admonition-solution solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solution</p>
+<ol class="arabic simple">
+<li><p>The model summary for the Siamese model is more complex than what we have seen so far,
+but it is basically a repetition of Dense, BatchNorm, and Dropout layers.
+The syntax for training and evaluating the model is the same as what we learned in this course.
+EarlyStopping as well as the Adam optimizer is used.</p></li>
+<li><p>The different steps are not as clearly defined as in this course, but you should be able to identify ‘3: Data preparation’,
+‘4: Choose a pretrained model or start building architecture from scratch’, ‘5: Choose a loss function and optimizer’, ‘6: Train the model’,
+‘7: Make predictions’ (which is called ‘Model inference’ in this notebook), and ‘10: Save model’.</p></li>
+<li><p>(optional)
+a. Because the shape of the input is 10.000. More specifically, the spectrum is binned into a size 10.000 vector,
+apparently this is a good size to represent the mass spectrum.
+b. This would force the neural network to have a representation of the mass spectrum in only 5 numbers.
+This representation would probably be more generic, but might fail to capture all the characteristics found in the spectrum.
+This would likely result in underfitting.</p></li>
+</ol>
+</div>
+</div>
+<div class="docutils">
+<p>Hopefully you can appreciate that what you learned in this course, can be applied to real-world problems as well.</p>
+<div class="admonition-extensive-data-preparation callout admonition" id="callout-0">
+<p class="admonition-title">Extensive data preparation</p>
+<p>You might have noticed that the data preparation for this example is much more extensive than what we have done so far
+in this course. This is quite common for applied deep learning projects. It is said that 90% of the time in a
+deep learning problem is spent on data preparation, and only 10% on modeling!</p>
+</div>
+</div>
+<div class="admonition-discussion discussion important admonition" id="discussion-0">
+<p class="admonition-title">Discussion</p>
+<p class="rubric" id="bias-and-evaluation">Bias and Evaluation</p>
+<p>Bias has been discussed in the context of machine learning, deep learning and artificial intelligence frequently and on various levels.
+That is because there are many aspects to bias.
+One the one hand, bias is very technical: a model can be biased towards certain classes or certain features.
+On the other hand, this can have very practical and severe impact on the users of a such a model;
+for instance when it comes to misclassification in relation to color of the skin or geographical location.</p>
+<p>If such biases are reflected in a dataset that is used for model validation and testing, you might not be able to see them.
+In order to get an evaluation that is representative for the diversity found in the real world, it is therefore important to use a test set that reflects this diversity as much as possible.</p>
+<p>The need for such a dataset as opposed to existing datasets that mostly presumed Western standards has been one of the motivations for creating the Dollar Street Dataset – and why we have used it in this lesson.
+The creators <a class="reference external" href="https://papers.nips.cc/paper_files/paper/2022/hash/5474d9d43c0519aa176276ff2c1ca528-Abstract-Datasets_and_Benchmarks.html">have shown</a> that more diversity in a training dataset can contribute to significant model improvements.
+A model trained on a more diverse dataset is more robust against unexpected occurrences.</p>
+<p>Therefore, it is important to fully understand the quantitative evaluation of a new model:
+it reflects the model’s performance on the test set, but it does not say anything about how well that dataset represents the real world.
+Also be aware that such matters can be related to racism and other forms of discrimination.
+Depending on the use case, diversity can also refer to imbalance on other, more subtle and less sensitive dimensions.</p>
+<p><strong>Discuss the following statement with your neighbors:</strong></p>
+<ul class="simple">
+<li><p>What forms of bias and data imbalance can you think of?</p></li>
+<li><p>How would they affect the performance of a deep learning model?</p></li>
+</ul>
+</div>
+<div class="admonition-discussion discussion important admonition" id="discussion-1">
+<p class="admonition-title">Discussion</p>
+<p class="rubric" id="discussion-large-language-models-and-prompt-engineering">Discussion: Large Language Models and prompt engineering</p>
+<p>Large Language Models (LLMs) are deep learning models that are able to perform general-purpose language generation.
+They are trained on large amounts of texts, such all pages of Wikipedia.
+In recent years the quality of LLMs language understanding and generation has increased tremendously, and since the launch of generative chatbot ChatGPT in 2022 the power of LLMs is now appreciated by the general public.</p>
+<p>It is becoming more and more feasible to unleash this power in scientific research. For example, the authors of <a class="reference external" href="https://doi.org/10.1021/acscentsci.3c01087">Zheng et al. (2023)</a> guided ChatGPT in the automation of extracting chemical information from a large amount of research articles. The authors did not implement a deep learning model themselves, but instead they designed the right input for ChatGPT (called a ‘prompt’) that would produce optimal outputs. This is called prompt engineering. A highly simplified example of such a prompt would be: “Given compounds X and Y and context Z, what are the chemical details of the reaction?”</p>
+<p>Developments in LLM research are moving fast, at the end of 2023 the newest ChatGPT version <a class="reference external" href="https://openai.com/blog/chatgpt-can-now-see-hear-and-speak">could take images and sound as input</a>.
+In theory, this means that you can solve the Dollar Street image classification problem from the previous episode by prompt engineering, with prompts similar to “Which out of these categories: [LIST OF CATEGORIES] is depicted in the image”.</p>
+<p><strong>Discuss the following statement with your neighbors:</strong></p>
+<p><em>In a few years most machine learning problems in scientific research can be solved with prompt engineering.</em></p>
+</div>
+</section>
+<section id="organising-deep-learning-projects">
+<h2>Organising deep learning projects<a class="headerlink" href="#organising-deep-learning-projects" title="Link to this heading"></a></h2>
+<p>As you might have noticed already in this course, deep learning projects can quickly become messy.
+Here follow some best practices for keeping your projects organized:</p>
+<section id="organise-experiments-in-notebooks">
+<h3>1. Organise experiments in notebooks<a class="headerlink" href="#organise-experiments-in-notebooks" title="Link to this heading"></a></h3>
+<p>Jupyter notebooks are a useful tool for doing deep learning experiments.
+You can very easily modify your code bit by bit, and interactively look at the results.
+In addition you can explain why you are doing things in markdown cells.</p>
+<ul class="simple">
+<li><p>As a rule of thumb do one approach or experiment in one notebook.</p></li>
+<li><p>Give consistent and meaningful names to notebooks, such as: <code class="docutils literal notranslate"><span class="pre">01-all-cities-simple-cnn.ipynb</span></code></p></li>
+<li><p>Add a rationale on top and a conclusion on the bottom of each notebook</p></li>
+</ul>
+<p><a class="reference external" href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1007007"><em>Ten simple rules for writing and sharing computational analyses in Jupyter Notebooks</em></a> provides further advice on how to maximise the usefulness and reproducibility of experiments captured in a notebook.</p>
+</section>
+<section id="use-python-modules">
+<h3>2. Use Python modules<a class="headerlink" href="#use-python-modules" title="Link to this heading"></a></h3>
+<p>Code that is repeatedly used should live in a Python module and not be copied to multiple notebooks.
+You can import functions and classes from the module(s) in the notebooks.
+This way you can remove a lot of code definition from your notebooks and have a focus on the actual experiment.</p>
+</section>
+<section id="keep-track-of-your-results-in-a-central-place">
+<h3>3. Keep track of your results in a central place<a class="headerlink" href="#keep-track-of-your-results-in-a-central-place" title="Link to this heading"></a></h3>
+<p>Always evaluate your experiments in the same way, on the exact same test set.
+Document the results of your experiments in a consistent and meaningful way.
+You can use a simple spreadsheet such as this:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>MODEL NAME</p></th>
+<th class="head"><p>MODEL DESCRIPTION</p></th>
+<th class="head"><p>RMSE</p></th>
+<th class="head"><p>TESTSET NAME</p></th>
+<th class="head"><p>GITHUB COMMIT</p></th>
+<th class="head"><p>COMMENTS</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>weather_prediction_v1.0</p></td>
+<td><p>Basel features only, 10 years. nn: 100-50</p></td>
+<td><p>3.21</p></td>
+<td><p>10_years_v1.0</p></td>
+<td><p>ed28d85</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>weather_prediction_v1.1</p></td>
+<td><p>all features, 10 years. nn: 100-50</p></td>
+<td><p>3.35</p></td>
+<td><p>10_years_v1.0</p></td>
+<td><p>4427b78</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>You could also use a tool such as <a class="reference external" href="https://wandb.ai/site">Weights and Biases</a> for this.</p>
+<div class="admonition-cookiecutter-data-science callout admonition" id="callout-1">
+<p class="admonition-title">Cookiecutter data science</p>
+<p>If you want to get more pointers for organising deep learning, or data science projects in general,
+we recommend <a class="reference external" href="https://drivendata.github.io/cookiecutter-data-science/">Cookiecutter data science</a>.
+It is a template for initiating an organized data science project folder structure
+that you can adapt to your own needs.</p>
+</div>
+</section>
+</section>
+<section id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<p>You now understand the basic principles of deep learning and are able to implement your own deep learning pipelines in Python.
+But there is still so much to learn and do!</p>
+<p>Here are some suggestions for next steps you can take in your endeavor to become a deep learning expert:</p>
+<ul class="simple">
+<li><p>Learn more by going through a few of <a class="reference internal" href="#learners/reference.md#external-references"><span class="xref myst">the learning resources we have compiled for you</span></a></p></li>
+<li><p>Apply what you have learned to your own projects. Use the deep learning workflow to structure your work.
+Start as simple as possible, and incrementally increase the complexity of your approach.</p></li>
+<li><p>Compete in a <a class="reference external" href="https://www.kaggle.com/competitions">Kaggle competition</a> to practice what you have learned.</p></li>
+<li><p>Get access to a GPU. Your deep learning experiments will progress much quicker if you have to wait for your network to train
+in a few seconds instead of hours (which is the order of magnitude of speedup you can expect from training on a GPU instead of CPU).
+Tensorflow/Keras will automatically detect and use a GPU if it is available on your system without any code changes.
+A simple and quick way to get access to a GPU is to use <a class="reference external" href="https://colab.google/">Google Colab</a></p></li>
+</ul>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>Although the data preparation and model architectures are somewhat more complex,
+what we have learned in this course can directly be applied to real-world problems</p></li>
+<li><p>Use what you have learned in this course as a basis for your own learning trajectory in the world of deep learning</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../5-transfer-learning/" class="btn btn-neutral float-left" title="5. Transfer learning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../reference/" class="btn btn-neutral float-right" title="Reference for learners" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

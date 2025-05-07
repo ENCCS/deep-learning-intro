@@ -1,0 +1,181 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instructor notes &mdash; Intro to Deep Learning  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+      <link rel="stylesheet" type="text/css" href="../_static/overrides.css?v=345019e7" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=187304be"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=35a8b989"></script>
+      <script src="../_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script data-domain="enccs.github.io/deep-learning-intro" defer="defer" src="https://plausible.io/js/script.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Learner profiles" href="../learner-profiles/" />
+    <link rel="prev" title="Reference for learners" href="../reference/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            Intro to Deep Learning
+              <img src="../_static/ENCCS.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Preparation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup/">Setup</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../1-introduction/">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2-keras/">2. Classification by a neural network using Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3-monitor-the-model/">3. Monitor the training process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-advanced-layer-types/">4. Advanced layer types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5-transfer-learning/">5. Transfer learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6-outlook/">6. Outlook</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../reference/">Reference for learners</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Instructor notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setup-before-the-lesson">Setup before the lesson</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deep-learning-workflow">Deep learning workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#episode-3-monitor-the-training-process">Episode 3: Monitor the training process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#presentation-slides">Presentation slides</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../learner-profiles/">Learner profiles</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Intro to Deep Learning</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Instructor notes</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ENCCS/deep-learning-intro/blob/sphinx/content/instructor-notes.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="instructor-notes">
+<h1>Instructor notes<a class="headerlink" href="#instructor-notes" title="Link to this heading"></a></h1>
+<section id="setup-before-the-lesson">
+<h2>Setup before the lesson<a class="headerlink" href="#setup-before-the-lesson" title="Link to this heading"></a></h2>
+<p>The required python packages for this lesson often result in installation issues,
+so it is advisable to organize a pre-workshop setup session where learners can show their installation and get help with problems.</p>
+<p>Installations on learners’ devices have the advantage of lowering the threshold to continue with the material beyond the workshop. Note though, that this lesson can also be taught on a cloud environment such as <a class="reference external" href="https://colab.research.google.com/">Google colab</a> or <a class="reference external" href="https://github.com/carpentries/scaffolds/blob/master/instructions/workshop-coordination.md#my-binder">My Binder</a>. This can serve as a backup environment if local installations fail. Some cloud environments offer the possibility to run the code on a GPU, which significantly increases the runtime of deep learning code.</p>
+</section>
+<section id="deep-learning-workflow">
+<h2>Deep learning workflow<a class="headerlink" href="#deep-learning-workflow" title="Link to this heading"></a></h2>
+<p>The episodes are quite long, because they cover a full cycle of the deep learning workflow. It really helps to structure your teaching by making it clear where in the 10-step deep learning workflow we are. You can for example use headers in your notebook for each of the steps in the workflow.</p>
+</section>
+<section id="episode-3-monitor-the-training-process">
+<h2>Episode 3: Monitor the training process<a class="headerlink" href="#episode-3-monitor-the-training-process" title="Link to this heading"></a></h2>
+<p>When episode 3 is taught on a different day then episode 2, it is very useful to start with a recap of episode 2. The Key Points of episode 2 can be iterated, and you can go through the code of the previous session (without actually running it). This will help learners in the big exercise on creating a neural network.</p>
+<p>The following exercises work well to do in groups / break-out rooms:</p>
+<ul class="simple">
+<li><p>Split data into training, validation, and test set</p></li>
+<li><p>Create the neural network. Note that this is a fairly challenging exercise, but learners should be able to do this based on their experiences in episode 2 (see also remark about recap).</p></li>
+<li><p>Predict the labels for both training and test set and compare to the true values</p></li>
+<li><p>Try to reduce the degree of overfitting by lowering the number of parameters</p></li>
+<li><p>Create a similar scatter plot for a reasonable baseline</p></li>
+<li><p>Open question: What could be next steps to further improve the model?
+All other exercises are small and can be done individually.</p></li>
+</ul>
+</section>
+<section id="presentation-slides">
+<h2>Presentation slides<a class="headerlink" href="#presentation-slides" title="Link to this heading"></a></h2>
+<p>There are no official presentation slides for this lesson, but this material does include some example
+slides from when this course was taught by different institutions. These slides can be found in
+the
+<a class="reference external" href="https://github.com/carpentries-incubator/deep-learning-intro/tree/main/instructors/slides">slides</a>
+folder.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../reference/" class="btn btn-neutral float-left" title="Reference for learners" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../learner-profiles/" class="btn btn-neutral float-right" title="Learner profiles" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

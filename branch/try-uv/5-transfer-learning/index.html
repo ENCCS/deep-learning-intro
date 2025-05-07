@@ -1,0 +1,389 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5. Transfer learning &mdash; Intro to Deep Learning  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=0c089442" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+      <link rel="stylesheet" type="text/css" href="../_static/overrides.css?v=345019e7" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=187304be"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=35a8b989"></script>
+      <script src="../_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="6. Outlook" href="../6-outlook/" />
+    <link rel="prev" title="4. Advanced layer types" href="../4-advanced-layer-types/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            Intro to Deep Learning
+              <img src="../_static/ENCCS.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Preparation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup/">Setup</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1-introduction/">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2-keras/">2. Classification by a neural network using Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3-monitor-the-model/">3. Monitor the training process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4-advanced-layer-types/">4. Advanced layer types</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Transfer learning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-transfer-learning">What is transfer learning?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#formulate-outline-the-problem">1. Formulate / Outline the problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#identify-inputs-and-outputs">2. Identify inputs and outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prepare-the-data">3. Prepare the data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#choose-a-pre-trained-model-or-start-building-architecture-from-scratch">4. Choose a pre-trained model or start building architecture from scratch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#only-train-a-head-network">Only train a ‘head’ network</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#concluding-the-power-of-transfer-learning">Concluding: The power of transfer learning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../6-outlook/">6. Outlook</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/">Reference for learners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../instructor-notes/">Instructor notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learner-profiles/">Learner profiles</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Intro to Deep Learning</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">5. Transfer learning</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ENCCS/deep-learning-intro/blob/sphinx/content/5-transfer-learning.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="transfer-learning">
+<h1>5. Transfer learning<a class="headerlink" href="#transfer-learning" title="Link to this heading"></a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>How do I apply a pre-trained model to my data?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Adapt a state-of-the-art pre-trained network to your own dataset</p></li>
+</ul>
+</div>
+<section id="what-is-transfer-learning">
+<h2>What is transfer learning?<a class="headerlink" href="#what-is-transfer-learning" title="Link to this heading"></a></h2>
+<p>Instead of training a model from scratch, with transfer learning you make use of models that are trained on another machine learning task. The pre-trained network captures generic knowledge during pre-training and will only be ‘fine-tuned’ to the specifics of your dataset.</p>
+<p>An example: Let’s say that you want to train a model to classify images of different dog breeds. You could make use of a pre-trained network that learned how to classify images of dogs and cats. The pre-trained network will not know anything about different dog breeds, but it will have captured some general knowledge of, on a high-level, what dogs look like, and on a low-level all the different features (eyes, ears, paws, fur) that make up an image of a dog. Further training this model on your dog breed dataset is a much easier task than training from scratch, because the model can use the general knowledge captured in the pre-trained network.</p>
+<p><img alt="" class="align-center" src="../_images/05-transfer_learning.png" /></p>
+<!-- 
+Edit this plot using the Mermaid live editor:
+1. Open this link that includes the source code of the chart to open the live editor web interface:
+https://mermaid.live/edit#pako:eNpVkE1vgzAMhv9K5MPUSrQKAWUlh0kr9NZetp02drAgUCRIqhC0dZT_vizso_PJb_zYr-MRCl1KEFC1-q04orFk_5Ar4uL-ZZHpuic3JEXbkwwtLl_JanVHLk8GG0UOrrO9kO3CJ-QKXs4T0tGBqq-kIXuJRjWqnubK1s9JZ5F5I7I1Upb_fL7rqRe7a8g7LiGATpoOm9J9YPyCc7BH2ckchEtLWeHQ2hxyNTkUB6sfz6oAYc0gAzB6qI8gKmx7p4ZTiVZmDdYGu9_XE6pnrf-0LBurzWE-mb-cZ0CM8A5iRdfUBeObmEZJzKOEJRHnUQBnECwK15zRMGJxzNkmoXwK4MMPD30bpSHjt5SHSfyzzs7bzQtPn9Xpf_E
+2. Make changes to the chart as desired in the live editor
+3. Download the newly created diagram from the live editor (Actions / PNG) and replace the existing image in the episode folder (episodes/fig/05-transfer_learning.png)
+4. (optional) crop the image to remove the white space around the plot in a separate image editor
+5. Update the URL in step 1 of this comment to the new URL of the live editor
+-->
+<p>In this episode we will learn how use Keras to adapt a state-of-the-art pre-trained model to the <a class="reference external" href="https://zenodo.org/records/10970014">Dollar Street Dataset</a>.</p>
+</section>
+<section id="formulate-outline-the-problem">
+<h2>1. Formulate / Outline the problem<a class="headerlink" href="#formulate-outline-the-problem" title="Link to this heading"></a></h2>
+<p>Just like in the previous episode, we use the Dollar Street 10 dataset.</p>
+<p>We load the data in the same way as the previous episode:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">DATA_FOLDER</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;data/dataset_dollarstreet/&#39;</span><span class="p">)</span> <span class="c1"># change to location where you stored the data</span>
+<span class="n">train_images</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">DATA_FOLDER</span> <span class="o">/</span> <span class="s1">&#39;train_images.npy&#39;</span><span class="p">)</span>
+<span class="n">val_images</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">DATA_FOLDER</span> <span class="o">/</span> <span class="s1">&#39;test_images.npy&#39;</span><span class="p">)</span>
+<span class="n">train_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">DATA_FOLDER</span> <span class="o">/</span> <span class="s1">&#39;train_labels.npy&#39;</span><span class="p">)</span>
+<span class="n">val_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">DATA_FOLDER</span> <span class="o">/</span> <span class="s1">&#39;test_labels.npy&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="identify-inputs-and-outputs">
+<h2>2. Identify inputs and outputs<a class="headerlink" href="#identify-inputs-and-outputs" title="Link to this heading"></a></h2>
+<p>As discussed in the previous episode, the input are images of dimension 64 x 64 pixels with 3 colour channels each.
+The goal is to predict one out of 10 classes to which the image belongs.</p>
+</section>
+<section id="prepare-the-data">
+<h2>3. Prepare the data<a class="headerlink" href="#prepare-the-data" title="Link to this heading"></a></h2>
+<p>We prepare the data as before, scaling the values between 0 and 1.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span> <span class="o">/</span> <span class="mf">255.0</span>
+<span class="n">val_images</span> <span class="o">=</span> <span class="n">val_images</span> <span class="o">/</span> <span class="mf">255.0</span>
+</pre></div>
+</div>
+</section>
+<section id="choose-a-pre-trained-model-or-start-building-architecture-from-scratch">
+<h2>4. Choose a pre-trained model or start building architecture from scratch<a class="headerlink" href="#choose-a-pre-trained-model-or-start-building-architecture-from-scratch" title="Link to this heading"></a></h2>
+<p>Let’s define our model input layer using the shape of our training images:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># input tensor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">keras</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">train_images</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+</pre></div>
+</div>
+<p>Our images are 64 x 64 pixels, whereas the pre-trained model that we will use was
+trained on images of 160 x 160 pixels.
+To adapt our data accordingly, we add an upscale layer that resizes the images to 160 x 160 pixels during training and prediction.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># upscale layer</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span>
+<span class="n">method</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">ResizeMethod</span><span class="o">.</span><span class="n">BILINEAR</span>
+<span class="n">upscale</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Lambda</span><span class="p">(</span>
+  <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">resize_with_pad</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">))(</span><span class="n">inputs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>From the <code class="docutils literal notranslate"><span class="pre">keras.applications</span></code> module we use the <code class="docutils literal notranslate"><span class="pre">DenseNet121</span></code> architecture.
+This architecture was proposed by the paper: <a class="reference external" href="https://arxiv.org/abs/1608.06993">Densely Connected Convolutional Networks (CVPR 2017)</a>. It is trained on the <a class="reference external" href="https://www.image-net.org/">Imagenet</a> dataset, which contains 14,197,122 annotated images according to the WordNet hierarchy with over 20,000 classes.</p>
+<p>We will have a look at the architecture later, for now it is enough to know
+that it is a convolutional neural network with 121 layers that was designed
+to work well on image classification tasks.</p>
+<p>Let’s configure the DenseNet121:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">base_model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">DenseNet121</span><span class="p">(</span><span class="n">include_top</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                            <span class="n">pooling</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">,</span>
+                                            <span class="n">weights</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">,</span>
+                                            <span class="n">input_tensor</span><span class="o">=</span><span class="n">upscale</span><span class="p">,</span>
+                                            <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span><span class="mi">160</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
+                                            <span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition-ssl-certificate-verify-failed-error callout admonition" id="callout-0">
+<p class="admonition-title">SSL: certificate verify failed error</p>
+<p>If you get the following error message: <code class="docutils literal notranslate"><span class="pre">certificate</span> <span class="pre">verify</span> <span class="pre">failed:</span> <span class="pre">unable</span> <span class="pre">to</span> <span class="pre">get</span> <span class="pre">local</span> <span class="pre">issuer</span> <span class="pre">certificate</span></code>,
+you can download <a class="reference external" href="https://storage.googleapis.com/tensorflow/keras-applications/densenet/densenet121_weights_tf_dim_ordering_tf_kernels_notop.h5">the weights of the model manually</a>
+and then load in the weights from the downloaded file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">base_model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">DenseNet121</span><span class="p">(</span>
+    <span class="n">include_top</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">pooling</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">,</span>
+    <span class="n">weights</span><span class="o">=</span><span class="s1">&#39;densenet121_weights_tf_dim_ordering_tf_kernels_notop.h5&#39;</span><span class="p">,</span> <span class="c1"># this should refer to the weights file you downloaded</span>
+    <span class="n">input_tensor</span><span class="o">=</span><span class="n">upscale</span><span class="p">,</span>
+    <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span><span class="mi">160</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>By setting <code class="docutils literal notranslate"><span class="pre">include_top</span></code> to <code class="docutils literal notranslate"><span class="pre">False</span></code> we exclude the fully connected layer at the
+top of the network, hence the final output layer. This layer was used to predict the Imagenet classes,
+but will be of no use for our Dollar Street dataset.
+Note that the ‘top layer’ appears at the bottom in the output of <code class="docutils literal notranslate"><span class="pre">model.summary()</span></code>.</p>
+<p>We add <code class="docutils literal notranslate"><span class="pre">pooling='max'</span></code> so that max pooling is applied to the output of the DenseNet121 network.</p>
+<p>By setting <code class="docutils literal notranslate"><span class="pre">weights='imagenet'</span></code> we use the weights that resulted from training
+this network on the Imagenet data.</p>
+<p>We connect the network to the <code class="docutils literal notranslate"><span class="pre">upscale</span></code> layer that we defined before.</p>
+<section id="only-train-a-head-network">
+<h3>Only train a ‘head’ network<a class="headerlink" href="#only-train-a-head-network" title="Link to this heading"></a></h3>
+<p>Instead of fine-tuning all the weights of the DenseNet121 network using our dataset,
+we choose to freeze all these weights and only train a so-called ‘head network’
+that sits on top of the pre-trained network. You can see the DenseNet121 network
+as extracting a meaningful feature representation from our image. The head network
+will then be trained to decide on which of the 10 Dollar Street dataset classes the image belongs.</p>
+<p>We will turn of the <code class="docutils literal notranslate"><span class="pre">trainable</span></code> property of the base model:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">base_model</span><span class="o">.</span><span class="n">trainable</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p>Let’s define our ‘head’ network:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">base_model</span><span class="o">.</span><span class="n">output</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Flatten</span><span class="p">()(</span><span class="n">out</span><span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">out</span><span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">out</span><span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">out</span><span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">)(</span><span class="n">out</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally we define our model:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition-inspect-the-densenet121-network exercise important admonition" id="exercise-0">
+<p class="admonition-title">Inspect the DenseNet121 network</p>
+<p>Have a look at the network architecture with <code class="docutils literal notranslate"><span class="pre">model.summary()</span></code>.
+It is indeed a deep network, so expect a long summary!</p>
+<p class="rubric" id="trainable-parameters">1.Trainable parameters</p>
+<p>How many parameters are there? How many of them are trainable?</p>
+<p>Why is this and how does it effect the time it takes to train the model?</p>
+<p class="rubric" id="head-and-base">2. Head and base</p>
+<p>Can you see in the model summary which part is the base network and which part is the head network?</p>
+<p class="rubric" id="max-pooling">3. Max pooling</p>
+<p>Which layer is added because we provided <code class="docutils literal notranslate"><span class="pre">pooling='max'</span></code> as argument for <code class="docutils literal notranslate"><span class="pre">DenseNet121()</span></code>?</p>
+</div>
+<div class="admonition-solutions solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solutions</p>
+<p class="rubric" id="id1">1. Trainable parameters</p>
+<p>Total number of parameters: 7093360, out of which only 53808 are trainable.</p>
+<p>The 53808 trainable parameters are the weights of the head network. All other parameters are ‘frozen’ because we set <code class="docutils literal notranslate"><span class="pre">base_model.trainable=False</span></code>. Because only a small proportion of the parameters have to be updated at each training step, this will greatly speed up training time.</p>
+<p class="rubric" id="id2">2. Head and base</p>
+<p>The head network starts at the <code class="docutils literal notranslate"><span class="pre">flatten</span></code> layer, 5 layers before the final layer.</p>
+<p class="rubric" id="id3">3. Max pooling</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">max_pool</span></code> layer right before the <code class="docutils literal notranslate"><span class="pre">flatten</span></code> layer is added because we provided <code class="docutils literal notranslate"><span class="pre">pooling='max'</span></code>.</p>
+</div>
+<div class="admonition-training-and-evaluating-the-pre-trained-model exercise important admonition" id="exercise-1">
+<p class="admonition-title">Training and evaluating the pre-trained model</p>
+<p class="rubric" id="compile-the-model">1. Compile the model</p>
+<p>Compile the model:</p>
+<ul class="simple">
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">adam</span></code> optimizer</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">SparseCategoricalCrossentropy</span></code> loss with <code class="docutils literal notranslate"><span class="pre">from_logits=True</span></code>.</p></li>
+<li><p>Use ‘accuracy’ as a metric.</p></li>
+</ul>
+<p class="rubric" id="train-the-model">2. Train the model</p>
+<p>Train the model on the training dataset:</p>
+<ul class="simple">
+<li><p>Use a batch size of 32</p></li>
+<li><p>Train for 30 epochs, but use an earlystopper with a patience of 5</p></li>
+<li><p>Pass the validation dataset as validation data so we can monitor performance on the validation data during training</p></li>
+<li><p>Store the result of training in a variable called <code class="docutils literal notranslate"><span class="pre">history</span></code></p></li>
+<li><p>Training can take a while, it is a much larger model than what we have seen so far.</p></li>
+</ul>
+<p class="rubric" id="inspect-the-results">3. Inspect the results</p>
+<p>Plot the training history and evaluate the trained model. What do you think of the results?</p>
+<p class="rubric" id="optional-try-out-other-pre-trained-neural-networks">4. (Optional) Try out other pre-trained neural networks</p>
+<p>Train and evaluate another pre-trained model from https://keras.io/api/applications/. How does it compare to DenseNet121?</p>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-1">
+<p class="admonition-title">Solution</p>
+<p class="rubric" id="id4">1. Compile the model</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span>
+              <span class="n">loss</span><span class="o">=</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">SparseCategoricalCrossentropy</span><span class="p">(</span><span class="n">from_logits</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="rubric" id="id5">2. Train the model</p>
+<p>Define the early stopper:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">early_stopper</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">EarlyStopping</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_accuracy&#39;</span><span class="p">,</span>
+                              <span class="n">patience</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Train the model:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">train_images</span><span class="p">,</span>
+                    <span class="n">y</span><span class="o">=</span><span class="n">train_labels</span><span class="p">,</span>
+                    <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+                    <span class="n">epochs</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+                    <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">early_stopper</span><span class="p">],</span>
+                    <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_images</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="rubric" id="id6">3. Inspect the results</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_history</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">metrics</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot the training history</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        history (keras History object that is returned by model.fit())</span>
+<span class="sd">        metrics(str, list): Metric or a list of metrics to plot</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">history_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">history_df</span><span class="p">[</span><span class="n">metrics</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;epochs&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;metric&quot;</span><span class="p">)</span>
+
+<span class="n">plot_history</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;val_accuracy&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><img alt="" class="align-center" src="../_images/05_training_history_transfer_learning.png" />
+The final validation accuracy reaches 64%, this is a huge improvement over 30% accuracy we reached with the simple convolutional neural network that we build from scratch in the previous episode.</p>
+</div>
+</section>
+</section>
+<section id="concluding-the-power-of-transfer-learning">
+<h2>Concluding: The power of transfer learning<a class="headerlink" href="#concluding-the-power-of-transfer-learning" title="Link to this heading"></a></h2>
+<p>In many domains, large networks are available that have been trained on vast amounts of data, such as in computer vision and natural language processing. Using transfer learning, you can benefit from the knowledge that was captured from another machine learning task. In many fields, transfer learning will outperform models trained from scratch, especially if your dataset is small or of poor quality.</p>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>Large pre-trained models capture generic knowledge about a domain</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">keras.applications</span></code> module to easily use pre-trained models for your own datasets</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../4-advanced-layer-types/" class="btn btn-neutral float-left" title="4. Advanced layer types" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../6-outlook/" class="btn btn-neutral float-right" title="6. Outlook" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

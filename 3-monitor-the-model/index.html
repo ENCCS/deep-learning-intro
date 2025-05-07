@@ -1,0 +1,1162 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3. Monitor the training process &mdash; Intro to Deep Learning  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+      <link rel="stylesheet" type="text/css" href="../_static/overrides.css?v=345019e7" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=187304be"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=35a8b989"></script>
+      <script src="../_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script data-domain="enccs.github.io/deep-learning-intro" defer="defer" src="https://plausible.io/js/script.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="4. Advanced layer types" href="../4-advanced-layer-types/" />
+    <link rel="prev" title="2. Classification by a neural network using Keras" href="../2-keras/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            Intro to Deep Learning
+              <img src="../_static/ENCCS.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Preparation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup/">Setup</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1-introduction/">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2-keras/">2. Classification by a neural network using Keras</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Monitor the training process</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#formulate-outline-the-problem-weather-prediction">1. Formulate / Outline the problem: weather prediction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#identify-inputs-and-outputs">2. Identify inputs and outputs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#import-dataset">Import Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#brief-exploration-of-the-data">Brief exploration of the data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#prepare-data">3. Prepare data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#select-a-subset-and-split-into-data-x-and-labels-y">Select a subset and split into data (X) and labels (y)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#split-data-and-labels-into-training-validation-and-test-set">Split data and labels into training, validation, and test set</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#choose-a-pretrained-model-or-start-building-architecture-from-scratch">4. Choose a pretrained model or start building architecture from scratch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#regression-and-classification">Regression and classification</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#choose-a-loss-function-and-optimizer">5. Choose a loss function and optimizer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#loss-function">Loss function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#optimizer">Optimizer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#metrics">Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#train-the-model">6. Train the model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#perform-a-prediction-classification">7. Perform a Prediction/Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#measure-performance">8. Measure performance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#set-expectations-how-difficult-is-the-defined-problem">Set expectations: How difficult is the defined problem?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#refine-the-model">9. Refine the model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#watch-your-model-training-closely">Watch your model training closely</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-on-test-set-and-compare-to-naive-baseline">Run on test set and compare to naive baseline</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#save-model">10. Save model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#outlook">Outlook</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../4-advanced-layer-types/">4. Advanced layer types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5-transfer-learning/">5. Transfer learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6-outlook/">6. Outlook</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/">Reference for learners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../instructor-notes/">Instructor notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../learner-profiles/">Learner profiles</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Intro to Deep Learning</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">3. Monitor the training process</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ENCCS/deep-learning-intro/blob/sphinx/content/3-monitor-the-model.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="monitor-the-training-process">
+<h1>3. Monitor the training process<a class="headerlink" href="#monitor-the-training-process" title="Link to this heading"></a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>How do I create a neural network for a regression task?</p></li>
+<li><p>How does optimization work?</p></li>
+<li><p>How do I monitor the training process?</p></li>
+<li><p>How do I detect (and avoid) overfitting?</p></li>
+<li><p>What are common options to improve the model performance?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Explain the importance of keeping your test set clean, by validating on the validation set instead of the test set</p></li>
+<li><p>Use the data splits to plot the training process</p></li>
+<li><p>Explain how optimization works</p></li>
+<li><p>Design a neural network for a regression task</p></li>
+<li><p>Measure the performance of your deep neural network</p></li>
+<li><p>Interpret the training plots to recognize overfitting</p></li>
+<li><p>Use normalization as preparation step for deep learning</p></li>
+<li><p>Implement basic strategies to prevent overfitting</p></li>
+</ul>
+</div>
+<div class="admonition-copy-pasting-code instructor dropdown admonition" id="instructor-0">
+<p class="admonition-title">Copy-pasting code</p>
+<p>In this episode we first introduce a simple approach to the problem,
+then we iterate on that a few times to, step-by-step,
+working towards a more complex solution.
+Unfortunately, this involves using the same code repeatedly over and over again,
+only slightly adapting it.</p>
+<p>To avoid too much typing, it can help to copy-paste code from higher up in the notebook.
+Be sure to make it clear where you are copying from
+and what you are actually changing in the copied code.
+It can for example help to add a comment to the lines that you added.</p>
+</div>
+<p>In this episode we will explore how to monitor the training progress, evaluate our the model predictions and finetune the model to avoid over-fitting. For that we will use a more complicated weather data-set.</p>
+<section id="formulate-outline-the-problem-weather-prediction">
+<h2>1. Formulate / Outline the problem: weather prediction<a class="headerlink" href="#formulate-outline-the-problem-weather-prediction" title="Link to this heading"></a></h2>
+<p>Here we want to work with the <em>weather prediction dataset</em> (the light version) which can be
+<a class="reference external" href="https://doi.org/10.5281/zenodo.5071376">downloaded from Zenodo</a>.
+It contains daily weather observations from 11 different European cities or places through the
+years 2000 to 2010. For all locations the data contains the variables ‘mean temperature’, ‘max temperature’, and ‘min temperature’. In addition, for multiple locations, the following variables are provided: ‘cloud_cover’, ‘wind_speed’, ‘wind_gust’, ‘humidity’, ‘pressure’, ‘global_radiation’, ‘precipitation’, ‘sunshine’, but not all of them are provided for every location. A more extensive description of the dataset including the different physical units is given in accompanying metadata file. The full dataset comprises of 10 years (3654 days) of collected weather data across Europe.</p>
+<p><img alt="" class="align-center" src="../_images/03_weather_prediction_dataset_map.png" /></p>
+<div class="note docutils">
+<p>European locations in the weather prediction dataset</p>
+</div>
+<p>A very common task with weather data is to make a prediction about the weather sometime in the future, say the next day. In this episode, we will try to predict tomorrow’s sunshine hours, a challenging-to-predict feature, using a neural network with the available weather data for one location: BASEL.</p>
+</section>
+<section id="identify-inputs-and-outputs">
+<h2>2. Identify inputs and outputs<a class="headerlink" href="#identify-inputs-and-outputs" title="Link to this heading"></a></h2>
+<section id="import-dataset">
+<h3>Import Dataset<a class="headerlink" href="#import-dataset" title="Link to this heading"></a></h3>
+<p>We will now import and explore the weather data-set:</p>
+<div class="admonition-load-the-data callout admonition" id="callout-0">
+<p class="admonition-title">Load the data</p>
+<p>If you have not downloaded the data yet, you can also load it directly from Zenodo:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://zenodo.org/record/5071376/files/weather_prediction_dataset_light.csv?download=1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>SSL certificate error</strong></p>
+<!-- Using H4 here because H3 renders to big compared to the title of the callout -->
+<p>If you get the following error message: <code class="docutils literal notranslate"><span class="pre">certificate</span> <span class="pre">verify</span> <span class="pre">failed:</span> <span class="pre">unable</span> <span class="pre">to</span> <span class="pre">get</span> <span class="pre">local</span> <span class="pre">issuer</span> <span class="pre">certificate</span></code>,
+you can download <a class="reference external" href="https://zenodo.org/record/5071376/files/weather_prediction_dataset_light.csv?download=1">the data from here manually</a>
+into a local folder and load the data using the code below.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">filename_data</span> <span class="o">=</span> <span class="s2">&quot;weather_prediction_dataset_light.csv&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename_data</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p></p></th>
+<th class="head text-right"><p>DATE</p></th>
+<th class="head text-right"><p>MONTH</p></th>
+<th class="head text-right"><p>BASEL_cloud_cover</p></th>
+<th class="head text-right"><p>BASEL_humidity</p></th>
+<th class="head text-right"><p>BASEL_pressure</p></th>
+<th class="head text-right"><p>…</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>0</p></td>
+<td class="text-right"><p>20000101</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>8</p></td>
+<td class="text-right"><p>0.89</p></td>
+<td class="text-right"><p>1.0286</p></td>
+<td class="text-right"><p>…</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>1</p></td>
+<td class="text-right"><p>20000102</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>8</p></td>
+<td class="text-right"><p>0.87</p></td>
+<td class="text-right"><p>1.0318</p></td>
+<td class="text-right"><p>…</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>2</p></td>
+<td class="text-right"><p>20000103</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>5</p></td>
+<td class="text-right"><p>0.81</p></td>
+<td class="text-right"><p>1.0314</p></td>
+<td class="text-right"><p>…</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>3</p></td>
+<td class="text-right"><p>20000104</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>7</p></td>
+<td class="text-right"><p>0.79</p></td>
+<td class="text-right"><p>1.0262</p></td>
+<td class="text-right"><p>…</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>4</p></td>
+<td class="text-right"><p>20000105</p></td>
+<td class="text-right"><p>1</p></td>
+<td class="text-right"><p>5</p></td>
+<td class="text-right"><p>0.90</p></td>
+<td class="text-right"><p>1.0246</p></td>
+<td class="text-right"><p>…</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="brief-exploration-of-the-data">
+<h3>Brief exploration of the data<a class="headerlink" href="#brief-exploration-of-the-data" title="Link to this heading"></a></h3>
+<p>Let us start with a quick look at the type of features that we find in the data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+<div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">Index([&#39;DATE&#39;, &#39;MONTH&#39;, &#39;BASEL_cloud_cover&#39;, &#39;BASEL_humidity&#39;,</span>
+<span class="go">       &#39;BASEL_pressure&#39;, &#39;BASEL_global_radiation&#39;, &#39;BASEL_precipitation&#39;,</span>
+<span class="go">       &#39;BASEL_sunshine&#39;, &#39;BASEL_temp_mean&#39;, &#39;BASEL_temp_min&#39;, &#39;BASEL_temp_max&#39;,</span>
+<span class="go">        ...</span>
+<span class="go">       &#39;SONNBLICK_temp_min&#39;, &#39;SONNBLICK_temp_max&#39;, &#39;TOURS_humidity&#39;,</span>
+<span class="go">       &#39;TOURS_pressure&#39;, &#39;TOURS_global_radiation&#39;, &#39;TOURS_precipitation&#39;,</span>
+<span class="go">       &#39;TOURS_temp_mean&#39;, &#39;TOURS_temp_min&#39;, &#39;TOURS_temp_max&#39;],</span>
+<span class="go">      dtype=&#39;object&#39;)</span>
+</pre></div>
+</div>
+<p>There is a total of 9 different measured variables (global_radiation, humidity, etcetera)</p>
+<p>Let’s have a look at the shape of the dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">(3654, 91)</span>
+</pre></div>
+</div>
+<p>This will give both the number of samples (3654) and the number of features (89 + month +
+date).</p>
+<p>For any row <code class="docutils literal notranslate"><span class="pre">i</span></code>, we will use the values of all fields except <code class="docutils literal notranslate"><span class="pre">MONTH</span></code> and <code class="docutils literal notranslate"><span class="pre">DATE</span></code> as the input features <code class="docutils literal notranslate"><span class="pre">X</span></code>.
+We want to use them to forecast the number of sunshine hours of the next day,
+hence we use the value of the field <code class="docutils literal notranslate"><span class="pre">BASEL_sunshine</span></code> in the <em>subsequent</em> row (<code class="docutils literal notranslate"><span class="pre">i+1</span></code>) as the label that we want to predict (<code class="docutils literal notranslate"><span class="pre">y</span></code>).</p>
+</section>
+</section>
+<section id="prepare-data">
+<h2>3. Prepare data<a class="headerlink" href="#prepare-data" title="Link to this heading"></a></h2>
+<section id="select-a-subset-and-split-into-data-x-and-labels-y">
+<h3>Select a subset and split into data (X) and labels (y)<a class="headerlink" href="#select-a-subset-and-split-into-data-x-and-labels-y" title="Link to this heading"></a></h3>
+<p>The full dataset comprises of 10 years (3654 days) from which we will select only the first 3 years. The present dataset is sorted by “DATE”, so for each row <code class="docutils literal notranslate"><span class="pre">i</span></code> in the table we can pick a corresponding feature and location from row <code class="docutils literal notranslate"><span class="pre">i+1</span></code> that we later want to predict with our model. As outlined in step 1, we would like to predict the sunshine hours for the location: BASEL.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nr_rows</span> <span class="o">=</span> <span class="mi">365</span><span class="o">*</span><span class="mi">3</span> <span class="c1"># 3 years</span>
+<span class="c1"># data</span>
+<span class="n">X_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">nr_rows</span><span class="p">]</span> <span class="c1"># Select first 3 years</span>
+<span class="n">X_data</span> <span class="o">=</span> <span class="n">X_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;DATE&#39;</span><span class="p">,</span> <span class="s1">&#39;MONTH&#39;</span><span class="p">])</span> <span class="c1"># Drop date and month column</span>
+
+<span class="c1"># labels (sunshine hours the next day)</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">:(</span><span class="n">nr_rows</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)][</span><span class="s2">&quot;BASEL_sunshine&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>In general, it is important to check if the data contains any unexpected values such as <code class="docutils literal notranslate"><span class="pre">9999</span></code> or <code class="docutils literal notranslate"><span class="pre">NaN</span></code> or <code class="docutils literal notranslate"><span class="pre">NoneType</span></code>. You can use the pandas <code class="docutils literal notranslate"><span class="pre">data.describe()</span></code> or <code class="docutils literal notranslate"><span class="pre">data.isnull()</span></code> function for this. If so, such values must be removed or replaced.
+In the present case the data is luckily well prepared and shouldn’t contain such values, so that this step can be omitted.</p>
+</section>
+<section id="split-data-and-labels-into-training-validation-and-test-set">
+<h3>Split data and labels into training, validation, and test set<a class="headerlink" href="#split-data-and-labels-into-training-validation-and-test-set" title="Link to this heading"></a></h3>
+<p>As with classical machine learning techniques, it is required in deep learning to split off a hold-out <em>test set</em> which remains untouched during model training and tuning. It is later used to evaluate the model performance. On top, we will also split off an additional <em>validation set</em>, the reason of which will hopefully become clearer later in this lesson.</p>
+<p>To make our lives a bit easier, we employ a trick to create these 3 datasets, <code class="docutils literal notranslate"><span class="pre">training</span> <span class="pre">set</span></code>, <code class="docutils literal notranslate"><span class="pre">test</span> <span class="pre">set</span></code> and <code class="docutils literal notranslate"><span class="pre">validation</span> <span class="pre">set</span></code>, by calling the <code class="docutils literal notranslate"><span class="pre">train_test_split</span></code> method of <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> twice.</p>
+<p>First we create the training set and leave the remainder of 30 % of the data to the two hold-out sets.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_holdout</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_holdout</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we split the 30 % of the data in two equal sized parts.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_val</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_holdout</span><span class="p">,</span> <span class="n">y_holdout</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Setting the <code class="docutils literal notranslate"><span class="pre">random_state</span></code> to <code class="docutils literal notranslate"><span class="pre">0</span></code> is a short-hand at this point. Note however, that changing this seed of the pseudo-random number generator will also change the composition of your data sets. For the sake of reproducibility, this is one example of a parameters that should not change at all.</p>
+<div class="admonition-break instructor dropdown admonition" id="instructor-1">
+<p class="admonition-title">BREAK</p>
+<p>This is a good time for switching instructor and/or a break.</p>
+</div>
+</section>
+</section>
+<section id="choose-a-pretrained-model-or-start-building-architecture-from-scratch">
+<h2>4. Choose a pretrained model or start building architecture from scratch<a class="headerlink" href="#choose-a-pretrained-model-or-start-building-architecture-from-scratch" title="Link to this heading"></a></h2>
+<section id="regression-and-classification">
+<h3>Regression and classification<a class="headerlink" href="#regression-and-classification" title="Link to this heading"></a></h3>
+<p>In episode 2 we trained a dense neural network on a <em>classification task</em>. For this one hot encoding was used together with a <code class="docutils literal notranslate"><span class="pre">Categorical</span> <span class="pre">Crossentropy</span></code> loss function.
+This measured how close the distribution of the neural network outputs corresponds to the distribution of the three values in the one hot encoding.
+Now we want to work on a <em>regression task</em>, thus not predicting a class label (or integer number) for a datapoint. In regression, we predict one (and sometimes many) values of a feature. This is typically a floating point number.</p>
+<div class="admonition-exercise-architecture-of-the-network exercise important admonition" id="exercise-0">
+<p class="admonition-title">Exercise: Architecture of the network</p>
+<p>As we want to design a neural network architecture for a regression task,
+see if you can first come up with the answers to the following questions:</p>
+<ol class="arabic simple">
+<li><p>What must be the dimension of our input layer?</p></li>
+<li><p>We want to output the prediction of a single number. The output layer of the NN hence cannot be the same as for the classification task earlier. This is because the <code class="docutils literal notranslate"><span class="pre">softmax</span></code> activation being used had a concrete meaning with respect to the class labels which is not needed here. What output layer design would you choose for regression?
+Hint: A layer with <code class="docutils literal notranslate"><span class="pre">relu</span></code> activation, with <code class="docutils literal notranslate"><span class="pre">sigmoid</span></code> activation or no activation at all?</p></li>
+<li><p>(Optional) How would we change the model if we would like to output a prediction of the precipitation in Basel in <em>addition</em> to the sunshine hours?</p></li>
+</ol>
+<div class="admonition-solution solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solution</p>
+<ol class="arabic simple">
+<li><p>The shape of the input layer has to correspond to the number of features in our data: 89</p></li>
+<li><p>The output is a single value per prediction, so the output layer can consist of a dense layer with only one node. The <em>softmax</em> activiation function works well for a classification task, but here we do not want to restrict the possible outcomes to the range of zero and one. In fact, we can omit the activation in the output layer.</p></li>
+<li><p>The output layer should have 2 neurons, one for each number that we try to predict. Our y_train (and val and test) then becomes a (n_samples, 2) matrix.</p></li>
+</ol>
+</div>
+</div>
+<div class="docutils">
+<p>In our example we want to predict the sunshine hours in Basel (or any other place in the dataset) for tomorrow based on the weather data of all 18 locations today. <code class="docutils literal notranslate"><span class="pre">BASEL_sunshine</span></code> is a floating point value (i.e. <code class="docutils literal notranslate"><span class="pre">float64</span></code>). The network should hence output a single float value which is why the last layer of our network will only consist of a single node.</p>
+<p>We compose a network of two hidden layers to start off with something. We go by a scheme with 100 neurons in the first hidden layer and 50 neurons in the second layer. As activation function we settle on the <code class="docutils literal notranslate"><span class="pre">relu</span></code> function as a it is very robust and widely used. To make our live easier later, we wrap the definition of the network in a function called <code class="docutils literal notranslate"><span class="pre">create_nn()</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">keras</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">create_nn</span><span class="p">(</span><span class="n">input_shape</span><span class="p">):</span>
+    <span class="c1"># Input layer</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">input_shape</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;input&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Dense layers</span>
+    <span class="n">layers_dense</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">layers_dense</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">layers_dense</span><span class="p">)</span>
+
+    <span class="c1"># Output layer</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="n">layers_dense</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;weather_prediction_model&quot;</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">create_nn</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">X_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],))</span>
+</pre></div>
+</div>
+<p>The shape of the input layer has to correspond to the number of features in our data: <code class="docutils literal notranslate"><span class="pre">89</span></code>. We use <code class="docutils literal notranslate"><span class="pre">X_data.shape[1]</span></code> to obtain this value dynamically</p>
+<p>The output layer here is a dense layer with only 1 node. And we here have chosen to use <em>no activation function</em>.
+While we might use <em>softmax</em> for a classification task, here we do not want to restrict the possible outcomes for a start.</p>
+<p>In addition, we have here chosen to write the network creation as a function so that we can use it later again to initiate new models.</p>
+<p>Let us check how our model looks like by calling the <code class="docutils literal notranslate"><span class="pre">summary</span></code> method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">Model: &quot;weather_prediction_model&quot;</span>
+
+<span class="go">┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓</span>
+<span class="go">┃ Layer (type)                ┃ Output Shape        ┃       Param # ┃</span>
+<span class="go">┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩</span>
+<span class="go">│ input (InputLayer)          │ (None, 89)          │             0 │</span>
+<span class="go">├─────────────────────────────┼─────────────────────┼───────────────┤</span>
+<span class="go">│ dense (Dense)               │ (None, 100)         │         9,000 │</span>
+<span class="go">├─────────────────────────────┼─────────────────────┼───────────────┤</span>
+<span class="go">│ dense_1 (Dense)             │ (None, 50)          │         5,050 │</span>
+<span class="go">├─────────────────────────────┼─────────────────────┼───────────────┤</span>
+<span class="go">│ dense_2 (Dense)             │ (None, 1)           │            51 │</span>
+<span class="go">└─────────────────────────────┴─────────────────────┴───────────────┘</span>
+
+<span class="go"> Total params: 14,101 (55.08 KB)</span>
+
+<span class="go"> Trainable params: 14,101 (55.08 KB)</span>
+
+<span class="go"> Non-trainable params: 0 (0.00 B)</span>
+</pre></div>
+</div>
+<p>When compiling the model we can define a few very important aspects. We will discuss them now in more detail.</p>
+<p class="rubric" id="intermezzo-how-do-neural-networks-learn">Intermezzo: How do neural networks learn?</p>
+<p>In the introduction we learned about the loss function: it quantifies the total error of the predictions made by the model.
+During model training we aim to find the model parameters that minimize the loss.
+This is called optimization, but how does optimization actually work?</p>
+<p class="rubric" id="gradient-descent">Gradient descent</p>
+<p>Gradient descent is a widely used optimization algorithm, most other optimization algorithms are based on it.
+It works as follows: Imagine a neural network with only one neuron.
+Take a look at the figure below. The plot shows the loss as a function of the weight of the neuron.
+As you can see there is a global loss minimum, we would like to find the weight at this point in the parabola.
+To do this, we initialize the model weight with some random value. Then we compute the gradient of the loss function with respect
+to the weight. This tells us how much the loss function will change if we change the weight by a small amount.
+Then, we update the weight by taking a small step in the direction of the negative gradient, so down the slope.
+This will slightly decrease the loss. This process is repeated until the loss function reaches a minimum.
+The size of the step that is taken in each iteration is called the ‘learning rate’.</p>
+<p><img alt="" class="align-center" src="../_images/03_gradient_descent.png" /></p>
+<p class="rubric" id="batch-gradient-descent">Batch gradient descent</p>
+<p>You could use the entire training dataset to perform one learning step in gradient descent,
+which would mean that one epoch equals one learning step.
+In practice, in each learning step we only use a subset of the training data to compute the loss and the gradients.
+This subset is called a ‘batch’, the number of samples in one batch is called the ‘batch size’.</p>
+<div class="admonition-exercise-gradient-descent exercise important admonition" id="exercise-1">
+<p class="admonition-title">Exercise: Gradient descent</p>
+<p>Answer the following questions:</p>
+<p><strong>1. What is the goal of optimization?</strong></p>
+<ul class="simple">
+<li><p>A. To find the weights that maximize the loss function</p></li>
+<li><p>B. To find the weights that minimize the loss function</p></li>
+</ul>
+<p><strong>2. What happens in one gradient descent step?</strong></p>
+<ul class="simple">
+<li><p>A. The weights are adjusted so that we move in the direction of the gradient, so up the slope of the loss function</p></li>
+<li><p>B. The weights are adjusted so that we move in the direction of the gradient, so down the slope of the loss function</p></li>
+<li><p>C. The weights are adjusted so that we move in the direction of the negative gradient, so up the slope of the loss function</p></li>
+<li><p>D. The weights are adjusted so that we move in the direction of the negative gradient, so down the slope of the loss function</p></li>
+</ul>
+<p><strong>3. When the batch size is increased:</strong>
+(multiple answers might apply)</p>
+<ul class="simple">
+<li><p>A. The number of samples in an epoch also increases</p></li>
+<li><p>B. The number of batches in an epoch goes down</p></li>
+<li><p>C. The training progress is more jumpy, because more samples are consulted in each update step (one batch).</p></li>
+<li><p>D. The memory load (memory as in computer hardware) of the training process is increased</p></li>
+</ul>
+</div>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-1">
+<p class="admonition-title">Solution</p>
+<ol class="arabic simple">
+<li><p>Correct answer: B. To find the weights that minimize the loss function.
+The loss function quantifies the total error of the network, we want to have the smallest error as possible, hence we minimize the loss.</p></li>
+<li><p>Correct answer: D The weights are adjusted so that we move in the direction of the negative gradient, so down the slope of the loss function.
+We want to move towards the global minimum, so in the opposite direction of the gradient.</p></li>
+<li><p>Correct answer: B &amp; D</p>
+<ul class="simple">
+<li><p>A. The number of samples in an epoch also increases (<strong>incorrect</strong>, an epoch is always defined as passing through the training data for one cycle)</p></li>
+<li><p>B. The number of batches in an epoch goes down (<strong>correct</strong>, the number of batches is the samples in an epoch divided by the batch size)</p></li>
+<li><p>C. The training progress is more jumpy, because more samples are consulted in each update step (one batch). (<strong>incorrect</strong>, more samples are consulted in each update step, but this makes the progress less jumpy since you get a more accurate estimate of the loss in the entire dataset)</p></li>
+<li><p>D. The memory load (memory as in computer hardware) of the training process is increased (<strong>correct</strong>, the data is begin loaded one batch at a time, so more samples means more memory usage)</p></li>
+</ul>
+</li>
+</ol>
+</div>
+</section>
+</section>
+<section id="choose-a-loss-function-and-optimizer">
+<h2>5. Choose a loss function and optimizer<a class="headerlink" href="#choose-a-loss-function-and-optimizer" title="Link to this heading"></a></h2>
+<section id="loss-function">
+<h3>Loss function<a class="headerlink" href="#loss-function" title="Link to this heading"></a></h3>
+<p>The loss is what the neural network will be optimized on during training, so choosing a suitable loss function is crucial for training neural networks.
+In the given case we want to stimulate that the predicted values are as close as possible to the true values. This is commonly done by using the <em>mean squared error</em> (mse) or the <em>mean absolute error</em> (mae), both of which should work OK in this case. Often, mse is preferred over mae because it “punishes” large prediction errors more severely.
+In Keras this is implemented in the <code class="docutils literal notranslate"><span class="pre">keras.losses.MeanSquaredError</span></code> class (see Keras documentation: https://keras.io/api/losses/). This can be provided into the <code class="docutils literal notranslate"><span class="pre">model.compile</span></code> method with the <code class="docutils literal notranslate"><span class="pre">loss</span></code> parameter and setting it to <code class="docutils literal notranslate"><span class="pre">mse</span></code>, e.g.</p>
+<!--cce:skip-->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="optimizer">
+<h3>Optimizer<a class="headerlink" href="#optimizer" title="Link to this heading"></a></h3>
+<p>Somewhat coupled to the loss function is the <em>optimizer</em> that we want to use.
+The <em>optimizer</em> here refers to the algorithm with which the model learns to optimize on the provided loss function. A basic example for such an optimizer would be <em>stochastic gradient descent</em>. For now, we can largely skip this step and pick one of the most common optimizers that works well for most tasks: the <em>Adam optimizer</em>. Similar to activation functions, the choice of optimizer depends on the problem you are trying to solve, your model architecture and your data. <em>Adam</em> is a good starting point though, which is why we chose it.</p>
+<!--cce:skip-->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="metrics">
+<h3>Metrics<a class="headerlink" href="#metrics" title="Link to this heading"></a></h3>
+<p>In our first example (episode 2) we plotted the progression of the loss during training.
+That is indeed a good first indicator if things are working alright, i.e. if the loss is indeed decreasing as it should with the number of epochs.
+However, when models become more complicated then also the loss functions often become less intuitive.
+That is why it is good practice to monitor the training process with additional, more intuitive metrics.
+They are not used to optimize the model, but are simply recorded during training.</p>
+<p>With Keras, such additional metrics can be added via <code class="docutils literal notranslate"><span class="pre">metrics=[...]</span></code> parameter and can contain one or multiple metrics of interest.
+Here we could for instance chose <code class="docutils literal notranslate"><span class="pre">mae</span></code> (<a class="reference external" href="https://glosario.carpentries.org/en/#mean_absolute_error">mean absolute error</a>), or the the <a class="reference external" href="https://glosario.carpentries.org/en/#root_mean_squared_error"><em>root mean squared error</em> (RMSE)</a> which unlike the <em>mse</em> has the same units as the predicted values. For the sake of units, we choose the latter.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">RootMeanSquaredError</span><span class="p">()])</span>
+</pre></div>
+</div>
+<p>Let’s create a <code class="docutils literal notranslate"><span class="pre">compile_model</span></code> function to easily compile the model throughout this lesson:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compile_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span>
+                  <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">,</span>
+                  <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">RootMeanSquaredError</span><span class="p">()])</span>
+<span class="n">compile_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With this, we complete the compilation of our network and are ready to start training.</p>
+</section>
+</section>
+<section id="train-the-model">
+<h2>6. Train the model<a class="headerlink" href="#train-the-model" title="Link to this heading"></a></h2>
+<p>Now that we created and compiled our dense neural network, we can start training it.
+We add the <code class="docutils literal notranslate"><span class="pre">batch_size</span></code> parameter that defines – as discussed above – how many samples from the training data will be used to estimate the error gradient before the model weights are updated.
+Larger batches will produce better, more accurate gradient estimates but also less frequent updates of the weights.
+Here we are going to use a batch size of 32 which is a common starting point.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+                    <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+                    <span class="n">epochs</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+                    <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can plot the training process using the <code class="docutils literal notranslate"><span class="pre">history</span></code> object returned from the model training.
+We will create a function for it, because we will make use of this more often in this lesson!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_history</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">metrics</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot the training history</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        history (keras History object that is returned by model.fit())</span>
+<span class="sd">        metrics (str, list): Metric or a list of metrics to plot</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">history_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">history_df</span><span class="p">[</span><span class="n">metrics</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;epochs&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;metric&quot;</span><span class="p">)</span>
+
+<span class="n">plot_history</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="s1">&#39;root_mean_squared_error&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="" class="align-center" src="../_images/03_training_history_1_rmse.png" /></p>
+<p>This looks very promising! Our metric (“RMSE”) is dropping nicely and while it maybe keeps fluctuating a bit it does end up at fairly low <em>RMSE</em> values.
+But the <em>RMSE</em> is just the root <em>mean</em> squared error, so we might want to look a bit more in detail how well our just trained model does in predicting the sunshine hours.</p>
+</section>
+<section id="perform-a-prediction-classification">
+<h2>7. Perform a Prediction/Classification<a class="headerlink" href="#perform-a-prediction-classification" title="Link to this heading"></a></h2>
+<p>Now that we have our model trained, we can make a prediction with the model before measuring the performance of our neural network.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_train_predicted</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">y_test_predicted</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition-break instructor dropdown admonition" id="instructor-2">
+<p class="admonition-title">BREAK</p>
+<p>This is a good time for switching instructor and/or a break.</p>
+</div>
+</section>
+<section id="measure-performance">
+<h2>8. Measure performance<a class="headerlink" href="#measure-performance" title="Link to this heading"></a></h2>
+<p>There is not a single way to evaluate how a model performs. But there are at least two very common approaches. For a <em>classification task</em> that is to compute a <em>confusion matrix</em> for the test set which shows how often particular classes were predicted correctly or incorrectly.</p>
+<p>For the present <em>regression task</em>, it makes more sense to compare true and predicted values in a scatter plot.</p>
+<p>So, let’s look at how the predicted sunshine hour have developed with reference to their ground truth values.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># We define a function that we will reuse in this lesson</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_predictions</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>  <span class="c1"># optional, that&#39;s only to define a visual style</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;predicted sunshine hours&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;true sunshine hours&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
+<span class="n">plot_predictions</span><span class="p">(</span><span class="n">y_train_predicted</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Predictions on the training set&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="" class="align-center" src="../_images/03_regression_predictions_trainset.png" /></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_predictions</span><span class="p">(</span><span class="n">y_test_predicted</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Predictions on the test set&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="" class="align-center" src="../_images/03_regression_predictions_testset.png" /></p>
+<div class="admonition-exercise-reflecting-on-our-results exercise important admonition" id="exercise-2">
+<p class="admonition-title">Exercise: Reflecting on our results</p>
+<ul class="simple">
+<li><p>Is the performance of the model as you expected (or better/worse)?</p></li>
+<li><p>Is there a noteable difference between training set and test set? And if so, any idea why?</p></li>
+<li><p>(Optional) When developing a model, you will often vary different aspects of your model like
+which features you use, model parameters and architecture. It is important to settle on a
+single-number evaluation metric to compare your models.</p>
+<ul>
+<li><p>What single-number evaluation metric would you choose here and why?</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-2">
+<p class="admonition-title">Solution</p>
+<p>While the performance on the train set seems reasonable, the performance on the test set is much worse.
+This is a common problem called <strong>overfitting</strong>, which we will discuss in more detail later.</p>
+<p><strong>Optional exercise:</strong></p>
+<p>The metric that we are using: RMSE would be a good one. You could also consider Mean Squared Error, that punishes large errors more (because large errors create even larger squared errors).
+It is important that if the model improves in performance on the basis of this metric then that should also lead you a step closer to reaching your goal: to predict tomorrow’s sunshine hours.
+If you feel that improving the metric does not lead you closer to your goal, then it would be better to choose a different metric</p>
+</div>
+<p>The accuracy on the training set seems fairly good.
+In fact, considering that the task of predicting the daily sunshine hours is really not easy it might even be surprising how well the model predicts that
+(at least on the training set). Maybe a little too good?
+We also see the noticeable difference between train and test set when calculating the exact value of the RMSE:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">train_metrics</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">test_metrics</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Train RMSE: </span><span class="si">{:.2f}</span><span class="s1">, Test RMSE: </span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">train_metrics</span><span class="p">[</span><span class="s1">&#39;root_mean_squared_error&#39;</span><span class="p">],</span> <span class="n">test_metrics</span><span class="p">[</span><span class="s1">&#39;root_mean_squared_error&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+<div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">24/24 [==============================] - 0s 442us/step - loss: 0.7092 - root_mean_squared_error: 0.8421</span>
+<span class="go">6/6 [==============================] - 0s 647us/step - loss: 16.4413 - root_mean_squared_error: 4.0548</span>
+<span class="go">Train RMSE: 0.84, Test RMSE: 4.05</span>
+</pre></div>
+</div>
+<p>For those experienced with (classical) machine learning this might look familiar.
+The plots above expose the signs of <strong>overfitting</strong> which means that the model has to some extent memorized aspects of the training data.
+As a result, it makes much more accurate predictions on the training data than on unseen test data.</p>
+<p>Overfitting also happens in classical machine learning, but there it is usually interpreted as the model having more parameters than the training data would justify (say, a decision tree with too many branches for the number of training instances). As a consequence one would reduce the number of parameters to avoid overfitting.
+In deep learning the situation is slightly different. It can - as for classical machine learning - also be a sign of having a <em>too big</em> model, meaning a model with too many parameters (layers and/or nodes). However, in deep learning higher number of model parameters are often still considered acceptable and models often perform best (in terms of prediction accuracy) when they are at the verge of overfitting. So, in a way, training deep learning models is always a bit like playing with fire…</p>
+<section id="set-expectations-how-difficult-is-the-defined-problem">
+<h3>Set expectations: How difficult is the defined problem?<a class="headerlink" href="#set-expectations-how-difficult-is-the-defined-problem" title="Link to this heading"></a></h3>
+<p>Before we dive deeper into handling overfitting and (trying to) improving the model performance, let us ask the question: How well must a model perform before we consider it a good model?</p>
+<p>Now that we defined a problem (predict tomorrow’s sunshine hours), it makes sense to develop an intuition for how difficult the posed problem is. Frequently, models will be evaluated against a so called <strong>baseline</strong>. A baseline can be the current standard in the field or if such a thing does not exist it could also be an intuitive first guess or toy model. The latter is exactly what we would use for our case.</p>
+<p>Maybe the simplest sunshine hour prediction we can easily do is: Tomorrow we will have the same number of sunshine hours as today.
+(sounds very naive, but for many observables such as temperature this is already a fairly good predictor)</p>
+<p>We can take the <code class="docutils literal notranslate"><span class="pre">BASEL_sunshine</span></code> column of our data, because this contains the sunshine hours from one day before what we have as a label.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_baseline_prediction</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;BASEL_sunshine&#39;</span><span class="p">]</span>
+<span class="n">plot_predictions</span><span class="p">(</span><span class="n">y_baseline_prediction</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Baseline predictions on the test set&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="" class="align-center" src="../_images/03_regression_test_5_naive_baseline.png" /></p>
+<p>It is difficult to interpret from this plot whether our model is doing better than the baseline.
+We can also have a look at the RMSE:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">root_mean_squared_error</span>
+<span class="n">rmse_baseline</span> <span class="o">=</span> <span class="n">root_mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_baseline_prediction</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Baseline:&#39;</span><span class="p">,</span> <span class="n">rmse_baseline</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Neural network: &#39;</span><span class="p">,</span> <span class="n">test_metrics</span><span class="p">[</span><span class="s1">&#39;root_mean_squared_error&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">Baseline: 3.877323350410224</span>
+<span class="go">Neural network:  4.077792167663574</span>
+</pre></div>
+</div>
+<p>Judging from the numbers alone, our neural network prediction would be performing worse than the baseline.</p>
+<div class="admonition-exercise-baseline exercise important admonition" id="exercise-3">
+<p class="admonition-title">Exercise: Baseline</p>
+<ol class="arabic simple">
+<li><p>Looking at this baseline: Would you consider this a simple or a hard problem to solve?</p></li>
+<li><p>(Optional) Can you think of other baselines?</p></li>
+</ol>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-3">
+<p class="admonition-title">Solution</p>
+<ol class="arabic simple">
+<li><p>This really depends on your definition of hard! The baseline gives a more accurate prediction than just
+randomly predicting a number, so the problem is not impossible to solve with machine learning. However, given the structure of the data and our expectations with respect to quality of prediction, it may remain hard to find a good algorithm which exceeds our baseline by orders of magnitude.</p></li>
+<li><p>There are a lot of possible answers. A slighly more complicated baseline would be to take the average over the last couple of days.</p></li>
+</ol>
+</div>
+</section>
+</section>
+<section id="refine-the-model">
+<h2>9. Refine the model<a class="headerlink" href="#refine-the-model" title="Link to this heading"></a></h2>
+<section id="watch-your-model-training-closely">
+<h3>Watch your model training closely<a class="headerlink" href="#watch-your-model-training-closely" title="Link to this heading"></a></h3>
+<p>As we saw when comparing the predictions for the training and the test set, deep learning models are prone to overfitting. Instead of iterating through countless cycles of model trainings and subsequent evaluations with a reserved test set, it is common practice to work with a second split off dataset to monitor the model during training.
+This is the <em>validation set</em> which can be regarded as a second test set. As with the test set, the datapoints of the <em>validation set</em> are not used for the actual model training itself. Instead, we evaluate the model with the <em>validation set</em> after every epoch during training, for instance to stop if we see signs of clear overfitting.</p>
+<p>Since we are adapting our model (tuning our hyperparameters) based on this validation set, it is <em>very</em> important that it is kept separate from the test set. If we used the same set, we would not know whether our model truly generalizes or is only overfitting.</p>
+<div class="admonition-test-vs-validation-set callout admonition" id="callout-1">
+<p class="admonition-title">Test vs. validation set</p>
+<p>Not everybody agrees on the terminology of test set versus validation set. You might find
+examples in literature where these terms are used the other way around.
+We are sticking to the definition that is consistent with the Keras API. In there, the validation
+set can be used during training, and the test set is reserved for afterwards.</p>
+</div>
+<p>Let’s give this a try!</p>
+<p>We need to initiate a new model – otherwise Keras will simply assume that we want to continue training the model we already trained above.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">create_nn</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">X_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],))</span>
+<span class="n">compile_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>But now we train it with the small addition of also passing it our validation set:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+                    <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+                    <span class="n">epochs</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+                    <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>With this we can plot both the performance on the training data and on the validation data!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_history</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;root_mean_squared_error&#39;</span><span class="p">,</span> <span class="s1">&#39;val_root_mean_squared_error&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><img alt="" class="align-center" src="../_images/03_training_history_2_rmse.png" /></p>
+<div class="admonition-exercise-plot-the-training-progress exercise important admonition" id="exercise-4">
+<p class="admonition-title">Exercise: plot the training progress.</p>
+<ol class="arabic simple">
+<li><p>Is there a difference between the training curves of training versus validation data? And if so, what would this imply?</p></li>
+<li><p>(Optional) Take a pen and paper, draw the perfect training and validation curves.
+(This may seem trivial, but it will trigger you to think about what you actually would like to see)</p></li>
+</ol>
+<div class="admonition-solution solution important dropdown admonition" id="solution-4">
+<p class="admonition-title">Solution</p>
+<p>The difference in the two curves shows that something is not completely right here.
+The error for the model predictions on the validation set quickly seem to reach a plateau while the error on the training set keeps decreasing.
+That is a common signature of <em>overfitting</em>.</p>
+<p>Optional:</p>
+<p>Ideally you would like the training and validation curves to be identical and slope down steeply
+to 0. After that the curves will just consistently stay at 0.</p>
+</div>
+</div>
+<div class="docutils">
+<p class="rubric" id="counteract-model-overfitting">Counteract model overfitting</p>
+<p>Overfitting is a very common issue and there are many strategies to handle it.
+Most similar to classical machine learning might to <strong>reduce the number of parameters</strong>.</p>
+<div class="admonition-exercise-try-to-reduce-the-degree-of-overfitting-by-lowering-the-number-of-parameters exercise important admonition" id="exercise-5">
+<p class="admonition-title">Exercise: Try to reduce the degree of overfitting by lowering the number of parameters</p>
+<p>We can keep the network architecture unchanged (2 dense layers + a one-node output layer) and only play with the number of nodes per layer.
+Try to lower the number of nodes in one or both of the two dense layers and observe the changes to the training and validation losses.
+If time is short: Suggestion is to run one network with only 10 and 5 nodes in the first and second layer.</p>
+<ol class="arabic simple">
+<li><p>Is it possible to get rid of overfitting this way?</p></li>
+<li><p>Does the overall performance suffer or does it mostly stay the same?</p></li>
+<li><p>(optional) How low can you go with the number of parameters without notable effect on the performance on the validation set?</p></li>
+</ol>
+<div class="admonition-solution solution important dropdown admonition" id="solution-5">
+<p class="admonition-title">Solution</p>
+<p>Let’s first adapt our <code class="docutils literal notranslate"><span class="pre">create_nn()</span></code> function so that we can tweak the number of nodes in the 2 layers
+by passing arguments to the function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_nn</span><span class="p">(</span><span class="n">input_shape</span><span class="p">,</span> <span class="n">nodes1</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">nodes2</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+   <span class="c1"># Input layer</span>
+   <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">input_shape</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;input&#39;</span><span class="p">)</span>
+   <span class="c1"># Dense layers</span>
+   <span class="n">layers_dense</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">nodes1</span><span class="p">,</span> <span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
+   <span class="n">layers_dense</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">nodes2</span><span class="p">,</span> <span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">layers_dense</span><span class="p">)</span>
+   <span class="c1"># Output layer</span>
+   <span class="n">outputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="n">layers_dense</span><span class="p">)</span>
+   <span class="k">return</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;model_small&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s see if it works by creating a much smaller network with 10 nodes in the first layer,
+and 5 nodes in the second layer:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">create_nn</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">X_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],),</span> <span class="n">nodes1</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">nodes2</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Model: &quot;model_small&quot;
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                ┃ Output Shape        ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ input (InputLayer)          │ (None, 89)          │             0 │
+├─────────────────────────────┼─────────────────────┼───────────────┤
+│ dense_9 (Dense)             │ (None, 10)          │           900 │
+├─────────────────────────────┼─────────────────────┼───────────────┤
+│ dense_10 (Dense)            │ (None, 5)           │            55 │
+├─────────────────────────────┼─────────────────────┼───────────────┤
+│ dense_11 (Dense)            │ (None, 1)           │             6 │
+└─────────────────────────────┴─────────────────────┴───────────────┘
+
+ Total params: 961 (3.75 KB)
+
+ Trainable params: 961 (3.75 KB)
+
+ Non-trainable params: 0 (0.00 B)
+
+
+</pre></div>
+</div>
+<p>Let’s compile and train this network:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">compile_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+                   <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>
+                   <span class="n">epochs</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span>
+                   <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">))</span>
+<span class="n">plot_history</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;root_mean_squared_error&#39;</span><span class="p">,</span> <span class="s1">&#39;val_root_mean_squared_error&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><img alt="" class="align-center" src="../_images/03_training_history_3_rmse_smaller_model.png" /></p>
+<ol class="arabic simple">
+<li><p>With this smaller model we have reduced overfitting a bit, since the training and validation loss are now closer to each other, and the validation loss does now reach a plateau and does not further increase.
+We have not completely avoided overfitting though.</p></li>
+<li><p>In the case of this small example model, the validation RMSE seems to end up around 3.2, which is much better than the 4.08 we had before. Note that you can double check the actual score by calling <code class="docutils literal notranslate"><span class="pre">model.evaluate()</span></code> on the test set.</p></li>
+<li><p>In general, it quickly becomes a complicated search for the right “sweet spot”, i.e. the settings for which overfitting will be (nearly) avoided but the model still performs equally well. A model with 3 neurons in both layers seems to be around this spot, reaching an RMSE of 3.1 on the validation set.
+Reducing the number of nodes further increases the validation RMSE again.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="docutils">
+<p>We saw that reducing the number of parameters can be a strategy to avoid overfitting.
+In practice, however, this is usually not the (main) way to go when it comes to deep learning.
+One reason is, that finding the sweet spot can be really hard and time consuming. And it has to be repeated every time the model is adapted, e.g. when more training data becomes available.</p>
+<p class="rubric" id="early-stopping-stop-when-things-are-looking-best">Early stopping: stop when things are looking best</p>
+<p>Arguable <strong>the</strong> most common technique to avoid (severe) overfitting in deep learning is called <strong>early stopping</strong>.
+As the name suggests, this technique just means that you stop the model training if things do not seem to improve anymore.
+More specifically, this usually means that the training is stopped if the validation loss does not (notably) improve anymore.
+Early stopping is both intuitive and effective to use, so it has become a standard addition for model training.</p>
+<p>To better study the effect, we can now safely go back to models with many (too many?) parameters:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">create_nn</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">X_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],))</span>
+<span class="n">compile_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To apply early stopping during training it is easiest to use Keras <code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code> class.
+This allows to define the condition of when to stop training. In our case we will say when the validation loss is lowest.
+However, since we have seen some fluctuation of the losses during training above we will also set <code class="docutils literal notranslate"><span class="pre">patience=10</span></code> which means that the model will stop training if the validation loss has not gone down for 10 epochs.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow.keras.callbacks</span><span class="w"> </span><span class="kn">import</span> <span class="n">EarlyStopping</span>
+
+<span class="n">earlystopper</span> <span class="o">=</span> <span class="n">EarlyStopping</span><span class="p">(</span>
+    <span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_loss&#39;</span><span class="p">,</span>
+    <span class="n">patience</span><span class="o">=</span><span class="mi">10</span>
+    <span class="p">)</span>
+
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+                    <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>
+                    <span class="n">epochs</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span>
+                    <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">),</span>
+                    <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">earlystopper</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>As before, we can plot the losses during training:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_history</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;root_mean_squared_error&#39;</span><span class="p">,</span> <span class="s1">&#39;val_root_mean_squared_error&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><img alt="" class="align-center" src="../_images/03_training_history_3_rmse_early_stopping.png" /></p>
+<p>This still seems to reveal the onset of overfitting, but the training stops before the discrepancy between training and validation loss can grow further.
+In addition to avoiding severe cases of overfitting, early stopping has the advantage that the number of training epochs will be regulated automatically.</p>
+<p>What might be a bit unintuitive is that the training runs might now end very rapidly.
+This raises the question: have we really reached an optimum yet?
+And often the answer to this is “no”, which is why early stopping frequently is combined with other approaches to avoid overfitting.
+Overfitting means that a model (seemingly) performs better on seen data compared to unseen data. One then often also says that it does not “generalize” well.
+Techniques to avoid overfitting, or to improve model generalization, are termed <strong>regularization techniques</strong> and we will come back to this in <strong>episode 4</strong>.</p>
+<p class="rubric" id="batchnorm-the-standard-scaler-for-deep-learning">BatchNorm: the “standard scaler” for deep learning</p>
+<p>A very common step in classical machine learning pipelines is to scale the features, for instance by using sckit-learn’s <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code>.
+This can in principle also be done for deep learning.
+An alternative, more common approach, is to add <strong>BatchNormalization</strong> layers (<a class="reference external" href="https://keras.io/api/layers/normalization_layers/batch_normalization/">documentation of the batch normalization layer</a>) which will learn how to scale the input values.
+Similar to dropout, batch normalization is available as a network layer in Keras and can be added to the network in a similar way.
+It does not require any additional parameter setting.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">BatchNormalization</span></code> can be inserted as yet another layer into the architecture.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_nn</span><span class="p">(</span><span class="n">input_shape</span><span class="p">):</span>
+    <span class="c1"># Input layer</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">input_shape</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;input&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Dense layers</span>
+    <span class="n">layers_dense</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">inputs</span><span class="p">)</span> <span class="c1"># This is new!</span>
+    <span class="n">layers_dense</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">layers_dense</span><span class="p">)</span>
+    <span class="n">layers_dense</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">layers_dense</span><span class="p">)</span>
+
+    <span class="c1"># Output layer</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="n">layers_dense</span><span class="p">)</span>
+
+    <span class="c1"># Defining the model and compiling it</span>
+    <span class="k">return</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;model_batchnorm&quot;</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">create_nn</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">X_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],))</span>
+<span class="n">compile_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This new layer appears in the model summary as well.</p>
+<div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">Model: &quot;model_batchnorm&quot;</span>
+
+<span class="go">┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓</span>
+<span class="go">┃ Layer (type)                ┃ Output Shape        ┃       Param # ┃</span>
+<span class="go">┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩</span>
+<span class="go">│ input (InputLayer)          │ (None, 89)          │             0 │</span>
+<span class="go">├─────────────────────────────┼─────────────────────┼───────────────┤</span>
+<span class="go">│ batch_normalization_1       │ (None, 89)          │           356 │</span>
+<span class="go">│ (BatchNormalization)        │                     │               │</span>
+<span class="go">├─────────────────────────────┼─────────────────────┼───────────────┤</span>
+<span class="go">│ dense_6 (Dense)             │ (None, 100)         │         9,000 │</span>
+<span class="go">├─────────────────────────────┼─────────────────────┼───────────────┤</span>
+<span class="go">│ dense_7 (Dense)             │ (None, 50)          │         5,050 │</span>
+<span class="go">├─────────────────────────────┼─────────────────────┼───────────────┤</span>
+<span class="go">│ dense_8 (Dense)             │ (None, 1)           │            51 │</span>
+<span class="go">└─────────────────────────────┴─────────────────────┴───────────────┘</span>
+
+<span class="go"> Total params: 14,457 (56.47 KB)</span>
+
+<span class="go"> Trainable params: 14,279 (55.78 KB)</span>
+
+<span class="go"> Non-trainable params: 178 (712.00 B)</span>
+</pre></div>
+</div>
+<p>We can train the model again as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+                    <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>
+                    <span class="n">epochs</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+                    <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">),</span>
+                    <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">earlystopper</span><span class="p">])</span>
+
+<span class="n">plot_history</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;root_mean_squared_error&#39;</span><span class="p">,</span> <span class="s1">&#39;val_root_mean_squared_error&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><img alt="" class="align-center" src="../_images/03_training_history_5_rmse_batchnorm.png" /></p>
+<div class="admonition-batchnorm-parameters callout admonition" id="callout-2">
+<p class="admonition-title">Batchnorm parameters</p>
+<p>You may have noticed that the number of parameters of the Batchnorm layers corresponds to
+4 parameters per input node.
+These are the moving mean, moving standard deviation, additional scaling factor (gamma) and offset factor (beta).
+There is a difference in behavior for Batchnorm between training and prediction time.
+During training time, the data is scaled with the mean and standard deviation of the batch.
+During prediction time, the moving mean and moving standard deviation of the training set is used instead.
+The additional parameters gamma and beta are introduced to allow for more flexibility in output values, and are used in both training and prediction.</p>
+</div>
+</div>
+</section>
+<section id="run-on-test-set-and-compare-to-naive-baseline">
+<h3>Run on test set and compare to naive baseline<a class="headerlink" href="#run-on-test-set-and-compare-to-naive-baseline" title="Link to this heading"></a></h3>
+<p>It seems that no matter what we add, the overall loss does not decrease much further (we at least avoided overfitting though!).
+Let us again plot the results on the test set:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_test_predicted</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">plot_predictions</span><span class="p">(</span><span class="n">y_test_predicted</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Predictions on the test set&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="" class="align-center" src="../_images/03_regression_test_5_dropout_batchnorm.png" /></p>
+<p>Well, the above is certainly not perfect. But how good or bad is this? Maybe not good enough to plan your picnic for tomorrow.
+But let’s better compare it to the naive baseline we created in the beginning. What would you say, did we improve on that?</p>
+<div class="admonition-exercise-simplify-the-model-and-add-data exercise important admonition" id="exercise-6">
+<p class="admonition-title">Exercise: Simplify the model and add data</p>
+<p>You may have been wondering why we are including weather observations from
+multiple cities to predict sunshine hours only in Basel. The weather is
+a complex phenomenon with correlations over large distances and time scales,
+but what happens if we limit ourselves to only one city?</p>
+<ol class="arabic simple">
+<li><p>Since we will be reducing the number of features quite significantly,
+we could afford to include more data. Instead of using only 3 years, use
+8 or 9 years!</p></li>
+<li><p>Only use the features in the dataset that are for Basel, remove the data for other cities.
+You can use something like:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">X_data</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;BASEL&#39;</span><span class="p">]</span>
+<span class="n">X_data</span> <span class="o">=</span> <span class="n">X_data</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Now rerun the last model we defined which included the BatchNorm layer.
+Recreate the scatter plot comparing your predictions with the true values,
+and evaluate the model by computing the RMSE on the test score.
+Note that even though we will use many more observations than previously,
+the network should still train quickly because we reduce the number of
+features (columns).
+Is the prediction better compared to what we had before?</p></li>
+<li><p>(Optional) Try to train a model on all years that are available,
+and all features from all cities. How does it perform?</p></li>
+</ol>
+<div class="admonition-solution solution important dropdown admonition" id="solution-6">
+<p class="admonition-title">Solution</p>
+<p class="rubric" id="use-9-years-out-of-the-dataset">1. Use 9 years out of the dataset</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nr_rows</span> <span class="o">=</span> <span class="mi">365</span><span class="o">*</span><span class="mi">9</span>
+<span class="c1"># data</span>
+<span class="n">X_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">nr_rows</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;DATE&#39;</span><span class="p">,</span> <span class="s1">&#39;MONTH&#39;</span><span class="p">])</span>
+
+<span class="c1"># labels (sunshine hours the next day)</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">:(</span><span class="n">nr_rows</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)][</span><span class="s2">&quot;BASEL_sunshine&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p class="rubric" id="only-use-features-for-basel">2. Only use features for Basel</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># only use columns with &#39;BASEL&#39;</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">X_data</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;BASEL&#39;</span><span class="p">]</span>
+<span class="n">X_data</span> <span class="o">=</span> <span class="n">X_data</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span>
+</pre></div>
+</div>
+<p class="rubric" id="rerun-the-model-and-evaluate-it">3. Rerun the model and evaluate it</p>
+<p>Do the train-test-validation split:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_holdout</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_holdout</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X_val</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_holdout</span><span class="p">,</span> <span class="n">y_holdout</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Create the network. We can re-use the <code class="docutils literal notranslate"><span class="pre">create_nn()</span></code> function that we already have. Because we have reduced the number of input features
+the number of parameters in the network goes down from 14457 to 6137.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the network and view its summary</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">create_nn</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">X_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],))</span>
+<span class="n">compile_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Fit with early stopping and output showing performance on validation set:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+                   <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>
+                   <span class="n">epochs</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+                   <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">),</span>
+                   <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">earlystopper</span><span class="p">],</span>
+                   <span class="n">verbose</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plot_history</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;root_mean_squared_error&#39;</span><span class="p">,</span> <span class="s1">&#39;val_root_mean_squared_error&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Create a scatter plot to compare with true observations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_test_predicted</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">plot_predictions</span><span class="p">(</span><span class="n">y_test_predicted</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Predictions on the test set&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="" class="align-center" src="../_images/03_scatter_plot_basel_model.png" /></p>
+<p>Compute the RMSE on the test set:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">test_metrics</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Test RMSE: </span><span class="si">{</span><span class="n">test_metrics</span><span class="p">[</span><span class="s2">&quot;root_mean_squared_error&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">Test RMSE: 3.3761725425720215</span>
+</pre></div>
+</div>
+<p>This RMSE is already a lot better compared to what we had before and certainly better than the baseline.
+Additionally, it could be further improved with hyperparameter tuning.</p>
+<p>Note that because we ran <code class="docutils literal notranslate"><span class="pre">train_test_split()</span></code> again, we are evaluating on a different test set than before.
+In the real world it is important to always compare results on the exact same test set.</p>
+<p class="rubric" id="optional-train-a-model-on-all-years-and-all-features-available">4. (optional) Train a model on all years and all features available.</p>
+<p>You can tweak the above code to use all years and all features:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># We cannot take all rows, because we need to be able to take the sunshine hours of the next day</span>
+<span class="n">nr_rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span>
+
+<span class="c1"># data</span>
+<span class="n">X_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">nr_rows</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;DATE&#39;</span><span class="p">,</span> <span class="s1">&#39;MONTH&#39;</span><span class="p">])</span>
+
+<span class="c1"># labels (sunshine hours the next day)</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">:(</span><span class="n">nr_rows</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)][</span><span class="s2">&quot;BASEL_sunshine&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>For the rest you can use the same code as above to train and evaluate the model</p>
+<p>This results in an RMSE on the test set of 3.23 (your result can be different, but should be in the same range).
+From this we can conclude that adding more training data results in even better performance!</p>
+</div>
+</div>
+<div class="docutils">
+<div class="admonition-tensorboard callout admonition" id="callout-3">
+<p class="admonition-title">Tensorboard</p>
+<p>If we run many different experiments with different architectures,
+it can be difficult to keep track of these different models or compare the achieved performance.
+We can use <em>tensorboard</em>, a framework that keeps track of our experiments and shows graphs like we plotted above.
+Tensorboard is included in our tensorflow installation by default.
+To use it, we first need to add a <em>callback</em> to our (compiled) model that saves the progress of training performance in a logs rectory:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow.keras.callbacks</span><span class="w"> </span><span class="kn">import</span> <span class="n">TensorBoard</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="n">log_dir</span> <span class="o">=</span> <span class="s2">&quot;logs/fit/&quot;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">-%H%M%S&quot;</span><span class="p">)</span> <span class="c1"># You can adjust this to add a more meaningful model name</span>
+<span class="n">tensorboard_callback</span> <span class="o">=</span> <span class="n">TensorBoard</span><span class="p">(</span><span class="n">log_dir</span><span class="o">=</span><span class="n">log_dir</span><span class="p">,</span> <span class="n">histogram_freq</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+                   <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span>
+                   <span class="n">epochs</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span>
+                   <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">),</span>
+                   <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">tensorboard_callback</span><span class="p">],</span>
+                   <span class="n">verbose</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can launch the tensorboard interface from a Jupyter notebook, showing all trained models:</p>
+<!--cce:skip-->
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">load_ext</span> <span class="n">tensorboard</span>
+<span class="o">%</span><span class="n">tensorboard</span> <span class="o">--</span><span class="n">logdir</span> <span class="n">logs</span><span class="o">/</span><span class="n">fit</span>
+</pre></div>
+</div>
+<p>Which will show an interface that looks something like this:
+<img alt="" class="align-center" src="../_images/03_tensorboard.png" /></p>
+</div>
+</div>
+</section>
+</section>
+<section id="save-model">
+<h2>10. Save model<a class="headerlink" href="#save-model" title="Link to this heading"></a></h2>
+<p>Now that we have a somewhat acceptable model, let us not forget to save it for future users to benefit from our explorative efforts!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;my_tuned_weather_model.keras&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="outlook">
+<h2>Outlook<a class="headerlink" href="#outlook" title="Link to this heading"></a></h2>
+<p>Correctly predicting tomorrow’s sunshine hours is apparently not that simple.
+Our models get the general trends right, but still predictions vary quite a bit and can even be far off.</p>
+<div class="admonition-open-question-what-could-be-next-steps-to-further-improve-the-model exercise important admonition" id="exercise-7">
+<p class="admonition-title">Open question: What could be next steps to further improve the model?</p>
+<p>With unlimited options to modify the model architecture or to play with the training parameters, deep learning can trigger very extensive hunting for better and better results.
+Usually models are “well behaving” in the sense that small changes to the architectures also only result in small changes of the performance (if any).
+It is often tempting to hunt for some magical settings that will lead to much better results. But do those settings exist?
+Applying common sense is often a good first step to make a guess of how much better results <em>could</em> be.
+In the present case we might certainly not expect to be able to reliably predict sunshine hours for the next day with 5-10 minute precision.
+But how much better our model could be exactly, often remains difficult to answer.</p>
+<ul class="simple">
+<li><p>What changes to the model architecture might make sense to explore?</p></li>
+<li><p>Ignoring changes to the model architecture, what might notably improve the prediction quality?</p></li>
+</ul>
+<div class="admonition-solution solution important dropdown admonition" id="solution-7">
+<p class="admonition-title">Solution</p>
+<p>This is an open question. And we don’t actually know how far one could push this sunshine hour prediction (try it out yourself if you like! We’re curious!).
+But there are a few things that might be worth exploring.
+Regarding the model architecture:</p>
+<ul class="simple">
+<li><p>In the present case we do not see a magical silver bullet to suddenly boost the performance. But it might be worth testing if <em>deeper</em> networks do better (more layers).</p></li>
+</ul>
+<p>Other changes that might impact the quality notably:</p>
+<ul class="simple">
+<li><p>The most obvious answer here would be: more data! Even this will not always work (e.g. if data is very noisy and uncorrelated, more data might not add much).</p></li>
+<li><p>Related to more data: use data augmentation. By creating realistic variations of the available data, the model might improve as well.</p></li>
+<li><p>More data can mean more data points (you can test it yourself by taking more than the 3 years we used here!)</p></li>
+<li><p>More data can also mean more features! What about adding the month?</p></li>
+<li><p>The labels we used here (sunshine hours) are highly biased, many days with no or nearly no sunshine but a few with &gt;10 hours. Techniques such as oversampling or undersampling might handle such biased labels better.</p></li>
+</ul>
+<p>Another alternative would be to not only look at data from one day, but use the data of a longer period such as a full week.
+This will turn the data into time series data which in turn might also make it worth to apply different model architectures…</p>
+</div>
+</div>
+<div class="docutils">
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>Separate training, validation, and test sets allows monitoring and evaluating your model.</p></li>
+<li><p>Batchnormalization scales the data as part of the model.</p></li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../2-keras/" class="btn btn-neutral float-left" title="2. Classification by a neural network using Keras" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../4-advanced-layer-types/" class="btn btn-neutral float-right" title="4. Advanced layer types" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
