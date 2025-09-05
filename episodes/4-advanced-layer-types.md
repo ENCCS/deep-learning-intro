@@ -100,7 +100,7 @@ The remainder of the shape, namely `(64, 64, 3)`, denotes
 the dimension of one image. The last value 3 is typical for color images,
 and stands for the three color channels **R**ed, **G**reen, **B**lue.
 
-::: challenge
+:::: challenge
 
 ### Number of features in Dollar Street 10
 
@@ -113,12 +113,12 @@ How many features does one image in the Dollar Street 10 dataset have?
 
 :::
 
-:::: solution
+::: solution
 The correct solution is C: 12288
 
 There are 4096 pixels in one image (64 * 64), each pixel has 3 channels (RGB). So 4096 * 3 = 12288.
-::::
 
+::::
 
 
 We can find out the range of values of our input data as follows:
@@ -166,7 +166,7 @@ In the previous episodes, we used 'fully connected layers' , that connected all 
 This results in many connections, and thus many weights to be learned, in the network.
 Note that our input dimension is now quite high (even with small pictures of `64x64` pixels): we have 12288 features.
 
-::: challenge
+:::: challenge
 ## Number of parameters{#parameters-exercise-1}
 Suppose we create a single Dense (fully connected) layer with 100 hidden units that connect to the input pixels, how many parameters does this layer have?
 
@@ -175,7 +175,7 @@ Suppose we create a single Dense (fully connected) layer with 100 hidden units t
 - C. 100
 - D. 12288
 
-:::: solution
+::: solution
 ## Solution
 The correct answer is B: Each entry of the input dimensions, i.e. the `shape` of one single data point, is connected with 100 neurons of our hidden layer, and each of these neurons has a bias term associated to it. So we have `1228900` parameters to learn.
 ```python
@@ -213,8 +213,8 @@ Model: "functional"
 
  Non-trainable params: 0 (0.00 B)
 ```
-::::
 :::
+::::
 
 We can decrease the number of units in our hidden layer, but this also decreases the number of patterns our network can remember. Moreover, if we increase the image size, the number of weights will 'explode', even though the task of recognizing large images is not necessarily more difficult than the task of recognizing small images.
 
@@ -249,11 +249,11 @@ there that enable users to interactively play around with images and convolution
      shows animated examples of the different components of convolutional neural nets 
 :::
 
-::: challenge
+:::: challenge
 ## Border pixels
 What, do you think, happens to the border pixels when applying a convolution?
 
-:::: solution
+::: solution
 ## Solution
 There are different ways of dealing with border pixels.
 You can ignore them, which means that your output image is slightly smaller then your input.
@@ -263,22 +263,25 @@ In that case, the output image will have the same size as the input image.
 [This callout in the Data Carpentry: Image Processing with Python curriculum](https://datacarpentry.org/image-processing/06-blurring.html#callout4)
 provides more detail about convolution at the boundaries of an image,
 in the context of applying a _Gaussian blur_.
-::::
 :::
+::::
 
-::: challenge
-## Number of model parameters
-Suppose we apply a convolutional layer with 100 kernels of size 3 * 3 * 3 (the last dimension applies to the rgb channels) to our images of 32 * 32 * 3 pixels. How many parameters do we have? Assume, for simplicity, that the kernels do not use bias terms. Compare this to the answer of the earlier exercise, ["Number of Parameters"](#parameters-exercise-1).
+:::: challenge
+## Number of model parameters{#parameters-exercise-3}
+Suppose we apply a convolutional layer with 100 kernels of size 3 * 3 * 3 (the last dimension applies to the rgb channels) to our images of 64 * 64 * 3 pixels. How many parameters do we have? Assume, for simplicity, that the kernels do not use bias terms. Compare this to the answer of the earlier exercise, ["Number of Parameters"](#parameters-exercise-1).
 
-:::: solution
+::: solution
 ## Solution
 We have 100 matrices with 3 * 3 * 3 = 27 values each so that gives 27 * 100 = 2700 weights. This is a magnitude of 2000 less than the fully connected layer with 100 units! Nevertheless, as we will see, convolutional networks work very well for image data. This illustrates the expressiveness of convolutional layers.
-::::
 :::
+::::
 
 So let us look at a network with a few convolutional layers. We need to finish with a Dense layer to connect the output cells of the convolutional layer to the outputs for our classes.
 
 ```python
+from tensorflow import keras
+keras.utils.set_random_seed(2)
+
 inputs = keras.Input(shape=train_images.shape[1:])
 x = keras.layers.Conv2D(50, (3, 3), activation='relu')(inputs)
 x = keras.layers.Conv2D(50, (3, 3), activation='relu')(x)
@@ -314,7 +317,7 @@ Model: "dollar_street_model_small"
  Non-trainable params: 0 (0.00 B)
 ```
 
-::: challenge
+:::: challenge
 ## Convolutional Neural Network
 
 Inspect the network above:
@@ -324,12 +327,34 @@ Inspect the network above:
 * (optional) This dataset is similar to the often used CIFAR-10 dataset.
 We can get inspiration for neural network architectures that could work on our dataset here: https://paperswithcode.com/sota/image-classification-on-cifar-10 . Pick a model and try to understand how it works.
 
-:::: solution
+::: solution
 ## Solution
 * The Flatten layer converts the 60x60x50 output of the convolutional layer into a single one-dimensional vector, that can be used as input for a dense layer.
 * The last dense layer has the most parameters. This layer connects every single output 'pixel' from the convolutional layer to the 10 output classes.
 That results in a large number of connections, so a large number of parameters. This undermines a bit the expressiveness of the convolutional layers, that have much fewer parameters.
+:::
 ::::
+
+::: instructor
+## Demystifying the number of parameters in Conv2D layers
+
+The same explanation as illustrated in the exercise ["Number of model parameters"](#parameters-exercise-3)  holds in the current model. The general expression for the number of parameters in a Conv2D layer is as follows:
+
+$\text{Number of parameters in a Conv2D layer} = (h_{\text{kernel}} \cdot w_{\text{kernel}} \cdot n_{\text{channels}} + 1) \cdot n_{\text{filters}}$
+
+where,
+
+- $h_{\text{kernel}}$ is the height of the kernel
+- $w_{\text{kernel}}$ is the width of the kernel
+- $n_{\text{channels}}$ is the number of channels or the free dimension in the previous layer
+- the constant 1 represents the bias parameter for a single filter
+- $n_{\text{filters}}$ is the total number of filters in a Conv2D layer
+
+And thus for our present model,
+
+1. in the first Conv2D layer, the above expression computes to `(3 * 3 * 3 + 1) * 50 = 1400`, and
+2. in the second Conv2D layer, instead of number of channels, we have 50 filters in the previous Conv2D layer; and therefore the expression computes to `(3 * 3 * 50 + 1) * 50 = 22550`
+
 :::
 
 ::: callout
@@ -363,8 +388,8 @@ Let's put it into practice. We compose a Convolutional network with two convolut
 
 
 ```python
-def create_nn():
-    inputs = keras.Input(shape=train_images.shape[1:])
+def create_nn(input_shape):
+    inputs = keras.Input(shape=input_shape)
     x = keras.layers.Conv2D(50, (3, 3), activation='relu')(inputs)
     x = keras.layers.MaxPooling2D((2, 2))(x) # a new maxpooling layer
     x = keras.layers.Conv2D(50, (3, 3), activation='relu')(x)
@@ -376,7 +401,7 @@ def create_nn():
     model = keras.Model(inputs=inputs, outputs=outputs, name="dollar_street_model")
     return model
 
-model = create_nn()
+model = create_nn(input_shape=train_images.shape[1:])
 model.summary()
 ```
 ```output
@@ -432,6 +457,22 @@ def compile_model(model):
 compile_model(model)
 ```
 
+:::callout
+
+## Choosing a Metric
+
+The purpose of an evaluation metric is to reflect how well a model performs on "real" data, hence on new samples it has never encountered before.
+Achieving a suspiciously high score can indicate that the model has learned to "cheat" the chosen metric instead of solving the actual task.
+When that is the case, it means that the chosen metric is not suitable to measure the model performance.
+
+For instance, you could use a dataset of 100 cat images and dog images to evaluate a model.
+If the data is highly imbalanced and 90 of these images are dogs, the model will achieve 90% accuracy by classifying each image as a dog.
+This high number looks like the model performs great, but it is misleading; the model might not have learned to identify a cat image at all.
+In such an imbalanced dataset, other metrics such as [precision](https://keras.io/api/metrics/classification_metrics/#precision-class) and [recall](https://keras.io/api/metrics/classification_metrics/#recall-class) are more suitable.
+
+The documentation provides a comprehensive list of [metrics available in Keras](https://keras.io/api/metrics/), suitable for different tasks and datasets.
+:::
+
 ::: instructor
 ## BREAK
 This is a good time for switching instructor and/or a break.
@@ -475,13 +516,13 @@ def plot_history(history, metrics):
     plt.ylabel("metric")
 plot_history(history, ['accuracy', 'val_accuracy'])
 ```
-![](fig/04_training_history_1.png){alt='Plot of training accuracy and validation accuracy vs epochs for the trained model'}
+![](fig/04_training_history_1.png){alt='Plot of training accuracy and validation accuracy vs epochs for the trained model, showing training accuracy incrasing consistently by approximately 0.1 for each epoch while validation accuracy remains steady, with only slight fluctuations around 0.25.'}
 
 ```python
 plot_history(history, ['loss', 'val_loss'])
 ```
 
-![](fig/04_training_history_loss_1.png){alt='Plot of training loss and validation loss vs epochs for the trained model'}
+![](fig/04_training_history_loss_1.png){alt='Plot of training loss and validation loss vs epochs for the trained model, showing training loss steadily decreasing while validation loss remains steady before increasing after the sixth epoch.'}
 
 It seems that the model is overfitting a lot, because the training accuracy increases, while the validation accuracy stagnates. Meanwhile, the training loss keeps decreasing while the validation loss actually starts increasing after a few epochs.
 
@@ -547,7 +588,7 @@ history = dense_model.fit(train_images, train_labels, epochs=20,
                     validation_data=(val_images, val_labels))
 plot_history(history, ['accuracy', 'val_accuracy'])
 ```
-![](fig/04_dense_model_training_history.png){alt="Plot of training accuracy and validation accuracy vs epochs for a model with only dense layers"}
+![](fig/04_dense_model_training_history.png){alt="Plot of training accuracy and validation accuracy vs epochs for a model with only dense layers, showing training accuracy increasing to approximately 0.22 and validation accuracy plateauing around 0.18. Both values show relatively large fluctations as training progresses."}
 
 As you can see the validation accuracy only reaches about 18%, whereas the CNN reached about 28% accuracy.
 
@@ -556,7 +597,7 @@ This demonstrates that convolutional layers are a big improvement over dense lay
 
 ## 9. Refine the model
 
-::: challenge
+:::: challenge
 ## Network depth
 What, do you think, will be the effect of adding a convolutional layer to your model? Will this model have more or fewer parameters?
 Try it out. Create a `model` that has an additional `Conv2d` layer with 50 filters and another MaxPooling2D layer after the last MaxPooling2D layer. Train it for 10 epochs and plot the results.
@@ -575,7 +616,7 @@ x = keras.layers.Dense(50, activation='relu')(x)
 outputs = keras.layers.Dense(10)(x)
 ```
 
-:::: solution
+::: solution
 
 ## Solution
 We add an extra Conv2D layer after the second pooling layer:
@@ -648,9 +689,11 @@ history = model.fit(train_images, train_labels, epochs=10,
                    validation_data=(val_images, val_labels))
 plot_history(history, ['accuracy', 'val_accuracy'])
 ```
-![](fig/04_training_history_2.png){alt="Plot of training accuracy and validation accuracy vs epochs for the trained model"}
-::::
+
+![](fig/04_training_history_2.png){alt="Plot of training accuracy and validation accuracy vs epochs for the trained model, showing training accuracy increasing steadily by approximately 0.04 per epoch up to around 0.55 while validation accuracy increases before plateauing around 0.25."}
+
 :::
+::::
 
 ::: callout
 ## Other types of data
@@ -661,14 +704,14 @@ can be used. Think for example of time series data from an accelerometer,
 audio data for speech recognition, or 3d structures of chemical compounds.
 :::
 
-::: challenge
+:::: challenge
 ## Why and when to use convolutional neural networks
 1. Would it make sense to train a convolutional neural network (CNN) on the penguins dataset and why?
 2. Would it make sense to train a CNN on the weather dataset and why?
 3. (Optional) Can you think of a different machine learning task that would benefit from a
   CNN architecture?
 
-:::: solution
+::: solution
 ## Solution
 1. No that would not make sense. Convolutions only work when the features of the data can be ordered 
   in a meaningful way. Pixels for example are ordered in a spatial dimension. 
@@ -683,8 +726,8 @@ audio data for speech recognition, or 3d structures of chemical compounds.
   - Text data
   - Timeseries, specifically audio
   - Molecular structures
-::::
 :::
+::::
 
 ### Dropout
 
@@ -787,18 +830,18 @@ And inspect the training results:
 plot_history(history, ['accuracy', 'val_accuracy'])
 ```
 
-![](fig/04_training_history_3.png){alt="Plot of training accuracy and validation accuracy vs epochs for the trained model"}
+![](fig/04_training_history_3.png){alt="Plot of training accuracy and validation accuracy vs epochs for the trained model, showing both values increasing before they diverge after around 10 epochs, with training accuracy reaching approximately 0.4 while validation accuracy plateaus around 0.3"}
 
 Now we see that the gap between the training accuracy and validation accuracy is much smaller, and that the final accuracy on the validation set is higher than without dropout.
 
-::: challenge
+:::: challenge
 ## Vary dropout rate
 1. What do you think would happen if you lower the dropout rate? Try it out, and
   see how it affects the model training.
 2. You are varying the dropout rate and checking its effect on the model performance,
   what is the term associated to this procedure?
 
-:::: solution
+::: solution
 ## Solution
 ### 1. Varying the dropout rate
 The code below instantiates and trains a model with varying dropout rates.
@@ -852,8 +895,8 @@ sns.lineplot(data=loss_df, x='dropout_rate', y='val_loss')
 
 ### 2. Term associated to this procedure
 This is called hyperparameter tuning.
-::::
 :::
+::::
 
 ### Hyperparameter tuning
 ::: instructor
@@ -966,7 +1009,7 @@ dropout_rate: 0.5
 Score: 2.143627882003784
 ```
 
-::: challenge
+:::: challenge
 
 ## Hyperparameter tuning
 
@@ -983,7 +1026,7 @@ Score: 2.143627882003784
 
 **Hint**: Instead of `hp.Int` you should now use `hp.Choice("name", ["value1", "value2"])` to use hyperparameters from a predefined set of possible values.
 
-:::: solution
+::: solution
 ## Solution
 
 1:
@@ -1068,8 +1111,8 @@ Score: 2.150160551071167
 ```
 A kernel size of 3 and `tanh` as activation function is the best tested combination.
 
-::::
 :::
+::::
 
 Grid search can quickly result in a combinatorial explosion because all combinations of hyperparameters are trained and tested.
 Instead, `random search` randomly samples combinations of hyperparemeters, allowing for a much larger look through a large number of possible hyperparameter combinations.

@@ -65,6 +65,8 @@ Let's define our model input layer using the shape of our training images:
 ```python
 # input tensor
 from tensorflow import keras
+keras.utils.set_random_seed(2)
+
 inputs = keras.Input(train_images.shape[1:])
 ```
 
@@ -151,7 +153,7 @@ Finally we define our model:
 ```python
 model = keras.models.Model(inputs=inputs, outputs=out)
 ```
-::: challenge
+:::: challenge
 ## Inspect the DenseNet121 network
 Have a look at the network architecture with `model.summary()`.
 It is indeed a deep network, so expect a long summary!
@@ -168,7 +170,7 @@ Can you see in the model summary which part is the base network and which part i
 Which layer is added because we provided `pooling='max'` as argument for `DenseNet121()`?
 :::
 
-:::: solution
+::: solution
 ## Solutions
 ### 1. Trainable parameters
 Total number of parameters: 7093360, out of which only 53808 are trainable.
@@ -183,17 +185,19 @@ The `max_pool` layer right before the `flatten` layer is added because we provid
 ::::
 
 
-::: challenge
+:::: challenge
 ## Training and evaluating the pre-trained model
 
 ### 1. Compile the model
 Compile the model:
+
 - Use the `adam` optimizer 
 - Use the `SparseCategoricalCrossentropy` loss with `from_logits=True`. 
 - Use 'accuracy' as a metric.
 
 ### 2. Train the model
 Train the model on the training dataset:
+
 - Use a batch size of 32
 - Train for 30 epochs, but use an earlystopper with a patience of 5
 - Pass the validation dataset as validation data so we can monitor performance on the validation data during training
@@ -208,7 +212,7 @@ Train and evaluate another pre-trained model from https://keras.io/api/applicati
 
 :::
 
-:::: solution
+::: solution
 ## Solution
 
 ### 1. Compile the model

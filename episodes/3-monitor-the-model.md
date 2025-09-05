@@ -46,7 +46,7 @@ Here we want to work with the *weather prediction dataset* (the light version) w
 It contains daily weather observations from 11 different European cities or places through the
 years 2000 to 2010. For all locations the data contains the variables ‘mean temperature’, ‘max temperature’, and ‘min temperature’. In addition, for multiple locations, the following variables are provided: 'cloud_cover', 'wind_speed', 'wind_gust', 'humidity', 'pressure', 'global_radiation', 'precipitation', 'sunshine', but not all of them are provided for every location. A more extensive description of the dataset including the different physical units is given in accompanying metadata file. The full dataset comprises of 10 years (3654 days) of collected weather data across Europe.
 
-![European locations in the weather prediction dataset](fig/03_weather_prediction_dataset_map.png){alt='18 European locations in the weather prediction dataset'}
+![European locations in the weather prediction dataset](fig/03_weather_prediction_dataset_map.png){alt='18 European locations in the weather prediction dataset distributed across Austria, France, Germany, Hungary, Italy, the Netherlands, Norway, Slovenia, Sweden, Switzerland, and the United Kingdom.'}
 
  A very common task with weather data is to make a prediction about the weather sometime in the future, say the next day. In this episode, we will try to predict tomorrow's sunshine hours, a challenging-to-predict feature, using a neural network with the available weather data for one location: BASEL.
 
@@ -59,6 +59,7 @@ We will now import and explore the weather data-set:
 ## Load the data
 If you have not downloaded the data yet, you can also load it directly from Zenodo:
 ```python
+import pandas as pd
 data = pd.read_csv("https://zenodo.org/record/5071376/files/weather_prediction_dataset_light.csv?download=1")
 ```
 
@@ -172,7 +173,7 @@ In episode 2 we trained a dense neural network on a *classification task*. For t
 This measured how close the distribution of the neural network outputs corresponds to the distribution of the three values in the one hot encoding.
 Now we want to work on a *regression task*, thus not predicting a class label (or integer number) for a datapoint. In regression, we predict one (and sometimes many) values of a feature. This is typically a floating point number.
 
-::: challenge
+:::: challenge
 ## Exercise: Architecture of the network
 As we want to design a neural network architecture for a regression task,
 see if you can first come up with the answers to the following questions:
@@ -182,13 +183,13 @@ see if you can first come up with the answers to the following questions:
 Hint: A layer with `relu` activation, with `sigmoid` activation or no activation at all?
 3. (Optional) How would we change the model if we would like to output a prediction of the precipitation in Basel in *addition* to the sunshine hours?
 
-:::: solution
+::: solution
 ## Solution
 1. The shape of the input layer has to correspond to the number of features in our data: 89
 2. The output is a single value per prediction, so the output layer can consist of a dense layer with only one node. The *softmax* activiation function works well for a classification task, but here we do not want to restrict the possible outcomes to the range of zero and one. In fact, we can omit the activation in the output layer.
 3. The output layer should have 2 neurons, one for each number that we try to predict. Our y_train (and val and test) then becomes a (n_samples, 2) matrix.
-::::
 :::
+::::
 
 
 In our example we want to predict the sunshine hours in Basel (or any other place in the dataset) for tomorrow based on the weather data of all 18 locations today. `BASEL_sunshine` is a floating point value (i.e. `float64`). The network should hence output a single float value which is why the last layer of our network will only consist of a single node.
@@ -197,6 +198,7 @@ We compose a network of two hidden layers to start off with something. We go by 
 
 ```python
 from tensorflow import keras
+keras.utils.set_random_seed(2)
 
 def create_nn(input_shape):
     # Input layer
@@ -260,6 +262,9 @@ This is called optimization, but how does optimization actually work?
 Gradient descent is a widely used optimization algorithm, most other optimization algorithms are based on it.
 It works as follows: Imagine a neural network with only one neuron.
 Take a look at the figure below. The plot shows the loss as a function of the weight of the neuron.
+
+![](fig/03_gradient_descent.png){alt='Plot of the loss as a function of the weights. Through gradient descent the global loss minimum is found'}
+
 As you can see there is a global loss minimum, we would like to find the weight at this point in the parabola.
 To do this, we initialize the model weight with some random value. Then we compute the gradient of the loss function with respect
 to the weight. This tells us how much the loss function will change if we change the weight by a small amount.
@@ -267,15 +272,13 @@ Then, we update the weight by taking a small step in the direction of the negati
 This will slightly decrease the loss. This process is repeated until the loss function reaches a minimum.
 The size of the step that is taken in each iteration is called the 'learning rate'.
 
-![](fig/03_gradient_descent.png){alt='Plot of the loss as a function of the weights. Through gradient descent the global loss minimum is found'}
-
 ### Batch gradient descent
 You could use the entire training dataset to perform one learning step in gradient descent,
 which would mean that one epoch equals one learning step.
 In practice, in each learning step we only use a subset of the training data to compute the loss and the gradients.
 This subset is called a 'batch', the number of samples in one batch is called the 'batch size'.
 
-::: challenge
+:::: challenge
 
 ## Exercise: Gradient descent
 
@@ -302,7 +305,7 @@ Answer the following questions:
 - D. The memory load (memory as in computer hardware) of the training process is increased
 :::
 
-:::: solution
+::: solution
 
 ## Solution
 
@@ -398,18 +401,18 @@ def plot_history(history, metrics):
         history (keras History object that is returned by model.fit())
         metrics (str, list): Metric or a list of metrics to plot
     """
+    plt.style.use('ggplot')  # optional, that's only to define a visual style
     history_df = pd.DataFrame.from_dict(history.history)
     sns.lineplot(data=history_df[metrics])
     plt.xlabel("epochs")
-    plt.ylabel("metric")
 
 plot_history(history, 'root_mean_squared_error')
 ```
 
-![](fig/03_training_history_1_rmse.png){alt='Plot of the RMSE over epochs for the trained model that shows a decreasing error metric'}
+![](fig/03_training_history_1_rmse.png){alt='Plot of the RMSE over epochs for the trained model that shows a decreasing error metric.'}
 
-This looks very promising! Our metric ("RMSE") is dropping nicely and while it maybe keeps fluctuating a bit it does end up at fairly low *RMSE* values.
-But the *RMSE* is just the root *mean* squared error, so we might want to look a bit more in detail how well our just trained model does in predicting the sunshine hours.
+This looks very promising! Our metric "root_mean_squared_error" (RMSE) is dropping nicely and while it maybe keeps fluctuating a bit it does end up at fairly low values.
+But this metric is just the root *mean* squared error, so we might want to look a bit more in detail how well our just trained model does in predicting the sunshine hours.
 
 ## 7. Perform a Prediction/Classification
 Now that we have our model trained, we can make a prediction with the model before measuring the performance of our neural network.
@@ -437,6 +440,7 @@ So, let's look at how the predicted sunshine hour have developed with reference 
 def plot_predictions(y_pred, y_true, title):
     plt.style.use('ggplot')  # optional, that's only to define a visual style
     plt.scatter(y_pred, y_true, s=10, alpha=0.5)
+    plt.axline((0,0),slope = 1, color = "black") # plot diagonal reference line
     plt.xlabel("predicted sunshine hours")
     plt.ylabel("true sunshine hours")
     plt.title(title)
@@ -444,14 +448,14 @@ def plot_predictions(y_pred, y_true, title):
 plot_predictions(y_train_predicted, y_train, title='Predictions on the training set')
 ```
 
-![](fig/03_regression_predictions_trainset.png){alt='Scatter plot between predictions and true sunshine hours in Basel on the train set showing a concise spread'}
+![](fig/03_regression_predictions_trainset.png){alt='Scatter plot between predictions and true sunshine hours in Basel on the training set showing a concise spread'}
 
 ```python
 plot_predictions(y_test_predicted, y_test, title='Predictions on the test set')
 ```
 ![](fig/03_regression_predictions_testset.png){alt='Scatter plot between predictions and true sunshine hours in Basel on the test set showing a wide spread'}
 
-::: challenge
+:::: challenge
 ## Exercise: Reflecting on our results
 * Is the performance of the model as you expected (or better/worse)?
 * Is there a noteable difference between training set and test set? And if so, any idea why?
@@ -461,7 +465,7 @@ plot_predictions(y_test_predicted, y_test, title='Predictions on the test set')
    * What single-number evaluation metric would you choose here and why?
 :::
    
-:::: solution
+::: solution
 ## Solution
 While the performance on the train set seems reasonable, the performance on the test set is much worse.
 This is a common problem called **overfitting**, which we will discuss in more detail later.
@@ -530,13 +534,13 @@ Neural network:  4.077792167663574
 
 Judging from the numbers alone, our neural network prediction would be performing worse than the baseline.
 
-::: challenge
+:::: challenge
 ## Exercise: Baseline
 1. Looking at this baseline: Would you consider this a simple or a hard problem to solve?
 2. (Optional) Can you think of other baselines?
 :::
 
-:::: solution
+::: solution
 ## Solution
 1. This really depends on your definition of hard! The baseline gives a more accurate prediction than just
 randomly predicting a number, so the problem is not impossible to solve with machine learning. However, given the structure of the data and our expectations with respect to quality of prediction, it may remain hard to find a good algorithm which exceeds our baseline by orders of magnitude.
@@ -584,13 +588,13 @@ plot_history(history, ['root_mean_squared_error', 'val_root_mean_squared_error']
 
 ![](fig/03_training_history_2_rmse.png){alt='Plot of RMSE vs epochs for the training set and the validation set which depicts a divergence between the two around 10 epochs.'}
 
-::: challenge
+:::: challenge
 ## Exercise: plot the training progress.
 1. Is there a difference between the training curves of training versus validation data? And if so, what would this imply?
 2. (Optional) Take a pen and paper, draw the perfect training and validation curves.
   (This may seem trivial, but it will trigger you to think about what you actually would like to see)
 
-:::: solution
+::: solution
 ## Solution
 The difference in the two curves shows that something is not completely right here.
 The error for the model predictions on the validation set quickly seem to reach a plateau while the error on the training set keeps decreasing.
@@ -600,15 +604,15 @@ Optional:
 
 Ideally you would like the training and validation curves to be identical and slope down steeply
 to 0. After that the curves will just consistently stay at 0.
-::::
 :::
+::::
 
 ### Counteract model overfitting
 
 Overfitting is a very common issue and there are many strategies to handle it.
 Most similar to classical machine learning might to **reduce the number of parameters**.
 
-::: challenge
+:::: challenge
 ## Exercise: Try to reduce the degree of overfitting by lowering the number of parameters
 We can keep the network architecture unchanged (2 dense layers + a one-node output layer) and only play with the number of nodes per layer.
 Try to lower the number of nodes in one or both of the two dense layers and observe the changes to the training and validation losses.
@@ -618,7 +622,7 @@ If time is short: Suggestion is to run one network with only 10 and 5 nodes in t
 2. Does the overall performance suffer or does it mostly stay the same?
 3. (optional) How low can you go with the number of parameters without notable effect on the performance on the validation set?
 
-:::: solution
+::: solution
 ## Solution
 
 Let's first adapt our `create_nn()` function so that we can tweak the number of nodes in the 2 layers
@@ -677,15 +681,15 @@ history = model.fit(X_train, y_train,
 plot_history(history, ['root_mean_squared_error', 'val_root_mean_squared_error'])
 ```
 
-![](fig/03_training_history_3_rmse_smaller_model.png){alt='Plot of RMSE vs epochs for the training set and the validation set with similar performance across the two sets.'}
+![](fig/03_training_history_3_rmse_smaller_model.png){alt='Plot of RMSE vs epochs for the training set and the validation set with similar performance across the two sets. RMSE for the validation set diverges from RMSE for the training set after around 10 epochs but the difference in RMSE values for the two sets is much smaller than in the previous example.'}
 
 1. With this smaller model we have reduced overfitting a bit, since the training and validation loss are now closer to each other, and the validation loss does now reach a plateau and does not further increase.
 We have not completely avoided overfitting though. 
 2. In the case of this small example model, the validation RMSE seems to end up around 3.2, which is much better than the 4.08 we had before. Note that you can double check the actual score by calling `model.evaluate()` on the test set.
 3. In general, it quickly becomes a complicated search for the right "sweet spot", i.e. the settings for which overfitting will be (nearly) avoided but the model still performs equally well. A model with 3 neurons in both layers seems to be around this spot, reaching an RMSE of 3.1 on the validation set. 
 Reducing the number of nodes further increases the validation RMSE again.
-::::
 :::
+::::
 
 We saw that reducing the number of parameters can be a strategy to avoid overfitting.
 In practice, however, this is usually not the (main) way to go when it comes to deep learning.
@@ -726,7 +730,7 @@ As before, we can plot the losses during training:
 plot_history(history, ['root_mean_squared_error', 'val_root_mean_squared_error'])
 ```
 
-![](fig/03_training_history_3_rmse_early_stopping.png){alt='Plot of RMSE vs epochs for the training set and the validation set displaying similar performance across the two sets.'}
+![](fig/03_training_history_3_rmse_early_stopping.png){alt='Plot of RMSE vs epochs for the training set and the validation set displaying similar performance across the two sets. RMSE for the validation set diverges slowly from RMSE for the training set after approximately 8 epochs, with RMSE for the validation set dropping more slowly.'}
 
 This still seems to reveal the onset of overfitting, but the training stops before the discrepancy between training and validation loss can grow further.
 In addition to avoiding severe cases of overfitting, early stopping has the advantage that the number of training epochs will be regulated automatically.
@@ -807,7 +811,7 @@ history = model.fit(X_train, y_train,
 plot_history(history, ['root_mean_squared_error', 'val_root_mean_squared_error'])
 ```
 
-![](fig/03_training_history_5_rmse_batchnorm.png){alt='Output of plotting sample'}
+![](fig/03_training_history_5_rmse_batchnorm.png){alt='Plot of error vs epochs for the training set and the validation set displaying similar performance across the two sets. RMSE for the validation set drops more than for the training set at first, tracks the training error until approximately 50 epochs, then begins to gradually increase while error for the training set continues to gradually decrease.'}
 
 ::: callout
 ## Batchnorm parameters
@@ -829,12 +833,12 @@ y_test_predicted = model.predict(X_test)
 plot_predictions(y_test_predicted, y_test, title='Predictions on the test set')
 ```
 
-![](fig/03_regression_test_5_dropout_batchnorm.png){alt='Scatter plot between predictions and true sunshine hours for Basel on the test set'}
+![](fig/03_regression_test_5_dropout_batchnorm.png){alt='Scatter plot between predictions and true sunshine hours for Basel on the test set, showing a loose positive correlation.'}
 
 Well, the above is certainly not perfect. But how good or bad is this? Maybe not good enough to plan your picnic for tomorrow.
 But let's better compare it to the naive baseline we created in the beginning. What would you say, did we improve on that?
 
-::: challenge
+:::: challenge
 ## Exercise: Simplify the model and add data
 You may have been wondering why we are including weather observations from
 multiple cities to predict sunshine hours only in Basel. The weather is
@@ -861,7 +865,7 @@ but what happens if we limit ourselves to only one city?
   and all features from all cities. How does it perform?
   
   
-:::: solution
+::: solution
 ## Solution
 ### 1. Use 9 years out of the dataset
 ```python
@@ -911,7 +915,7 @@ Create a scatter plot to compare with true observations:
 y_test_predicted = model.predict(X_test)
 plot_predictions(y_test_predicted, y_test, title='Predictions on the test set')
 ```
-![](fig/03_scatter_plot_basel_model.png){alt='Scatterplot of predictions and true number of sunshine hours'}
+![](fig/03_scatter_plot_basel_model.png){alt='Scatterplot of predictions and true number of sunshine hours for all cities, showing many data points distributed in a very loose positive correlation.'}
 
 
 Compute the RMSE on the test set:
@@ -945,8 +949,8 @@ For the rest you can use the same code as above to train and evaluate the model
 
 This results in an RMSE on the test set of 3.23 (your result can be different, but should be in the same range).
 From this we can conclude that adding more training data results in even better performance!
-::::
 :::
+::::
 
 ::: callout
 ## Tensorboard
@@ -974,7 +978,7 @@ You can launch the tensorboard interface from a Jupyter notebook, showing all tr
 %tensorboard --logdir logs/fit
 ```
 Which will show an interface that looks something like this:
-![](fig/03_tensorboard.png){alt='Screenshot of tensorboard'}
+![](fig/03_tensorboard.png){alt='Tensorboard graphical user interface.'}
 :::
 
 ## 10. Save model
@@ -989,7 +993,7 @@ model.save('my_tuned_weather_model.keras')
 Correctly predicting tomorrow's sunshine hours is apparently not that simple.
 Our models get the general trends right, but still predictions vary quite a bit and can even be far off.
 
-::: challenge
+:::: challenge
 ## Open question: What could be next steps to further improve the model?
 
 With unlimited options to modify the model architecture or to play with the training parameters, deep learning can trigger very extensive hunting for better and better results.
@@ -1002,7 +1006,7 @@ But how much better our model could be exactly, often remains difficult to answe
 * What changes to the model architecture might make sense to explore?
 * Ignoring changes to the model architecture, what might notably improve the prediction quality?
 
-:::: solution
+::: solution
 ## Solution
 This is an open question. And we don't actually know how far one could push this sunshine hour prediction (try it out yourself if you like! We're curious!).
 But there are a few things that might be worth exploring.
@@ -1020,8 +1024,8 @@ Other changes that might impact the quality notably:
 
 Another alternative would be to not only look at data from one day, but use the data of a longer period such as a full week.
 This will turn the data into time series data which in turn might also make it worth to apply different model architectures...
-::::
 :::
+::::
 
 
 ::: keypoints

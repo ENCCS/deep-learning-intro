@@ -148,7 +148,7 @@ sns.pairplot(penguins, hue="species")
 
 ![][pairplot]
 
-::: challenge
+:::: challenge
 
 ## Pairplot
 
@@ -159,7 +159,7 @@ Take a look at the pairplot we created. Consider the following questions:
 * (optional) Create a similar pairplot, but with `hue="sex"`. Explain the patterns you see.
 Which combination of features distinguishes the two sexes best?
 
-:::: solution
+::: solution
 ## Solution
 * The plots show that the green class, Gentoo is somewhat more easily distinguishable from the other two.
 * The other two seem to be separable by a combination of bill length and bill
@@ -177,8 +177,8 @@ You see that for each species females have smaller bills and flippers, as well a
 You would need a combination of the species and the numerical features to successfully distinguish males from females.
 The combination of `bill_depth_mm` and `body_mass_g` gives the best separation.
 
-::::
 :::
+::::
 
 ### Input and Output Selection
 Now that we have familiarized ourselves with the dataset we can select the data attributes to use
@@ -240,7 +240,7 @@ target = pd.get_dummies(penguins_filtered['species'])
 target.head() # print out the top 5 to see what it looks like.
 ```
 
-::: challenge
+:::: challenge
 ## One-hot encoding
 How many output neurons will our network have now that we one-hot encoded the target class?
 
@@ -249,7 +249,7 @@ How many output neurons will our network have now that we one-hot encoded the ta
 * C: 3
 :::
 
-:::: solution
+::: solution
 ## Solution
 C: 3, one for each output variable class
 
@@ -316,8 +316,6 @@ For this episode it is useful if everyone gets the same results from their train
 Keras uses a random number generator at certain points during its execution.
 Therefore we will need to set two random seeds, one for numpy and one for tensorflow:
 ```python
-from numpy.random import seed
-seed(1)
 keras.utils.set_random_seed(2)
 ```
 
@@ -417,7 +415,7 @@ You could choose to show and discuss the resulting visualization to the learners
 :::
 
 
-::: challenge
+:::: challenge
 ## Create the neural network
 With the code snippets above, we defined a Keras model with 1 hidden layer with
 10 neurons and an output layer with 3 neurons.
@@ -458,7 +456,7 @@ where each layer has **exactly one input tensor and one output tensor**.
 
 4. (optional) Use the Sequential model to implement the same network
 
-:::: solution
+::: solution
 ## Solution
 Have a look at the output of `model.summary()`:
 ```python
@@ -490,6 +488,8 @@ the 4 inputs in the input layer resulting in 40 weights that can be trained. The
 connected to each of the 3 outputs in the `dense_1` output layer, resulting in a further 30 weights that can be trained. 
 By default `Dense` layers in Keras also contain 1 bias term for each neuron, resulting in a further 10 bias values for the
 hidden layer and 3 bias terms for the output layer. `40+30+10+3=83` trainable parameters.
+
+Note that the output shape always contains `None` as the first entry of the tuple. This is a *flexible* dimension which is used by the model when processing several samples at the same time, what is usually called a `batch`. You will learn more about batching in lesson 3.
 
 The value `(332.00 B)` next to it describes the memory footprint for model weights and this depends on their data type.
 Take a look at what `model.dtype` is.
@@ -532,8 +532,8 @@ model = keras.Sequential(
 ```
 
 We will use the Functional API for the remainder of this course, since it is more flexible and more explicit.
-::::
 :::
+::::
 
 
 ::: callout
@@ -610,7 +610,7 @@ Using seaborn we can do this as follows:
 ```python
 sns.lineplot(x=history.epoch, y=history.history['loss'])
 ```
-![][training_curve]
+![][training_curve]{alt="Plot of the Cross Entropy loss, showing a sharp decrease in the first around 10 epochs, and converging at a low value afterwards."}
 
 ::: callout
 ## I get a different plot
@@ -623,7 +623,7 @@ in [When to use random seeds?](#when-to-use-random-seeds).
 This plot can be used to identify whether the training is well configured or whether there
 are problems that need to be addressed.
 
-::: challenge
+:::: challenge
 ## The Training Curve
 Looking at the training curve we have just made.
 
@@ -640,12 +640,14 @@ Also compare the range on the y-axis with the previous training curve.
 ![][bad-training-curve]
 :::
 
-:::: solution
+::: solution
 ## Solution
 1. The training loss decreases quickly. It drops in a smooth line with little jitter.
 This is ideal for a training curve.
 2. The results of the training give very little information on its performance on a test set.
-  You should be careful not to use it as an indication of a well trained network.
+  You should be careful not to use the training loss as an indication of a well trained network.
+  The test set, since it contains unseen samples, is more representative of the model performance
+  in a real-world scenario.
 3. (optional) The loss does not go down at all, or only very slightly. This means that the model is not learning anything.
 It could be that something went wrong in the data preparation (for example the labels are not attached to the right features).
 In addition, the graph is very jittery. This means that for every update step,
@@ -776,7 +778,7 @@ The `annot=True` parameter here will put the numbers from the confusion matrix i
 the heatmap.
 
 ```python
-sns.heatmap(confusion_df, annot=True)
+sns.heatmap(confusion_df, annot=True, cmap='Blues')
 ```
 ![][confusion_matrix]
 
@@ -786,7 +788,7 @@ Here are more explanations of this confusion matrix and the classification model
 - The second row: There are 14 Chinstrap pengunis in the test data, with 5 identified as Adelie (invalid), none are correctly recognized as Chinstrap, and 9 Chinstraps are identified as Gentoo (invalid).
 - The third row: There are 25 Gentoo penguins in the test data, with 6 identified as Adelie (invalid), none being recognized as Chinstrap (invalid), and 19 Gentoos are identified as Gentoo (valid).
 
-::: challenge
+:::: challenge
 ## Confusion Matrix
 Measure the performance of the neural network you trained and
 visualize a confusion matrix.
@@ -796,7 +798,7 @@ visualize a confusion matrix.
 - What could we do to improve the performance?
 :::
 
-:::: solution
+::: solution
 ## Solution
 The confusion matrix shows that the predictions for Adelie and Gentoo are decent, but could be improved. However, Chinstrap is not predicted ever.
 
@@ -884,7 +886,7 @@ Length: 69, dtype: object
 [training_curve]: fig/02_training_curve.png "Training Curve"
 {alt='Training loss curve of the neural network training which depicts exponential decrease in loss before a plateau from ~10 epochs'}
 
-[bad-training-curve]: ../fig/02_bad_training_history_1.png "Training Curve Gone Wrong"
+[bad-training-curve]: fig/02_bad_training_history_1.png "Training Curve Gone Wrong"
 {alt='Very jittery training curve with the loss value jumping back and forth between 2 and 4. The range of the y-axis is from 2 to 4, whereas in the previous training curve it was from 0 to 2. The loss seems to decrease a litle bit, but not as much as compared to the previous plot where it dropped to almost 0. The minimum loss in the end is somewhere around 2.'}
 
 [confusion_matrix]: fig/confusion_matrix.png "Confusion Matrix"
